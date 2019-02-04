@@ -5,6 +5,7 @@ export default class Homepage extends Component {
         return (
             <>
             Welcome to your homepage!
+            {console.log(sessionStorage.getItem("User"))}
             </>
 
         )

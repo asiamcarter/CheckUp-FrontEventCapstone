@@ -14,7 +14,7 @@ export default class Register extends Component {
         stateToChange[evt.target.id] = evt.target.value
         this.setState(stateToChange)
     }
-//gets all users, checks to make sure no two emails are the same, if they are the user is alerted "sorry this username is taken", if the entered email is unique, the user is alerted "welcome" and the new user is posted to the database
+//gets all users, checks to make sure no two emails are the same, if they are the user is alerted "sorry this username is taken", if the entered email is unique, the user is alerted "welcome" and the new user is posted to the database and session storage is set
 
     getAllUsers = evt => {
         evt.preventDefault();
@@ -42,10 +42,10 @@ export default class Register extends Component {
                         sessionStorage.setItem("User", userInfoObject.id)
                         let seshUser = sessionStorage.getItem("User")
                         console.log(seshUser)
-
+                        this.props.history.push("/home")
                     })
                 })
-                this.props.history.push("/home")
+                // .then(() => this.props.history.push("/home") )
             }
         })
     }
