@@ -14,7 +14,7 @@ export default class NavBar extends Component {
                     <ul className="nav nav-pills nav-fill">
                         <li className="nav-item">
                             <Link className="nav-link"
-                            to="/">HOME</Link>
+                            to="/home">HOME</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link"
