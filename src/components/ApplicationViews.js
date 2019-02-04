@@ -68,7 +68,7 @@ Component {
                     postUser= {this.postUser} />
                 }} />
                 <Route exact path="/home" render={(props) => {
-                    return <Homepage {...props} />
+                    return <Homepage {...props} users={this.state.users} />
                 }} />
             </>
         )
