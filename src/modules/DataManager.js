@@ -16,4 +16,8 @@ export default  {
         }).then(r => r.json())
     },
 
+    registerUser(username, password) {
+        return fetch(`${remoteURL}/users?userName=${username}&password=${password}`).then(r => r.json())
+    }
+
 }
