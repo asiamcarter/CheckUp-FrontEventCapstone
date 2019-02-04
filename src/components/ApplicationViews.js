@@ -7,6 +7,7 @@ import SymptomList from "./symptoms/SymptomList"
 import Register from "./login/Register"
 import DataManager from "../modules/DataManager"
 // import TrackNavBar from "./nav/TrackNavBar"
+import Homepage from "./homepage/Homepage"
 
 export default class ApplicationViews extends
 Component {
@@ -45,7 +46,8 @@ Component {
     }
 
     postUser(newUser) {
-        return DataManager.postUser(newUser).then(() => DataManager.getAll("users")).then(()=> this.registerUser(newUser.name, newUser.password))
+        return DataManager.postUser(newUser).then(() => DataManager.getAll("users"))
+        // .then(()=> this.registerUser(newUser.name, newUser.password))
     }
 
     showNav() {
@@ -64,6 +66,9 @@ Component {
                 <Route exact path="/register" render={(props) => {
                     return <Register {...props} getUsers = {this.getUsers}
                     postUser= {this.postUser} />
+                }} />
+                <Route exact path="/home" render={(props) => {
+                    return <Homepage {...props} />
                 }} />
             </>
         )

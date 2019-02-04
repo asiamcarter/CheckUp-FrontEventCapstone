@@ -33,6 +33,18 @@ export default class Register extends Component {
                     password: this.state.password
                 }
                 this.props.postUser(newUser)
+                .then(() => {
+                    this.props.getUsers()
+                    .then(allUsers => {
+                        let userInfoObject = allUsers.find(user => {
+                            return (user.email === this.state.email)
+                        })
+                        sessionStorage.setItem("User", userInfoObject.id)
+                        let seshUser = sessionStorage.getItem("User")
+                        console.log(seshUser)
+
+                    })
+                })
                 this.props.history.push("/home")
             }
         })
