@@ -8,13 +8,13 @@ export default class Register extends Component {
         email: "",
         password: ""
     }
-//records changes to input fields and places them in state on submit
+    //records changes to input fields and places them in state
     handleFieldChange = evt => {
-        const stateToChange= {};
+        const stateToChange = {};
         stateToChange[evt.target.id] = evt.target.value
         this.setState(stateToChange)
     }
-//gets all users, checks to make sure no two emails are the same, if they are the user is alerted "sorry this username is taken", if the entered email is unique, the user is alerted "welcome" and the new user is posted to the database and session storage is set
+    //gets all users, checks to make sure no two emails are the same, if they are the user is alerted "sorry this username is taken", if the entered email is unique, the user is alerted "welcome" and the new user is posted to the database and user is re-directed to the login page
 
     getAllUsers = evt => {
         evt.preventDefault();
@@ -33,24 +33,20 @@ export default class Register extends Component {
                     password: this.state.password
                 }
                 this.props.postUser(newUser)
-                .then(() => {
-                    this.props.getUsers()
-                    .then(allUsers => {
-                        let userInfoObject = allUsers.find(user => {
-                            return (user.email === this.state.email)
-                        })
-                        sessionStorage.setItem("User", userInfoObject.id)
-                        let seshUser = sessionStorage.getItem("User")
-                        console.log(seshUser)
-                        this.props.history.push("/home")
+                    .then(() => {
+                        this.props.getUsers()
+                            .then(allUsers => {
+                                let userInfoObject = allUsers.find(user => {
+                                    return (user.email === this.state.email)
+                                })
+                                this.props.history.push("/")
+                            })
                     })
-                })
-                // .then(() => this.props.history.push("/home") )
             }
         })
     }
 
-    render () {
+    render() {
         return (
             <>
                 <h2>Register Here</h2>
@@ -58,15 +54,15 @@ export default class Register extends Component {
                     <form>
                         <div>
                             <label htmlFor="Name"> Name: </label>
-                            <input type="text" required onChange={this.handleFieldChange} id="name" placeholder="Jane Smith"/>
+                            <input type="text" required onChange={this.handleFieldChange} id="name" placeholder="Jane Smith" />
                         </div>
                         <div>
                             <label htmlFor="Email"> Email: </label>
-                            <input type="text" required onChange={this.handleFieldChange} id="email" placeholder="jane.smith@gmail.com"/>
+                            <input type="text" required onChange={this.handleFieldChange} id="email" placeholder="jane.smith@gmail.com" />
                         </div>
                         <div>
                             <label htmlFor="Password"> Password: </label>
-                            <input type="text" required onChange={this.handleFieldChange} id="password"/>
+                            <input type="text" required onChange={this.handleFieldChange} id="password" />
                         </div>
                         <div>
                             <button type="submit" onClick={this.getAllUsers}> Submit</button>
