@@ -35,11 +35,8 @@ export default class Register extends Component {
                 this.props.postUser(newUser)
                     .then(() => {
                         this.props.getUsers()
-                            .then(allUsers => {
-                                let userInfoObject = allUsers.find(user => {
-                                    return (user.email === this.state.email)
-                                })
-                                this.props.history.push("/")
+                            .then(() => {
+                            this.props.history.push("/")
                             })
                     })
             }
@@ -62,7 +59,7 @@ export default class Register extends Component {
                         </div>
                         <div>
                             <label htmlFor="Password"> Password: </label>
-                            <input type="text" required onChange={this.handleFieldChange} id="password" />
+                            <input type="password" required onChange={this.handleFieldChange} id="password" />
                         </div>
                         <div>
                             <button type="submit" onClick={this.getAllUsers}> Submit</button>
