@@ -9,7 +9,7 @@ export default class Homepage extends Component {
             console.log("find method user id:", user.id)
             return (seshUser === user.id)
         })
-        {console.log(userObject)}
+         console.log(userObject)
     }
 
     render() {
