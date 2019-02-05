@@ -46,7 +46,7 @@ export default {
 
     },
 
-    putMedication(id, dataset, newObject) {
+    putMedication(id, newObject) {
         return fetch (`${remoteURL}/medications/${id}`, {
             method: "PUT",
             headers: {
@@ -54,7 +54,10 @@ export default {
             },
             body: JSON.stringify(newObject)
         }).then(r => r.json())
-    }
+    },
 
+    getById(id, dataset) {
+        return fetch(`${remoteURL}/${dataset}/${id}`).then(r => r.json())
+    }
 
 }
