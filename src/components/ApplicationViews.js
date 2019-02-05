@@ -11,6 +11,7 @@ import Homepage from "./homepage/Homepage"
 import NewSymptomForm from "./symptoms/NewSymptomForm"
 import MedicationList from "./medications/MedicationList"
 import NewMedicationForm from "./medications/NewMedicationForm"
+import EditMedicationForm from "./medications/EditMedicationForm"
 
 export default class ApplicationViews extends
     Component {
@@ -109,7 +110,6 @@ export default class ApplicationViews extends
                 })
         })
     }
-
     editMedication = (id, newMedicationObject) => {
         return DataManager.putMedication(id, newMedicationObject).then(() => {
             DataManager.getAll("medications").then(allMedication => this.setState({
@@ -117,8 +117,6 @@ export default class ApplicationViews extends
             }))
         })
     }
-
-
     render() {
         return (
             <>
@@ -145,6 +143,8 @@ export default class ApplicationViews extends
                   <Route exact path="/medications/new" render={props => {
                     return <NewMedicationForm {...props} medications={this.state.medications} addMedication={this.addMedication} getAll={this.getAllMedications} />
                 }} />
+                <Route path="/meds/editmedication/:id" render={(props) => {
+                return <EditMedicationForm {...props} medications={this.state.medications} editMedication={this.editMedication}/> }}/>
             </>
         )
     }

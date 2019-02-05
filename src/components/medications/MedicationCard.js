@@ -1,5 +1,6 @@
 //Component builds cards for each medication added to the medication list
 import React, { Component } from "react"
+import { Link } from "react-router-dom"
 
 export default class MedicationCard extends Component {
     render() {
@@ -13,7 +14,8 @@ export default class MedicationCard extends Component {
                         {this.props.medication.name}
                         <button type="button" onClick={()=> this.props.deleteMedication(this.props.medication.id)} className="card-link" >
                             Delete
-                        </button>
+                            </button>
+                        <Link to={`/meds/editmedication/${this.props.medication.id}`}>Edit</Link>
                     </h5>
                     <h6>Date:</h6>
                     <p>{this.props.medication.date}</p>
