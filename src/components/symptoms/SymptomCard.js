@@ -2,7 +2,7 @@
 import React, { Component } from "react"
 
 export default class SymptomCard extends Component {
-
+//function checks to see if logged in userid matches the sessionstorage id of the symptom and if it does, renders that symptom card to the DOM
     showUsersSymptoms = () => {
         if (this.props.symptom.userId === Number(sessionStorage.getItem("User"))) {
             return (
