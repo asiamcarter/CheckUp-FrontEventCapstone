@@ -3,8 +3,14 @@
 import React, { Component } from "react"
 import MedicationCard from "./MedicationCard"
 
+
+
 export default class MedicationList extends Component {
     render() {
+        const sortedMeds = this.props.medications.sort(function (medA, medB) {
+            return parseInt(medA.time) - parseInt(medB.time)
+        })
+
         return (
             <>
                 <div className="medicationList">
@@ -14,7 +20,8 @@ export default class MedicationList extends Component {
             </button>
                 </div>
                 <section>
-                    {this.props.medications.map(medication => (
+
+                    {sortedMeds.map(medication => (
                         <MedicationCard key={medication.id} medication={medication} {...this.props} />
                     ))}
                 </section>
