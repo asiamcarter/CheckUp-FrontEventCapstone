@@ -70,9 +70,15 @@ export default class ApplicationViews extends
               );
         })
     }
-    deleteSymptom(id) {
-        DataManager.delete(id, "symptoms").then(()=> {
+    deleteSymptom = id => {
+       return DataManager.delete(id, "symptoms").then(()=> {
             DataManager.getAll("symptoms")
+            .then(allSymptoms => {
+                this.setState({
+                    symptoms: allSymptoms
+                })
+
+            })
         })
     }
     getAllSymptoms() {
@@ -94,7 +100,7 @@ export default class ApplicationViews extends
                     return <Homepage {...props} users={this.state.users} />
                 }} />
                 <Route exact path="/track" render={(props) => {
-                    return <SymptomList {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} deleteSymptom={this.deleteSymptom} />
+                    return <SymptomList {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} deleteSymptom={this.deleteSymptom} getAll={this.getAllSymptoms} />
                 }} />
                 <Route exact path="/symptoms/new" render={props => {
                     return <NewSymptomForm {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} getAll={this.getAllSymptoms} />
