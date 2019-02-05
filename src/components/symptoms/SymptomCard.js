@@ -6,7 +6,7 @@ export default class SymptomCard extends Component {
     render() {
         return (
             <>
-                <div className="card">
+                <div key= {this.props.symptom.id} className="card">
                     <div className="card-body">
                         <h5 className="card-title">
                             {this.props.symptom.name}

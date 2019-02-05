@@ -6,20 +6,21 @@ export default class SymptomList extends Component {
     render() {
         return (
             <>
-            <div className="symptomList">
-                <h2>Symptom List</h2>
-                <button type="submit" onClick={()=> {
-                    this.props.history.push("/symptoms/new")
-                }} >
-                    Add
+                <div className="symptomList">
+                    <h2>Symptom List</h2>
+                    <button type="submit" onClick={() => {
+                        this.props.history.push("/symptoms/new")
+                    }} >
+                        Add
                 </button>
-            </div>
+                </div>
+                <section>
+                    {this.props.symptoms.map(symptom => (
 
-            {this.props.symptoms.map(symptom => (
+                        <SymptomCard key={symptom.id} symptom={symptom} {...this.props} />
 
-                    <SymptomCard key={symptom.id} symptom={symptom} {...this.props} />
-
-            ))}
+                    ))}
+                </section>
             </>
         )
     }
