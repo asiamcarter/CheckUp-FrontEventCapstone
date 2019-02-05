@@ -35,6 +35,9 @@ export default class ApplicationViews extends
             .then(() => { console.log("COMPONENTDIDMOUNT:", this.state) })
     }
 
+
+
+
     //authentication
     isAuthenticated = () => sessionStorage.getItem("User") !== null
     showNav() {
@@ -57,9 +60,14 @@ export default class ApplicationViews extends
         return DataManager.checkForUser(email, password)
     }
     //symptoms
-    addSymptom(newSymptom) {
+    addSymptom = (newSymptom) => {
         return DataManager.postSymptom(newSymptom).then(() => {
             DataManager.getAll("symptoms")
+            .then(allSymptoms =>
+                this.setState({
+                  symptoms: allSymptoms
+                })
+              );
         })
     }
     deleteSymptom(id) {
@@ -67,7 +75,9 @@ export default class ApplicationViews extends
             DataManager.getAll("symptoms")
         })
     }
-
+    getAllSymptoms() {
+        DataManager.getAll("symptoms")
+    }
 
     render() {
         return (
@@ -86,8 +96,8 @@ export default class ApplicationViews extends
                 <Route exact path="/track" render={(props) => {
                     return <SymptomList {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} deleteSymptom={this.deleteSymptom} />
                 }} />
-                <Route exact path="/tasks/new" render={props => {
-                    return <NewSymptomForm {...props} symptoms={this.props.symptoms} addSymptom={this.addSymptom} />
+                <Route exact path="/symptoms/new" render={props => {
+                    return <NewSymptomForm {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} getAll={this.getAllSymptoms} />
                 }} />
             </>
         )

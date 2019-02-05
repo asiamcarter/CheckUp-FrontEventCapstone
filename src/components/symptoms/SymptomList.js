@@ -16,9 +16,9 @@ export default class SymptomList extends Component {
             </div>
 
             {this.props.symptoms.map(symptom => (
-                <div key={symptom.id}>
-                    <SymptomCard symptom={symptom} {...this.props} />
-                </div>
+
+                    <SymptomCard key={symptom.id} symptom={symptom} {...this.props} />
+
             ))}
             </>
         )
