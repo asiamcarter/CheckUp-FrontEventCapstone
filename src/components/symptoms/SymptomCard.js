@@ -7,6 +7,7 @@ export default class SymptomCard extends Component {
         if (this.props.symptom.userId === Number(sessionStorage.getItem("User"))) {
             return (
                 <>
+                {console.log("SYMPTOMS:",this.props)}
                 <div key= {this.props.symptom.id} className="card">
                     <div className="card-body">
                         <h5 className="card-title">
