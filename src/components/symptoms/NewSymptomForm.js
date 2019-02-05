@@ -31,12 +31,12 @@ export default class NewSymptomForm extends Component {
 
     addNewSymptom = evt => {
         evt.preventDefault();
-        let d = new Date();
-        let day = d.getDate();
-        let year = d.getFullYear();
-        let month = (d.getMonth() + 1);
-        let hours = (d.getHours()-12)
-        let minutes = d.getMinutes()
+        // let d = new Date();
+        // let day = d.getDate();
+        // let year = d.getFullYear();
+        // let month = (d.getMonth() + 1);
+        // let hours = (d.getHours()-12)
+        // let minutes = d.getMinutes()
         const newSymptomObject = {
             name: this.state.name,
             intensity: this.state.intensity,

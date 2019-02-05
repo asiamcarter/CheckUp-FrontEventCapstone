@@ -33,5 +33,28 @@ export default {
     delete(id, dataset) {
         return fetch (`${remoteURL}/${dataset}/${id}`, {
             method: "DELETE"}).then(r => r.json())
+    },
+
+    postMedicaton(newMedication) {
+        return fetch(`${remoteURL}/medications`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newMedication)
+        }).then(r => r.json())
+
+    },
+
+    putMedication(id, dataset, newObject) {
+        return fetch (`${remoteURL}/medications/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newObject)
+        }).then(r => r.json())
     }
+
+
 }

@@ -9,6 +9,8 @@ import DataManager from "../modules/DataManager"
 // import TrackNavBar from "./nav/TrackNavBar"
 import Homepage from "./homepage/Homepage"
 import NewSymptomForm from "./symptoms/NewSymptomForm"
+import MedicationList from "./medications/MedicationList"
+import NewMedicationForm from "./medications/NewMedicationForm"
 
 export default class ApplicationViews extends
     Component {
@@ -63,27 +65,59 @@ export default class ApplicationViews extends
     addSymptom = (newSymptom) => {
         return DataManager.postSymptom(newSymptom).then(() => {
             DataManager.getAll("symptoms")
-            .then(allSymptoms =>
-                this.setState({
-                  symptoms: allSymptoms
-                })
-              );
+                .then(allSymptoms =>
+                    this.setState({
+                        symptoms: allSymptoms
+                    })
+                );
         })
     }
     deleteSymptom = id => {
-       return DataManager.delete(id, "symptoms").then(()=> {
+        return DataManager.delete(id, "symptoms").then(() => {
             DataManager.getAll("symptoms")
-            .then(allSymptoms => {
-                this.setState({
-                    symptoms: allSymptoms
-                })
+                .then(allSymptoms => {
+                    this.setState({
+                        symptoms: allSymptoms
+                    })
 
-            })
+                })
         })
     }
     getAllSymptoms() {
         DataManager.getAll("symptoms")
     }
+    //medications
+    getAllMedications() {
+        DataManager.getAll("medications")
+    }
+    addMedication = (newMedication) => {
+        return DataManager.postMedicaton(newMedication).then(() => {
+            DataManager.getAll("medications")
+                .then(allMedications => this.setState({
+                    medications: allMedications
+                }))
+        })
+    }
+
+    deleteMedication = id => {
+        return DataManager.delete(id, "medications").then(() => {
+            DataManager.getAll("medications")
+                .then(allMedications => {
+                    this.setState({
+                        medications: allMedications
+                    })
+                })
+        })
+    }
+
+    editMedication = (id, newMedicationObject) => {
+        return DataManager.putMedication(id, newMedicationObject).then(() => {
+            DataManager.getAll("medications").then(allMedication => this.setState({
+                medications: allMedication
+            }))
+        })
+    }
+
 
     render() {
         return (
@@ -104,6 +138,12 @@ export default class ApplicationViews extends
                 }} />
                 <Route exact path="/symptoms/new" render={props => {
                     return <NewSymptomForm {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} getAll={this.getAllSymptoms} />
+                }} />
+                <Route exact path="/meds" render={props => {
+                    return <MedicationList {...props} medications={this.state.medications} addMedication={this.addMedication} deleteMedication={this.deleteMedication} getAll={this.getAllMedications} editMedication={this.editMedication} />
+                }} />
+                  <Route exact path="/medications/new" render={props => {
+                    return <NewMedicationForm {...props} medications={this.state.medications} addMedication={this.addMedication} getAll={this.getAllMedications} />
                 }} />
             </>
         )
