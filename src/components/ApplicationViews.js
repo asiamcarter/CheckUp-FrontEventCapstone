@@ -84,6 +84,38 @@ export default class ApplicationViews extends
     getAllSymptoms() {
         DataManager.getAll("symptoms")
     }
+//medications
+    getAllMedications() {
+        DataManager.getAll("medications")
+    }
+    addMedication = (newMedication) => {
+        return DataManager.postMedicaton(newMedication).then(()=> {
+            DataManager.getAll("medications")
+            .then(allMedications => this.setState({
+                medications: allMedications
+            }))
+        })
+    }
+
+    deleteMedication = id => {
+        return DataManager.delete(id, "medications").then(()=> {
+            DataManager.getAll("medications")
+            .then(allMedications => {
+                this.setState({
+                    medications: allMedications
+                })
+            })
+        })
+    }
+
+    editMedication = (id, newMedicationObject) => {
+        return DataManager.putMedication(id, newMedicationObject).then(()=> {
+            DataManager.getAll("medications").then(allMedication => this.setState({
+                medications: allMedication
+            }))
+        })
+    }
+
 
     render() {
         return (
