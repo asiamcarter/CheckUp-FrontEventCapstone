@@ -58,7 +58,7 @@ export default class Login extends Component {
                             <label htmlFor="Password">
                                 Password:
                         </label>
-                            <input type="text" required onChange={this.handleFieldChange}
+                            <input type="password" required onChange={this.handleFieldChange}
                                 id="password" />
                         </div>
                         <div>
