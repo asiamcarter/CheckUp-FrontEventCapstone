@@ -2,10 +2,11 @@
 import React, { Component } from "react"
 
 export default class SymptomCard extends Component {
-
-    render() {
-        return (
-            <>
+//function checks to see if logged in userid matches the sessionstorage id of the symptom and if it does, renders that symptom card to the DOM
+    showUsersSymptoms = () => {
+        if (this.props.symptom.userId === Number(sessionStorage.getItem("User"))) {
+            return (
+                <>
                 <div key= {this.props.symptom.id} className="card">
                     <div className="card-body">
                         <h5 className="card-title">
@@ -25,6 +26,15 @@ export default class SymptomCard extends Component {
                         <p>{this.props.symptom.notes}</p>
                     </div>
                 </div>
+            </>
+
+            )
+        }
+    }
+    render() {
+        return (
+            <>
+            {this.showUsersSymptoms()}
             </>
         )
     }
