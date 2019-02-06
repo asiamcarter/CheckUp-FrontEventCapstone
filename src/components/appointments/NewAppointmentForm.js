@@ -30,13 +30,7 @@ export default class NewAppointmentForm extends Component {
             noteId: this.state.noteId
         }
 
-        const newDoctor = {
-            name: this.state.name,
-            location: this.state.location
-        }
-        this.props.postNewDoctor(newDoctor).then(() =>
             this.props.addAppointment(newAppointmentObject)
-        )
             .then(() => this.props.history.push("/appointments"))
     }
     render() {

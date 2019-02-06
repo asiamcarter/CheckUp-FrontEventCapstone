@@ -13,7 +13,12 @@ export default class AppointmentList extends Component {
                     <button type="submit" onClick={() => {
                         this.props.history.push("/appointment/new")
                     }} >
-                        Add
+                        Add Appointment
+                </button>
+                <button type="submit" onClick={()=> {
+                    this.props.history.push("/doctor/new")
+                }} >
+                Add Doctor
                 </button>
                 </div>
                 <section>

@@ -14,6 +14,7 @@ import NewMedicationForm from "./medications/NewMedicationForm"
 import EditMedicationForm from "./medications/EditMedicationForm"
 import AppointmentList from "./appointments/AppointmentList"
 import NewAppointmentForm from "./appointments/NewAppointmentForm"
+import NewDoctorForm from "./doctors/NewDoctorForm"
 
 export default class ApplicationViews extends
     Component {
@@ -196,8 +197,12 @@ export default class ApplicationViews extends
                 }} />
                 <Route exact path="/appointment/new" render={props => {
                     return <NewAppointmentForm {...props} appointments={this.state.appointments} addAppointment={this.addAppointment} getAptNotes={this.getAllAppointments}
-                        getAptDocs={this.getAptDocs} postNewDoctor={this.postNewDoctor} />
+                        getAptDocs={this.getAptDocs}  />
                 }} />
+                <Route exact path="/doctor/new" render={props => {
+                    return <NewDoctorForm {...props} doctors={this.state.doctors}postNewDoctor={this.postNewDoctor} />
+                }} />
+
             </>
         )
     }

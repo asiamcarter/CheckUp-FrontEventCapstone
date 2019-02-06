@@ -34,7 +34,7 @@ export default class AppointmentCard extends Component {
                         <hr/>
                     </div>
                     <div>
-                    <Link to={`/appointments/editappointment/${this.props.appointment.id}`}>Edit</Link>
+                    <Link to={`/appointments/editappointment/${this.props.appointments.id}`}>Edit</Link>
                     <p>Date: {this.props.appointment.date}</p>
                     <p>Time: {this.props.appointment.time}</p>
                     <p>Reason: {this.props.appointment.reason}</p>
