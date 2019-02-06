@@ -85,5 +85,16 @@ export default {
 
     getAptDocNotes() {
         return fetch(`${remoteURL}/appointments/?_expand=doctor&_expand=note`).then(r =>r.json())
+    },
+
+    postNewDoctor(newDocotor) {
+        return fetch(`${remoteURL}/doctors`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newDocotor)
+        }).then(r => r.json())
+
     }
 }

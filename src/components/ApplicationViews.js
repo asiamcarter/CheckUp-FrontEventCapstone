@@ -13,6 +13,7 @@ import MedicationList from "./medications/MedicationList"
 import NewMedicationForm from "./medications/NewMedicationForm"
 import EditMedicationForm from "./medications/EditMedicationForm"
 import AppointmentList from "./appointments/AppointmentList"
+import NewAppointmentForm from "./appointments/NewAppointmentForm"
 
 export default class ApplicationViews extends
     Component {
@@ -141,11 +142,20 @@ export default class ApplicationViews extends
 
     editAppointment = (id, newObject) => {
         return DataManager.putMedication(id, newObject).then(() => {
-            DataManager.getAll("appointments").then(allAppointments=> this.setState({
+            DataManager.getAll("appointments").then(allAppointments => this.setState({
                 appointments: allAppointments
             }))
         })
 
+    }
+
+    postNewDoctor = (newDoctor) => {
+        return DataManager.postNewDoctor(newDoctor).then(() => {
+            DataManager.getAll("doctors")
+                .then(allDoctors => this.setState({
+                    doctors: allDoctors
+                }))
+        })
     }
 
 
@@ -180,9 +190,13 @@ export default class ApplicationViews extends
                 }} />
                 <Route exact path="/appointments" render={(props) => {
                     return <AppointmentList {...props} addAppointment={this.addAppointment} appointments={this.state.appointments} editAppointment={this.editAppointment}
-                    getAptNotes={this.getAllAppointments}
-                    getAptDocs={this.getAptDocs}
+                        getAptNotes={this.getAllAppointments}
+                        getAptDocs={this.getAptDocs}
                     />
+                }} />
+                <Route exact path="/appointment/new" render={props => {
+                    return <NewAppointmentForm {...props} appointments={this.state.appointments} addAppointment={this.addAppointment} getAptNotes={this.getAllAppointments}
+                        getAptDocs={this.getAptDocs} postNewDoctor={this.postNewDoctor} />
                 }} />
             </>
         )
