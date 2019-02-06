@@ -2,6 +2,23 @@ import React, { Component } from "react"
 import { Link } from "react-router-dom"
 
 export default class AppointmentCard extends Component {
+
+    noteButton = () => {
+        if (this.props.appointment.note.note === "") {
+            return (
+                <>
+                <button type="button">Add Note</button>
+                </>
+            )
+        } else {
+            return (
+                <>
+                <button type="button">View Note</button>
+                </>
+            )
+        }
+
+    }
     render() {
         console.log(this.props)
         return (
@@ -21,6 +38,7 @@ export default class AppointmentCard extends Component {
                     <p>Date: {this.props.appointment.date}</p>
                     <p>Time: {this.props.appointment.time}</p>
                     <p>Reason: {this.props.appointment.reason}</p>
+                    {this.noteButton()}
                     </div>
 
 
