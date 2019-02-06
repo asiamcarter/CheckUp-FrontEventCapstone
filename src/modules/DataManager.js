@@ -58,6 +58,32 @@ export default {
 
     getById(id, dataset) {
         return fetch(`${remoteURL}/${dataset}/${id}`).then(r => r.json())
-    }
+    },
 
+    postAppointment(newAppointment) {
+        return fetch(`${remoteURL}/appointments`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newAppointment)
+        }).then(r => r.json())
+    },
+    getAllAptNotes() {
+        return fetch(`${remoteURL}/appointments/?_embed=notes`).then(r =>r.json())
+    },
+
+    putAppointment(id, newObject) {
+        return fetch (`${remoteURL}/appointments/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newObject)
+        }).then(r => r.json())
+    },
+
+    getAptDoc() {
+        return fetch(`${remoteURL}/appointments/?_expand=doctor`).then(r =>r.json())
+    }
 }

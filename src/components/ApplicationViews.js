@@ -12,6 +12,7 @@ import NewSymptomForm from "./symptoms/NewSymptomForm"
 import MedicationList from "./medications/MedicationList"
 import NewMedicationForm from "./medications/NewMedicationForm"
 import EditMedicationForm from "./medications/EditMedicationForm"
+import AppointmentList from "./appointments/AppointmentList"
 
 export default class ApplicationViews extends
     Component {
@@ -118,6 +119,36 @@ export default class ApplicationViews extends
             }))
         })
     }
+
+    //appointments
+
+    getAllAppointments() {
+        return DataManager.getAllAptNotes()
+    }
+
+    getAptDocs() {
+        return DataManager.getAptDoc()
+    }
+
+    addAppointment = (newAppointment) => {
+        return DataManager.postAppointment(newAppointment).then(() => {
+            DataManager.getAll("appointments")
+                .then(allAppointments => this.setState({
+                    appointments: allAppointments
+                }))
+        })
+    }
+
+    editAppointment = (id, newObject) => {
+        return DataManager.putMedication(id, newObject).then(() => {
+            DataManager.getAll("appointments").then(allAppointments=> this.setState({
+                appointments: allAppointments
+            }))
+        })
+
+    }
+
+
     render() {
         return (
             <>
@@ -141,11 +172,18 @@ export default class ApplicationViews extends
                 <Route exact path="/meds" render={props => {
                     return <MedicationList {...props} medications={this.state.medications} addMedication={this.addMedication} deleteMedication={this.deleteMedication} getAll={this.getAllMedications} editMedication={this.editMedication} />
                 }} />
-                  <Route exact path="/medications/new" render={props => {
+                <Route exact path="/medications/new" render={props => {
                     return <NewMedicationForm {...props} medications={this.state.medications} addMedication={this.addMedication} getAll={this.getAllMedications} />
                 }} />
-                <Route path="/meds/editmedication/:id" render={(props) => {
-                return <EditMedicationForm {...props} medications={this.state.medications} editMedication={this.editMedication}/> }}/>
+                <Route exact path="/meds/editmedication/:id" render={(props) => {
+                    return <EditMedicationForm {...props} medications={this.state.medications} editMedication={this.editMedication} />
+                }} />
+                <Route exact path="/appointments" render={(props) => {
+                    return <AppointmentList {...props} addAppointment={this.addAppointment} appointments={this.state.appointments} editAppointment={this.editAppointment}
+                    getAptNotes={this.getAllAppointments}
+                    getAptDocs={this.getAptDocs}
+                    />
+                }} />
             </>
         )
     }
