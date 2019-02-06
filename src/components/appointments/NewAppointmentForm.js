@@ -18,6 +18,23 @@ export default class NewAppointmentForm extends Component {
         this.setState(stateToChange);
     }
 
+    handleIdFieldChange = evt => {
+        const stateToChange = {};
+        stateToChange[evt.target.id] = JSON.parse(evt.target.value);
+        this.setState(stateToChange)
+    }
+
+    getDoctors = () => {
+        let doctors = this.props.allDoctors.map(doctor => {
+            let doctorId = JSON.parse(doctor.id)
+            return (
+                <option key={doctorId} value={doctor.id}>{doctor.name}</option>
+
+            )
+        })
+        return doctors
+    }
+
     addAppointment = evt => {
         evt.preventDefault();
 
@@ -30,23 +47,41 @@ export default class NewAppointmentForm extends Component {
             noteId: this.state.noteId
         }
 
-            this.props.addAppointment(newAppointmentObject)
-            .then(() => this.props.history.push("/appointments"))
+        this.props.addAppointment(newAppointmentObject)
+            .then(() =>
+            this.props.history.push("/appointments"))
     }
     render() {
-        console.log(this.props)
         return (
             <>
                 <form>
+
                     <h2>Add New Appointment</h2>
                     <div>
                         <label htmlFor="doctor">Doctor</label>
-                        <input type="text" onChange={this.handleFieldChange} id="name" />
+                        <select id="doctorId" required onChange={this.handleIdFieldChange}>
+                            {this.getDoctors()}
+                        </select>
+                    </div>
+                    <div>
                         <label htmlFor="location">Location</label>
                         <input type="text" onChange={this.handleFieldChange} id="location" />
                     </div>
+                    <div>
+                        <label htmlFor="time">Time</label>
+                        <input type="time" onChange={this.handleFieldChange} id="time" />
+                    </div>
+                    <div>
+                        <label htmlFor="date">Date</label>
+                        <input type="date" onChange={this.handleFieldChange} id="date" />
+                    </div>
+                    <div>
+                        <label htmlFor="reason"></label>
+                        <input type="text" onChange={this.handleFieldChange} id="reason" />
+                    </div>
+
                     <button type="submit" onClick={this.addAppointment} >
-                    Add</button>
+                        Add</button>
                 </form>
             </>
         )

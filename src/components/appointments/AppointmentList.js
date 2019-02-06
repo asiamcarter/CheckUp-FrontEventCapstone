@@ -1,11 +1,11 @@
 import React, { Component } from "react"
 import AppointmentCard from "./AppointmentCard"
 
+
 export default class AppointmentList extends Component {
+
     render() {
-        // const sortedAppointments = this.props.appointments.sort(function (aptA, aptB) {
-        //     return new Date(aptA.date) - new Date(aptB.date)
-        // })
+        console.log("LIST PROPS",this.props.appointments)
         return (
             <>
                 <div className="appointmentList">

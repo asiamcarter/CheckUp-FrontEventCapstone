@@ -134,7 +134,7 @@ export default class ApplicationViews extends
 
     addAppointment = (newAppointment) => {
         return DataManager.postAppointment(newAppointment).then(() => {
-            DataManager.getAll("appointments")
+            DataManager.getAptDocNotes()
                 .then(allAppointments => this.setState({
                     appointments: allAppointments
                 }))
@@ -158,9 +158,12 @@ export default class ApplicationViews extends
                 }))
         })
     }
-
+    getAllDoctors() {
+        return DataManager.getAll("doctors")
+    }
 
     render() {
+        console.log("ApplicationViewsState", this.state.appointments)
         return (
             <>
                 <Route exact path="/" render={(props) => {
@@ -193,14 +196,17 @@ export default class ApplicationViews extends
                     return <AppointmentList {...props} addAppointment={this.addAppointment} appointments={this.state.appointments} editAppointment={this.editAppointment}
                         getAptNotes={this.getAllAppointments}
                         getAptDocs={this.getAptDocs}
+                        getAllDoctors={this.componentDidMount}
                     />
                 }} />
                 <Route exact path="/appointment/new" render={props => {
                     return <NewAppointmentForm {...props} appointments={this.state.appointments} addAppointment={this.addAppointment} getAptNotes={this.getAllAppointments}
-                        getAptDocs={this.getAptDocs}  />
+                    allDoctors={this.state.doctors}
+                     />
                 }} />
                 <Route exact path="/doctor/new" render={props => {
-                    return <NewDoctorForm {...props} doctors={this.state.doctors}postNewDoctor={this.postNewDoctor} />
+                    return <NewDoctorForm {...props} doctors={this.state.doctors}postNewDoctor={this.postNewDoctor}
+                     />
                 }} />
 
             </>
