@@ -28,7 +28,7 @@ export default class NewAppointmentForm extends Component {
         let doctors = this.props.allDoctors.map(doctor => {
             let doctorId = JSON.parse(doctor.id)
             return (
-                <option key={doctorId} value={doctor.id}>{doctor.name}</option>
+                  <option key={doctorId} value={doctor.id}>{doctor.name}</option>
 
             )
         })

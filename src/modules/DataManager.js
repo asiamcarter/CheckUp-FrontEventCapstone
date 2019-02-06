@@ -96,5 +96,9 @@ export default {
             body: JSON.stringify(newDocotor)
         }).then(r => r.json())
 
+    },
+
+    getAppointmentNotes(appointmentId) {
+        return fetch(`${remoteURL}/appointments/${appointmentId}/?_embed=notes`).then(r=>r.json())
     }
 }

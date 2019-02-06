@@ -162,8 +162,12 @@ export default class ApplicationViews extends
         return DataManager.getAll("doctors")
     }
 
+    getAppointmentNotes = (appointmentId) => {
+        return DataManager.getAppointmentNotes(appointmentId)
+    }
+
     render() {
-        console.log("ApplicationViewsState", this.state.appointments)
+        // console.log("ApplicationViewsState", this.state.appointments)
         return (
             <>
                 <Route exact path="/" render={(props) => {
@@ -197,6 +201,7 @@ export default class ApplicationViews extends
                         getAptNotes={this.getAllAppointments}
                         getAptDocs={this.getAptDocs}
                         getAllDoctors={this.componentDidMount}
+                        getAppointmentNotes={this.getAppointmentNotes}
                     />
                 }} />
                 <Route exact path="/appointment/new" render={props => {

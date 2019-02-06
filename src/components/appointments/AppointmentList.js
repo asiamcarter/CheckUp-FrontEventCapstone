@@ -5,7 +5,7 @@ import AppointmentCard from "./AppointmentCard"
 export default class AppointmentList extends Component {
 
     render() {
-        console.log("LIST PROPS",this.props.appointments)
+        // console.log("LIST PROPS",this.props.appointments)
         return (
             <>
                 <div className="appointmentList">
