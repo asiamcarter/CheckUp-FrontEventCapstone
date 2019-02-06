@@ -69,9 +69,9 @@ export default {
             body: JSON.stringify(newAppointment)
         }).then(r => r.json())
     },
-    getAllAptNotes() {
-        return fetch(`${remoteURL}/appointments/?_embed=notes`).then(r =>r.json())
-    },
+    // getAllAptNotes() {
+    //     return fetch(`${remoteURL}/appointments/?_embed=notes`).then(r =>r.json())
+    // },
 
     putAppointment(id, newObject) {
         return fetch (`${remoteURL}/appointments/${id}`, {
@@ -83,7 +83,7 @@ export default {
         }).then(r => r.json())
     },
 
-    getAptDoc() {
-        return fetch(`${remoteURL}/appointments/?_expand=doctor`).then(r =>r.json())
+    getAptDocNotes() {
+        return fetch(`${remoteURL}/appointments/?_expand=doctor&_expand=note`).then(r =>r.json())
     }
 }

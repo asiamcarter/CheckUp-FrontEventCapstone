@@ -33,7 +33,7 @@ export default class ApplicationViews extends
             .then(() => DataManager.getAll("symptoms")).then(allSymptoms => newState.symptoms = allSymptoms)
             .then(() => DataManager.getAll("medications")).then(allMedications =>
                 newState.medications = allMedications)
-            .then(() => DataManager.getAll("appointments")).then(allAppointments => newState.appointments = allAppointments)
+            .then(() => DataManager.getAptDocNotes()).then(allAppointments => newState.appointments = allAppointments)
             .then(() => DataManager.getAll("notes")).then(allNotes => newState.notes = allNotes)
             .then(() => DataManager.getAll("doctors")).then(allDoctors => newState.doctors = allDoctors)
             .then(() => this.setState(newState))
