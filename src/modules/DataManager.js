@@ -69,9 +69,9 @@ export default {
             body: JSON.stringify(newAppointment)
         }).then(r => r.json())
     },
-    // getAllAptNotes() {
-    //     return fetch(`${remoteURL}/appointments/?_embed=notes`).then(r =>r.json())
-    // },
+    getAllAptNotes() {
+        return fetch(`${remoteURL}/appointments/?_embed=notes`).then(r =>r.json())
+    },
 
     putAppointment(id, newObject) {
         return fetch (`${remoteURL}/appointments/${id}`, {
