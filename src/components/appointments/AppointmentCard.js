@@ -2,60 +2,65 @@ import React, { Component } from "react"
 import { Link } from "react-router-dom"
 
 export default class AppointmentCard extends Component {
+
     noteButton = () => {
-        if (this.props.appointment.noteId === "") {
+        if (this.props.appointment.note === "") {
             return (
                 <>
-                <button type="button">Add Note</button>
+                    <Link to={`appointment/newnote/${this.props.appointment.id}`}>Add Note</Link>
+                    {/* <button type="button" onClick={()=> this.props.history.push("/appointment/newnote")}>
+                        Add Note
+                    </button> */}
                 </>
             )
         } else {
             return (
                 <>
-                <button type="button">View Note</button>
+                    <Link to={`/note/${this.props.appointment.id}`}>View Note</Link>
                 </>
             )
         }
 
     }
+
+    showUserAppointments = () => {
+
+        // console.log(parseInt(sessionStorage.getItem("User")), this.props.appointment.userId)
+        console.log("APT CARD",this.props)
+        if (this.props.appointment.userId === parseInt(sessionStorage.getItem("User"))) {
+            return (
+                <>
+                    <div key={this.props.appointment.id}
+                        className="card">
+                        <div className="card-body">
+                            <div>
+                                <h5 className="card-title">
+                                    {this.props.appointment.doctor.name}
+                                </h5>
+                                <p>{this.props.appointment.doctor.location}</p>
+                                <hr />
+                            </div>
+                            <div>
+                                <Link to={`/appointments/edit/${this.props.appointment.id}`}>Edit</Link>
+                                <p>Date: {this.props.appointment.date}</p>
+                                <p>Time: {this.props.appointment.time}</p>
+                                <p>Reason: {this.props.appointment.reason}</p>
+                                {/* <p>{this.state.notes}</p> */}
+                                {this.noteButton()}
+                            </div>
+                        </div>
+
+                    </div>
+                </>
+
+            )
+        }
+    }
     render() {
-        // console.log("CARD STATE",this.state)
-        // console.log("CARD PROPS",this.props)
+        console.log(this.noteButton())
         return (
             <>
-                <div key={this.props.appointment.id}
-                    className="card">
-                    <div className="card-body">
-                    <div>
-                        <h5 className="card-title">
-                        {this.props.appointment.doctor.name}
-                        </h5>
-                        <p>{this.props.appointment.doctor.location}</p>
-                        <hr/>
-                    </div>
-                    <div>
-                    <Link to={`/appointments/editappointment/${this.props.appointments.id}`}>Edit</Link>
-                    <p>Date: {this.props.appointment.date}</p>
-                    <p>Time: {this.props.appointment.time}</p>
-                    <p>Reason: {this.props.appointment.reason}</p>
-                    {this.noteButton()}
-                    </div>
-
-
-
-
-
-                        {/* <h6>Date:</h6>
-                        <p>{this.props.medication.date}</p>
-                        <h6>Time</h6>
-                        <p>{this.props.medication.time}</p>
-                        <h6>Quantity</h6>
-                        <p>{this.props.medication.quantity}</p>
-                        <h6>Frequency</h6>
-                        <p>{this.props.medication.frequency}</p> */}
-                    </div>
-
-                </div>
+                {this.showUserAppointments()}
             </>
         )
     }

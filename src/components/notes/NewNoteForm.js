@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import DataManager from "../../modules/DataManager"
 
-export default class EditNoteForm extends Component {
+export default class NewNoteForm extends Component {
     state = {
         userId: "",
         doctorId: "",
@@ -16,7 +16,6 @@ export default class EditNoteForm extends Component {
 
     componentDidMount() {
         DataManager.getById(this.props.match.params.id, "appointments").then(appointment => {
-            console.log("appointment", appointment)
             this.setState({
                 userId: appointment.userId,
                 doctorId: appointment.doctorId,
@@ -26,8 +25,7 @@ export default class EditNoteForm extends Component {
                 note: appointment.note,
                 timestamp: appointment.timestamp,
                 audio: appointment.audio,
-                photo: appointment.photo,
-                id: appointment.id
+                photo: appointment.photo
             })
         })
     }
@@ -36,9 +34,11 @@ export default class EditNoteForm extends Component {
         const stateToChange = {};
         stateToChange[evt.target.id] = evt.target.value;
         this.setState(stateToChange);
+        console.log(evt.target, evt.target.value)
+
     }
 
-    editNote = evt => {
+    addNewNote = evt => {
         evt.preventDefault();
         const newNoteObject = {
             userId: this.state.userId,
@@ -49,24 +49,23 @@ export default class EditNoteForm extends Component {
             note: this.state.note,
             timestamp: new Date(),
             audio: this.state.audio,
-            photo: this.state.photo,
-            id: this.state.id
+            photo: this.state.photo
         }
-         this.props.editAppointment(this.props.match.params.id, newNoteObject)
-         .then(()=> this.props.history.push(`/note/${this.state.id}`))
-
+        this.props.editAppointment(this.props.match.params.id, newNoteObject)
+            .then(() => this.props.history.push("/appointments"))
     }
- render() {
-     console.log(this.state)
-     return (
-         <>
-         <h2>Edit Note</h2>
+
+    render() {
+        console.log("NEW NOTE STATE:", this.state)
+        return (
+            <>
+               <h2>New Note</h2>
                <div>
                    <label htmlFor="content">Content</label>
                    <input type="text" required onChange={this.handleFieldChange} id="note"/>
-                   <button type="submit" onClick={this.editNote} >Save</button>
+                   <button type="submit" onClick={this.addNewNote} >Add</button>
                </div>
-         </>
-     )
- }
+            </>
+        )
+    }
 }

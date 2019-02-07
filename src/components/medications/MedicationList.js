@@ -6,7 +6,9 @@ import MedicationCard from "./MedicationCard"
 
 
 export default class MedicationList extends Component {
+
     render() {
+        console.log("MED PROPS", this.props)
         const sortedMeds = this.props.medications.sort(function (medA, medB) {
             return parseInt(medA.time) - parseInt(medB.time)
         })

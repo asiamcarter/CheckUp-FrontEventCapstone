@@ -6,6 +6,10 @@ export default {
 
     },
 
+    getAllUserInfo() {
+        return fetch(`${remoteURL}/users/?_embed=appointments&_embed=symptoms&_embed=medications`).then(r=>r.json())
+    },
+
     postUser(newUser) {
         return fetch(`${remoteURL}/users`, {
             method: "POST",
@@ -83,8 +87,8 @@ export default {
         }).then(r => r.json())
     },
 
-    getAptDocNotes() {
-        return fetch(`${remoteURL}/appointments/?_expand=doctor&_expand=note`).then(r =>r.json())
+    getAptDoc() {
+        return fetch(`${remoteURL}/appointments/?_expand=doctor`).then(r =>r.json())
     },
 
     postNewDoctor(newDocotor) {
@@ -96,5 +100,22 @@ export default {
             body: JSON.stringify(newDocotor)
         }).then(r => r.json())
 
-    }
+    },
+
+    // getAppointmentNotes(appointmentId) {
+    //     return fetch(`${remoteURL}/appointments/${appointmentId}/?_embed=notes`).then(r=>r.json())
+    // },
+    // getAllAppointmentNotes() {
+    //     return fetch(`${remoteURL}/appointments/?_expand=note`).then(r=>r.json())
+    // },
+    // postNewNote(newNote) {
+    //     return fetch(`${remoteURL}/notes`, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(newNote)
+    //     }).then(r => r.json())
+
+    // }
 }

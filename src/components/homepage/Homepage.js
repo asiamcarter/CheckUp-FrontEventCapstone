@@ -9,10 +9,11 @@ export default class Homepage extends Component {
             console.log("find method user id:", user.id)
             return (seshUser === user.id)
         })
-         console.log(userObject)
+        console.log("user object", userObject)
     }
 
     render() {
+        console.log(this.props)
         return (
             <>
                 Welcome to your homepage!

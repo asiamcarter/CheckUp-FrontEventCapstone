@@ -15,6 +15,10 @@ import EditMedicationForm from "./medications/EditMedicationForm"
 import AppointmentList from "./appointments/AppointmentList"
 import NewAppointmentForm from "./appointments/NewAppointmentForm"
 import NewDoctorForm from "./doctors/NewDoctorForm"
+import NewNoteForm from "./notes/NewNoteForm"
+import NoteCard from "./notes/NoteCard"
+import EditNoteForm from "./notes/EditNoteForm"
+import EditAppointmentForm from "./appointments/EditAppointmentForm"
 
 export default class ApplicationViews extends
     Component {
@@ -31,12 +35,12 @@ export default class ApplicationViews extends
 
     componentDidMount() {
         const newState = {}
-        DataManager.getAll("users").then(allUsers => newState.users = allUsers)
+        DataManager.getAllUserInfo().then(allUsers => newState.users = allUsers)
             .then(() => DataManager.getAll("symptoms")).then(allSymptoms => newState.symptoms = allSymptoms)
             .then(() => DataManager.getAll("medications")).then(allMedications =>
                 newState.medications = allMedications)
-            .then(() => DataManager.getAptDocNotes()).then(allAppointments => newState.appointments = allAppointments)
-            .then(() => DataManager.getAll("notes")).then(allNotes => newState.notes = allNotes)
+            .then(() => DataManager.getAptDoc()).then(allAppointments => newState.appointments = allAppointments)
+            // .then(() => DataManager.getAll("notes")).then(allNotes => newState.notes = allNotes)
             .then(() => DataManager.getAll("doctors")).then(allDoctors => newState.doctors = allDoctors)
             .then(() => this.setState(newState))
             .then(() => { console.log("COMPONENTDIDMOUNT:", this.state) })
@@ -134,7 +138,7 @@ export default class ApplicationViews extends
 
     addAppointment = (newAppointment) => {
         return DataManager.postAppointment(newAppointment).then(() => {
-            DataManager.getAptDocNotes()
+            DataManager.getAptDoc()
                 .then(allAppointments => this.setState({
                     appointments: allAppointments
                 }))
@@ -142,8 +146,8 @@ export default class ApplicationViews extends
     }
 
     editAppointment = (id, newObject) => {
-        return DataManager.putMedication(id, newObject).then(() => {
-            DataManager.getAll("appointments").then(allAppointments => this.setState({
+        return DataManager.putAppointment(id, newObject).then(() => {
+            DataManager.getAptDoc().then(allAppointments => this.setState({
                 appointments: allAppointments
             }))
         })
@@ -162,8 +166,22 @@ export default class ApplicationViews extends
         return DataManager.getAll("doctors")
     }
 
+    getAppointmentNotes = (appointmentId) => {
+        return DataManager.getAppointmentNotes(appointmentId)
+    }
+    //notes
+
+    postNewNote = (newNote) => {
+        return DataManager.postNewNote(newNote).then(() => {
+            DataManager.getAll("notes")
+                .then(allNotes => this.setState({
+                    notes: allNotes
+                }))
+        })
+    }
+
     render() {
-        console.log("ApplicationViewsState", this.state.appointments)
+        // console.log("ApplicationViewsState", this.state.appointments)
         return (
             <>
                 <Route exact path="/" render={(props) => {
@@ -197,6 +215,7 @@ export default class ApplicationViews extends
                         getAptNotes={this.getAllAppointments}
                         getAptDocs={this.getAptDocs}
                         getAllDoctors={this.componentDidMount}
+                        getAppointmentNotes={this.getAppointmentNotes}
                     />
                 }} />
                 <Route exact path="/appointment/new" render={props => {
@@ -208,6 +227,23 @@ export default class ApplicationViews extends
                     return <NewDoctorForm {...props} doctors={this.state.doctors}postNewDoctor={this.postNewDoctor}
                      />
                 }} />
+                <Route exact path="/appointment/newnote/:id" render={props=> {
+                    return <NewNoteForm {...props} appointments={this.state.appointments} editAppointment={this.editAppointment}
+                  />
+                }} />
+                <Route exact path="/note/:id" render={props => {
+                    return <NoteCard {...props} appointments={this.state.appointments} />
+                }} />
+                 <Route exact path="/note/edit/:id" render={props => {
+                    return <EditNoteForm {...props} appointments={this.state.appointments} editAppointment={this.editAppointment} />
+                }} />
+                 <Route exact path="/appointments/edit/:id" render={props => {
+                    return <EditAppointmentForm {...props} appointments={this.state.appointments} editAppointment={this.editAppointment}
+                    allDoctors={this.state.doctors} />
+                }} />
+
+
+
 
             </>
         )

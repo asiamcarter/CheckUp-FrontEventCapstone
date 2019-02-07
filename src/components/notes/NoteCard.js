@@ -1,0 +1,53 @@
+import React, { Component } from "react"
+import DataManager from "../../modules/DataManager"
+import { Link } from "react-router-dom"
+export default class NoteCard extends Component {
+
+    state = {
+        userId: "",
+        doctorId: "",
+        time: "",
+        date: "",
+        reason: "",
+        note: "",
+        timestamp: "",
+        audio: "",
+        photo: "",
+        id: ""
+    }
+
+    componentDidMount() {
+        DataManager.getById(this.props.match.params.id, "appointments").then(appointment => {
+            console.log("appointment", appointment)
+            this.setState({
+                userId: appointment.userId,
+                doctorId: appointment.doctorId,
+                time: appointment.time,
+                date: appointment.date,
+                reason: appointment.reason,
+                note: appointment.note,
+                timestamp: appointment.timestamp,
+                audio: appointment.audio,
+                photo: appointment.photo,
+                id: appointment.id
+            })
+        })
+    }
+
+
+
+    render () {
+        console.log(this.state)
+        return (
+            <>
+            <div>
+                <p>{this.state.note}</p>
+                <Link to={`/note/edit/${this.state.id}`}>Edit</Link>
+            </div>
+            <button type="button" onClick={()=> this.props.history.push("/appointments")}>Back</button>
+
+            </>
+        )
+    }
+}
+
