@@ -35,7 +35,7 @@ export default class ApplicationViews extends
 
     componentDidMount() {
         const newState = {}
-        DataManager.getAll("users").then(allUsers => newState.users = allUsers)
+        DataManager.getAllUserInfo().then(allUsers => newState.users = allUsers)
             .then(() => DataManager.getAll("symptoms")).then(allSymptoms => newState.symptoms = allSymptoms)
             .then(() => DataManager.getAll("medications")).then(allMedications =>
                 newState.medications = allMedications)

@@ -25,7 +25,7 @@ export default class NavBar extends Component {
                             to="/meds">MEDS</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/notes">NOTES</Link>
+                            <Link className="nav-link" to="/appointments">APTS</Link>
                         </li>
                         <li className="nav-item">
                             {/* Will be dropdown menu */}

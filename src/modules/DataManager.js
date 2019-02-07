@@ -6,6 +6,10 @@ export default {
 
     },
 
+    getAllUserInfo() {
+        return fetch(`${remoteURL}/users/?_embed=appointments&_embed=symptoms&_embed=medications`).then(r=>r.json())
+    },
+
     postUser(newUser) {
         return fetch(`${remoteURL}/users`, {
             method: "POST",
