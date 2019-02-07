@@ -98,20 +98,20 @@ export default {
 
     },
 
-    getAppointmentNotes(appointmentId) {
-        return fetch(`${remoteURL}/appointments/${appointmentId}/?_embed=notes`).then(r=>r.json())
-    },
-    getAllAppointmentNotes() {
-        return fetch(`${remoteURL}/appointments/?_expand=note`).then(r=>r.json())
-    },
-    postNewNote(newNote) {
-        return fetch(`${remoteURL}/notes`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newNote)
-        }).then(r => r.json())
+    // getAppointmentNotes(appointmentId) {
+    //     return fetch(`${remoteURL}/appointments/${appointmentId}/?_embed=notes`).then(r=>r.json())
+    // },
+    // getAllAppointmentNotes() {
+    //     return fetch(`${remoteURL}/appointments/?_expand=note`).then(r=>r.json())
+    // },
+    // postNewNote(newNote) {
+    //     return fetch(`${remoteURL}/notes`, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(newNote)
+    //     }).then(r => r.json())
 
-    }
+    // }
 }

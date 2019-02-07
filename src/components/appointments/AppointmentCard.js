@@ -1,44 +1,22 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
-import NewNoteForm from "../notes/NewNoteForm"
 
 export default class AppointmentCard extends Component {
-
-    // state = {
-    //     notes: []
-    // }
-
-    // getNote = () => {
-    //     this.props.getAppointmentNotes(this.props.appointment.id)
-    //         .then(allNotes => {
-    //             allNotes.notes.map(note => (
-    //                 this.setState({
-    //                     notes: note.note
-    //                 }, this.viewNote)
-    //             ))
-    //         })
-
-    // }
-
-    // viewNote = () => {
-    //     return (console.log(this.state))
-    // }
-
 
     noteButton = () => {
         if (this.props.appointment.note === "") {
             return (
                 <>
-
-                    <button type="button" onClick={()=> this.props.history.push("/appointment/newnote")}>
+                    <Link to={"appointment/newnote"}>Add Note</Link>
+                    {/* <button type="button" onClick={()=> this.props.history.push("/appointment/newnote")}>
                         Add Note
-                    </button>
+                    </button> */}
                 </>
             )
         } else {
             return (
                 <>
-                    <button type="button" onClick={() => this.props.history.push(`/appointment/viewnote/${this.props.appointment.id}`)}>View Note</button>
+                    <Link to={`/note/${this.props.appointment.id}`}>View Note</Link>
                 </>
             )
         }
@@ -46,7 +24,9 @@ export default class AppointmentCard extends Component {
     }
 
     showUserAppointments = () => {
+
         // console.log(parseInt(sessionStorage.getItem("User")), this.props.appointment.userId)
+        console.log(this.props)
         if (this.props.appointment.userId === parseInt(sessionStorage.getItem("User"))) {
             return (
                 <>
@@ -77,7 +57,7 @@ export default class AppointmentCard extends Component {
         }
     }
     render() {
-        console.log(this.props.appointment.note)
+        console.log(this.noteButton())
         return (
             <>
                 {this.showUserAppointments()}

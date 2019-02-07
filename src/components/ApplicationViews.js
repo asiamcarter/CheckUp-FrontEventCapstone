@@ -229,7 +229,7 @@ export default class ApplicationViews extends
                     return <NewNoteForm {...props} appointments={this.state.appointments} addAppointment={this.addAppointment}
                   />
                 }} />
-                <Route exact path="/appointment/viewnote/:id" render={props => {
+                <Route exact path="/note/:id" render={props => {
                     return <NoteCard {...props} appointments={this.state.appointments} />
                 }} />
 
