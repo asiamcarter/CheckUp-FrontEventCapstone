@@ -17,6 +17,8 @@ import NewAppointmentForm from "./appointments/NewAppointmentForm"
 import NewDoctorForm from "./doctors/NewDoctorForm"
 import NewNoteForm from "./notes/NewNoteForm"
 import NoteCard from "./notes/NoteCard"
+import EditNoteForm from "./notes/EditNoteForm"
+import EditAppointmentForm from "./appointments/EditAppointmentForm"
 
 export default class ApplicationViews extends
     Component {
@@ -136,7 +138,7 @@ export default class ApplicationViews extends
 
     addAppointment = (newAppointment) => {
         return DataManager.postAppointment(newAppointment).then(() => {
-            DataManager.getAptDocNotes()
+            DataManager.getAptDoc()
                 .then(allAppointments => this.setState({
                     appointments: allAppointments
                 }))
@@ -144,8 +146,8 @@ export default class ApplicationViews extends
     }
 
     editAppointment = (id, newObject) => {
-        return DataManager.putMedication(id, newObject).then(() => {
-            DataManager.getAll("appointments").then(allAppointments => this.setState({
+        return DataManager.putAppointment(id, newObject).then(() => {
+            DataManager.getAptDoc().then(allAppointments => this.setState({
                 appointments: allAppointments
             }))
         })
@@ -225,13 +227,23 @@ export default class ApplicationViews extends
                     return <NewDoctorForm {...props} doctors={this.state.doctors}postNewDoctor={this.postNewDoctor}
                      />
                 }} />
-                <Route exact path="/appointments/newnote" render={props=> {
-                    return <NewNoteForm {...props} appointments={this.state.appointments} addAppointment={this.addAppointment}
+                <Route exact path="/appointment/newnote/:id" render={props=> {
+                    return <NewNoteForm {...props} appointments={this.state.appointments} editAppointment={this.editAppointment}
                   />
                 }} />
                 <Route exact path="/note/:id" render={props => {
                     return <NoteCard {...props} appointments={this.state.appointments} />
                 }} />
+                 <Route exact path="/note/edit/:id" render={props => {
+                    return <EditNoteForm {...props} appointments={this.state.appointments} editAppointment={this.editAppointment} />
+                }} />
+                 <Route exact path="/appointments/edit/:id" render={props => {
+                    return <EditAppointmentForm {...props} appointments={this.state.appointments} editAppointment={this.editAppointment}
+                    allDoctors={this.state.doctors} />
+                }} />
+
+
+
 
             </>
         )

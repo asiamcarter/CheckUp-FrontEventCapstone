@@ -9,7 +9,10 @@ export default class NewAppointmentForm extends Component {
         time: "",
         date: "",
         reason: "",
-        noteId: ""
+        note: "",
+        timestamp: "",
+        audio: "",
+        photo: ""
     }
 
     handleFieldChange = evt => {
@@ -44,7 +47,10 @@ export default class NewAppointmentForm extends Component {
             time: this.state.time,
             date: this.state.date,
             reason: this.state.reason,
-            noteId: this.state.noteId
+            note: this.state.note,
+            timestamp: this.state.timestamp,
+            audio: this.state.audio,
+            photo: this.state.photo
         }
 
         this.props.addAppointment(newAppointmentObject)
@@ -52,6 +58,7 @@ export default class NewAppointmentForm extends Component {
             this.props.history.push("/appointments"))
     }
     render() {
+        console.log(this.state.doctorId)
         return (
             <>
                 <form>
@@ -63,10 +70,10 @@ export default class NewAppointmentForm extends Component {
                             {this.getDoctors()}
                         </select>
                     </div>
-                    <div>
+                    {/* <div>
                         <label htmlFor="location">Location</label>
                         <input type="text" onChange={this.handleFieldChange} id="location" />
-                    </div>
+                    </div> */}
                     <div>
                         <label htmlFor="time">Time</label>
                         <input type="time" onChange={this.handleFieldChange} id="time" />
@@ -76,7 +83,7 @@ export default class NewAppointmentForm extends Component {
                         <input type="date" onChange={this.handleFieldChange} id="date" />
                     </div>
                     <div>
-                        <label htmlFor="reason"></label>
+                        <label htmlFor="reason">Reason</label>
                         <input type="text" onChange={this.handleFieldChange} id="reason" />
                     </div>
 

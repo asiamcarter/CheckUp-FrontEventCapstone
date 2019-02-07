@@ -1,9 +1,33 @@
 import React, { Component } from "react"
+import DataManager from "../../modules/DataManager"
 
 export default class NewNoteForm extends Component {
     state = {
+        userId: "",
+        doctorId: "",
+        time: "",
+        date: "",
+        reason: "",
         note: "",
-        appointmentId: ""
+        timestamp: "",
+        audio: "",
+        photo: ""
+    }
+
+    componentDidMount() {
+        DataManager.getById(this.props.match.params.id, "appointments").then(appointment => {
+            this.setState({
+                userId: appointment.userId,
+                doctorId: appointment.doctorId,
+                time: appointment.time,
+                date: appointment.date,
+                reason: appointment.reason,
+                note: appointment.note,
+                timestamp: appointment.timestamp,
+                audio: appointment.audio,
+                photo: appointment.photo
+            })
+        })
     }
 
     handleFieldChange = evt => {
@@ -14,20 +38,25 @@ export default class NewNoteForm extends Component {
 
     }
 
-
-
     addNewNote = evt => {
         evt.preventDefault();
         const newNoteObject = {
+            userId: this.state.userId,
+            doctorId: this.state.doctorId,
+            time: this.state.time,
+            date: this.state.date,
+            reason: this.state.reason,
             note: this.state.note,
-            appointmentId: this.props.match.params.id
+            timestamp: new Date(),
+            audio: this.state.audio,
+            photo: this.state.photo
         }
-        this.props.postNewNote(newNoteObject)
+        this.props.editAppointment(this.props.match.params.id, newNoteObject)
             .then(() => this.props.history.push("/appointments"))
     }
 
     render() {
-        console.log(this.props)
+        console.log("NEW NOTE STATE:", this.state)
         return (
             <>
                <h2>New Note</h2>

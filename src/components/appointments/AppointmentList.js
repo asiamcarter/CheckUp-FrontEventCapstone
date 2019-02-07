@@ -4,8 +4,12 @@ import AppointmentCard from "./AppointmentCard"
 
 export default class AppointmentList extends Component {
 
+
     render() {
-        // console.log("LIST PROPS",this.props.appointments)
+        console.log("APT PROPS",this.props)
+         const sortedApts = this.props.appointments.sort(function (aptA, aptB) {
+            return new Date (aptA.date) - new Date(aptB.date)
+        })
         return (
             <>
                 <div className="appointmentList">
@@ -22,7 +26,7 @@ export default class AppointmentList extends Component {
                 </button>
                 </div>
                 <section>
-                    {this.props.appointments.map(appointment => (
+                    {sortedApts.map(appointment => (
 
                         <AppointmentCard key={appointment.id} appointment={appointment} {...this.props} />
 
