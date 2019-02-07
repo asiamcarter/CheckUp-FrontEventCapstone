@@ -4,33 +4,33 @@ import NewNoteForm from "../notes/NewNoteForm"
 
 export default class AppointmentCard extends Component {
 
-    state = {
-        notes: []
-    }
+    // state = {
+    //     notes: []
+    // }
 
-    getNote = () => {
-        this.props.getAppointmentNotes(this.props.appointment.id)
-            .then(allNotes => {
-                allNotes.notes.map(note => (
-                    this.setState({
-                        notes: note.note
-                    }, this.viewNote)
-                ))
-            })
+    // getNote = () => {
+    //     this.props.getAppointmentNotes(this.props.appointment.id)
+    //         .then(allNotes => {
+    //             allNotes.notes.map(note => (
+    //                 this.setState({
+    //                     notes: note.note
+    //                 }, this.viewNote)
+    //             ))
+    //         })
 
-    }
+    // }
 
-    viewNote = () => {
-        return (console.log(this.state))
-    }
+    // viewNote = () => {
+    //     return (console.log(this.state))
+    // }
 
 
     noteButton = () => {
-        if (this.props.appointment.noteId === "") {
+        if (this.props.appointment.note === "") {
             return (
                 <>
 
-                    <button type="button" onClick={()=> <NewNoteForm />}>
+                    <button type="button" onClick={()=> this.props.history.push("/appointment/newnote")}>
                         Add Note
                     </button>
                 </>
@@ -38,7 +38,7 @@ export default class AppointmentCard extends Component {
         } else {
             return (
                 <>
-                    <button type="button" onClick={() => this.getNote()}>View Note</button>
+                    <button type="button" onClick={() => this.props.history.push(`/appointment/viewnote/${this.props.appointment.id}`)}>View Note</button>
                 </>
             )
         }
@@ -65,7 +65,7 @@ export default class AppointmentCard extends Component {
                                 <p>Date: {this.props.appointment.date}</p>
                                 <p>Time: {this.props.appointment.time}</p>
                                 <p>Reason: {this.props.appointment.reason}</p>
-                                <p>{this.state.notes}</p>
+                                {/* <p>{this.state.notes}</p> */}
                                 {this.noteButton()}
                             </div>
                         </div>
@@ -77,6 +77,7 @@ export default class AppointmentCard extends Component {
         }
     }
     render() {
+        console.log(this.props.appointment.note)
         return (
             <>
                 {this.showUserAppointments()}

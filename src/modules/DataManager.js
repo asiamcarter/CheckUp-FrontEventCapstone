@@ -83,8 +83,8 @@ export default {
         }).then(r => r.json())
     },
 
-    getAptDocNotes() {
-        return fetch(`${remoteURL}/appointments/?_expand=doctor&_expand=note`).then(r =>r.json())
+    getAptDoc() {
+        return fetch(`${remoteURL}/appointments/?_expand=doctor`).then(r =>r.json())
     },
 
     postNewDoctor(newDocotor) {

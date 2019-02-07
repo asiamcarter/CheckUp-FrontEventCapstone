@@ -16,6 +16,7 @@ import AppointmentList from "./appointments/AppointmentList"
 import NewAppointmentForm from "./appointments/NewAppointmentForm"
 import NewDoctorForm from "./doctors/NewDoctorForm"
 import NewNoteForm from "./notes/NewNoteForm"
+import NoteCard from "./notes/NoteCard"
 
 export default class ApplicationViews extends
     Component {
@@ -36,8 +37,8 @@ export default class ApplicationViews extends
             .then(() => DataManager.getAll("symptoms")).then(allSymptoms => newState.symptoms = allSymptoms)
             .then(() => DataManager.getAll("medications")).then(allMedications =>
                 newState.medications = allMedications)
-            .then(() => DataManager.getAptDocNotes()).then(allAppointments => newState.appointments = allAppointments)
-            .then(() => DataManager.getAll("notes")).then(allNotes => newState.notes = allNotes)
+            .then(() => DataManager.getAptDoc()).then(allAppointments => newState.appointments = allAppointments)
+            // .then(() => DataManager.getAll("notes")).then(allNotes => newState.notes = allNotes)
             .then(() => DataManager.getAll("doctors")).then(allDoctors => newState.doctors = allDoctors)
             .then(() => this.setState(newState))
             .then(() => { console.log("COMPONENTDIDMOUNT:", this.state) })
@@ -224,9 +225,12 @@ export default class ApplicationViews extends
                     return <NewDoctorForm {...props} doctors={this.state.doctors}postNewDoctor={this.postNewDoctor}
                      />
                 }} />
-                <Route exact path="/newnote/:id" render={props=> {
-                    return <NewNoteForm {...props} notes={this.state.notes} postNewNote={this.postNewNote}
-                    getAppointmentNotes={this.getAppointmentNotes}/>
+                <Route exact path="/appointments/newnote" render={props=> {
+                    return <NewNoteForm {...props} appointments={this.state.appointments} addAppointment={this.addAppointment}
+                  />
+                }} />
+                <Route exact path="/appointment/viewnote/:id" render={props => {
+                    return <NoteCard {...props} appointments={this.state.appointments} />
                 }} />
 
             </>
