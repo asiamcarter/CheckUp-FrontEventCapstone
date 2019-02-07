@@ -15,6 +15,7 @@ import EditMedicationForm from "./medications/EditMedicationForm"
 import AppointmentList from "./appointments/AppointmentList"
 import NewAppointmentForm from "./appointments/NewAppointmentForm"
 import NewDoctorForm from "./doctors/NewDoctorForm"
+import NewNoteForm from "./notes/NewNoteForm"
 
 export default class ApplicationViews extends
     Component {
@@ -165,6 +166,16 @@ export default class ApplicationViews extends
     getAppointmentNotes = (appointmentId) => {
         return DataManager.getAppointmentNotes(appointmentId)
     }
+    //notes
+
+    postNewNote = (newNote) => {
+        return DataManager.postNewNote(newNote).then(() => {
+            DataManager.getAll("notes")
+                .then(allNotes => this.setState({
+                    notes: allNotes
+                }))
+        })
+    }
 
     render() {
         // console.log("ApplicationViewsState", this.state.appointments)
@@ -212,6 +223,10 @@ export default class ApplicationViews extends
                 <Route exact path="/doctor/new" render={props => {
                     return <NewDoctorForm {...props} doctors={this.state.doctors}postNewDoctor={this.postNewDoctor}
                      />
+                }} />
+                <Route exact path="/newnote/:id" render={props=> {
+                    return <NewNoteForm {...props} notes={this.state.notes} postNewNote={this.postNewNote}
+                    getAppointmentNotes={this.getAppointmentNotes}/>
                 }} />
 
             </>

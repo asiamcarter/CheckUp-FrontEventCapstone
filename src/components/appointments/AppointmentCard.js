@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
+import NewNoteForm from "../notes/NewNoteForm"
 
 export default class AppointmentCard extends Component {
 
@@ -15,7 +16,6 @@ export default class AppointmentCard extends Component {
                         notes: note.note
                     }, this.viewNote)
                 ))
-
             })
 
     }
@@ -29,7 +29,10 @@ export default class AppointmentCard extends Component {
         if (this.props.appointment.noteId === "") {
             return (
                 <>
-                    <button type="button" onClick={() => console.log("clicked!")}>Add Note</button>
+
+                    <button type="button" onClick={()=> <NewNoteForm />}>
+                        Add Note
+                    </button>
                 </>
             )
         } else {
