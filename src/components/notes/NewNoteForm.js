@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import DataManager from "../../modules/DataManager"
+import ReactMicRecord from "react-mic-record"
+
 
 export default class NewNoteForm extends Component {
     state = {
@@ -11,7 +13,8 @@ export default class NewNoteForm extends Component {
         note: "",
         timestamp: "",
         audio: "",
-        photo: ""
+        photo: "",
+        record: false
     }
 
     componentDidMount() {
@@ -29,6 +32,31 @@ export default class NewNoteForm extends Component {
             })
         })
     }
+
+    startRecording = () => {
+        this.setState({
+            record: true
+        });
+    }
+
+    stopRecording = () => {
+        this.setState({
+            record: false
+        });
+    }
+
+    onData(recordedBlob) {
+        console.log('chunk of real-time data is: ', recordedBlob);
+    }
+
+    onStop= (recordedBlob) => {
+        console.log('recordedBlob is: ', recordedBlob);
+        this.setState({
+            audio: recordedBlob.blobURL
+        })
+        console.log("state after stop:", this.state)
+    }
+
 
     handleFieldChange = evt => {
         const stateToChange = {};
@@ -59,12 +87,33 @@ export default class NewNoteForm extends Component {
         console.log("NEW NOTE STATE:", this.state)
         return (
             <>
-               <h2>New Note</h2>
-               <div>
-                   <label htmlFor="content">Content</label>
-                   <input type="text" required onChange={this.handleFieldChange} id="note"/>
-                   <button type="submit" onClick={this.addNewNote} >Add</button>
-               </div>
+                <h2>New Note</h2>
+                <div>
+                    <label htmlFor="content">Content</label>
+                    <input type="text" required onChange={this.handleFieldChange} id="note" />
+                    <button type="submit" onClick={this.addNewNote} >Add</button>
+
+                    <ReactMicRecord
+                        record={this.state.record}
+                        className="sound-wave"
+                        onStop={this.onStop}
+                        strokeColor="#000000"
+                        backgroundColor="#ffffff" />
+                    <button onClick={this.startRecording} type="button">Start</button>
+                    <button onClick={this.stopRecording} type="button">Stop</button>
+                    <figure>
+    <figcaption>Listen to the T-Rex:</figcaption>
+    <audio
+        controls
+        src={this.state.audio}>
+            Your browser does not support the
+            <code>audio</code> element.
+    </audio>
+    </figure>
+
+
+                </div>
+
             </>
         )
     }
