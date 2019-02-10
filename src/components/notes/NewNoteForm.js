@@ -64,7 +64,7 @@ export default class NewNoteForm extends Component {
         let fileName = file.blobURL
 
         //reference to the file location on firebase
-        let uploadedAudio = firebase.storage().ref("/audio")
+        let uploadedAudio = firebase.storage().ref("/audio/"+ recordedBlob.blobURL)
         //uploading the song
         let task = uploadedAudio.put(file)
         //an open connection to the status of that upload
