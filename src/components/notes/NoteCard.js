@@ -27,7 +27,7 @@ export default class NoteCard extends Component {
                 reason: appointment.reason,
                 note: appointment.note,
                 timestamp: appointment.timestamp,
-                audio: appointment.audio,
+                audio: appointment.audioDownloadURL,
                 photo: appointment.photo,
                 id: appointment.id
             })
@@ -37,17 +37,30 @@ export default class NoteCard extends Component {
 
 
     render () {
-        console.log(this.state)
+
         return (
             <>
             <div>
                 <p>{this.state.note}</p>
                 <Link to={`/note/edit/${this.state.id}`}>Edit</Link>
             </div>
+            <figcaption>Listen:</figcaption>
+            {/* <audio controls>
+  <source src={this.state.audio}/>
+
+</audio> */}
+        <audio
+        controls
+        src={this.state.audio}>
+            Your browser does not support the
+            <code>audio</code> element.
+    </audio>
+
             <button type="button" onClick={()=> this.props.history.push("/appointments")}>Back</button>
 
             </>
         )
-    }
+
+}
 }
 
