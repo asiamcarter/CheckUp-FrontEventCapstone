@@ -27,7 +27,7 @@ export default class NoteCard extends Component {
                 reason: appointment.reason,
                 note: appointment.note,
                 timestamp: appointment.timestamp,
-                audio: appointment.songDownloadURL,
+                audio: appointment.audioDownloadURL,
                 photo: appointment.photo,
                 id: appointment.id
             })

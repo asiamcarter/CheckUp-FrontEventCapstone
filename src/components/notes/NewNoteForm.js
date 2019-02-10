@@ -15,7 +15,7 @@ export default class NewNoteForm extends Component {
         note: "",
         timestamp: "",
         uploadedFileName:"",
-        songDownloadURL: "",
+       audioDownloadURL: "",
         photo: "",
         record: false
     }
@@ -79,7 +79,7 @@ export default class NewNoteForm extends Component {
             note: this.state.note,
             timestamp: new Date(),
             uploadedFileName: this.state.uploadedFileName,
-            songDownloadURL: this.state.songDownloadURL,
+           audioDownloadURL: this.state.audioDownloadURL,
             photo: this.state.photo
         }
         this.props.editAppointment(this.props.match.params.id, newNoteObject)
@@ -116,7 +116,7 @@ export default class NewNoteForm extends Component {
               //setting the download url and file name to state
               this.setState({
                 uploadedFileName: fileName,
-                songDownloadURL: downloadURL
+               audioDownloadURL: downloadURL
               })
             })
           })
