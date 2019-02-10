@@ -52,21 +52,28 @@ export default class EditNoteForm extends Component {
             photo: this.state.photo,
             id: this.state.id
         }
-         this.props.editAppointment(this.props.match.params.id, newNoteObject)
-         .then(()=> this.props.history.push(`/note/${this.state.id}`))
+        this.props.editAppointment(this.props.match.params.id, newNoteObject)
+            .then(() => this.props.history.push(`/note/${this.state.id}`))
 
     }
- render() {
-     console.log(this.state)
-     return (
-         <>
-         <h2>Edit Note</h2>
-               <div>
-                   <label htmlFor="content">Content</label>
-                   <input type="text" required onChange={this.handleFieldChange} id="note"/>
-                   <button type="submit" onClick={this.editNote} >Save</button>
-               </div>
-         </>
-     )
- }
+    render() {
+        console.log(this.state)
+        return (
+            <>
+                <h2>Edit Note</h2>
+                <div>
+                    <label htmlFor="content">Content</label>
+                    <input type="text" required onChange={this.handleFieldChange} id="note" />
+                    <figcaption>Listen:</figcaption>
+                    <audio
+                        controls
+                        src={this.state.audio.blobURL}>
+                        Your browser does not support the
+            <code>audio</code> element.
+    </audio>
+                    <button type="submit" onClick={this.editNote} >Save</button>
+                </div>
+            </>
+        )
+    }
 }

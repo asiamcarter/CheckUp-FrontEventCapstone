@@ -27,7 +27,7 @@ export default class NoteCard extends Component {
                 reason: appointment.reason,
                 note: appointment.note,
                 timestamp: appointment.timestamp,
-                audio: appointment.audio,
+                audio: appointment.songDownloadURL,
                 photo: appointment.photo,
                 id: appointment.id
             })
@@ -38,7 +38,6 @@ export default class NoteCard extends Component {
 
     render () {
 
-
         return (
             <>
             <div>
@@ -46,9 +45,13 @@ export default class NoteCard extends Component {
                 <Link to={`/note/edit/${this.state.id}`}>Edit</Link>
             </div>
             <figcaption>Listen:</figcaption>
+            {/* <audio controls>
+  <source src={this.state.audio}/>
+
+</audio> */}
         <audio
         controls
-        src={this.state.audio.blobURL}>
+        src={this.state.audio}>
             Your browser does not support the
             <code>audio</code> element.
     </audio>

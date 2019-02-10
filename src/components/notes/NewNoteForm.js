@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import DataManager from "../../modules/DataManager"
 import ReactMicRecord from "react-mic-record"
 // import Recorder from 'react-mp3-recorder'
+import * as firebase from "firebase"
+
 
 export default class NewNoteForm extends Component {
     state = {
@@ -12,7 +14,8 @@ export default class NewNoteForm extends Component {
         reason: "",
         note: "",
         timestamp: "",
-        audio: "",
+        uploadedFileName:"",
+        songDownloadURL: "",
         photo: "",
         record: false
     }
@@ -51,10 +54,9 @@ export default class NewNoteForm extends Component {
 
     onStop = (recordedBlob) => {
         console.log('recordedBlob is: ', recordedBlob);
-        this.setState({
-            audio: recordedBlob
-        })
-        console.log("state after stop:", this.state)
+        // this.setState({
+        //     audio: recordedBlob
+        // })
     }
 
 
@@ -76,13 +78,49 @@ export default class NewNoteForm extends Component {
             reason: this.state.reason,
             note: this.state.note,
             timestamp: new Date(),
-            audio: this.state.audio,
+            uploadedFileName: this.state.uploadedFileName,
+            songDownloadURL: this.state.songDownloadURL,
             photo: this.state.photo
         }
         this.props.editAppointment(this.props.match.params.id, newNoteObject)
             .then(() => this.props.history.push("/appointments"))
     }
+    fileUploader = (e) => {
+        let file = e.target.files[0];
+        //file name to save in database
+        let fileName = file.name
 
+        //reference to the file location on firebase
+        let uploadedSong = firebase.storage().ref(file.name)
+        //uploading the song
+        let task = uploadedSong.put(file)
+        //an open connection to the status of that upload
+        task.on('state_changed', (snapshot) => {
+          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED:
+              console.log('Upload is paused');
+              break;
+            case firebase.storage.TaskState.RUNNING:
+              console.log('Upload is running');
+              break;
+          }
+        }, (error) => {
+          console.log(error)
+        },
+          () => {
+            //getting the download url
+            task.snapshot.ref.getDownloadURL().then((downloadURL) => {
+
+              //setting the download url and file name to state
+              this.setState({
+                uploadedFileName: fileName,
+                songDownloadURL: downloadURL
+              })
+            })
+          })
+      };
     render() {
 
             console.log("NEW NOTE STATE:", this.state)
@@ -93,30 +131,35 @@ export default class NewNoteForm extends Component {
                         <label htmlFor="content">Content</label>
                         <input type="text" required onChange={this.handleFieldChange} id="note" />
                         <button type="submit" onClick={this.addNewNote} >Add</button>
+                        <input type="file" accept="audio/*" capture id="audio"  onChange={(e)=> {
+                            {this.fileUploader(e)}
 
-                        <ReactMicRecord
+                          }}/>
+                            {/* // reader.readAsDataURL(file)
+                            // let player = document.getElementById('player');
+                            // player.src= URL.createObjectURL(file)
+                            // console.log(file)
+                            // this.setState({audio: file})
+                        }}/> */}
+                        <audio id="player" controls></audio>
+                        {/* <ReactMicRecord
                             record={this.state.record}
                             className="sound-wave"
                             onStop={this.onStop}
                             strokeColor="#000000"
                             backgroundColor="#ffffff" />
                         <button onClick={this.startRecording} type="button">Start</button>
-                        <button onClick={this.stopRecording} value="audio" type="button">Stop</button>
-                        <figure>
+                        <button onClick={this.stopRecording} value="audio" type="button">Stop</button> */}
+                        {/* <figure>
                             <figcaption>Listen:</figcaption>
                             <audio
                                 controls
                                 src={this.state.audio.blobURL}>
                                 Your browser does not support the
-            <code>audio</code> element.
-
-    </audio>
-                        </figure>
-
-
-
+                                <code>audio</code> element.
+                            </audio>
+                        </figure> */}
                     </div>
-
                 </>
             )
         }
