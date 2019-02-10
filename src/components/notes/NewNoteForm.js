@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import DataManager from "../../modules/DataManager"
 import ReactMicRecord from "react-mic-record"
-// import Recorder from 'react-mp3-recorder'
 import * as firebase from "firebase"
 
 
@@ -17,7 +16,8 @@ export default class NewNoteForm extends Component {
         uploadedFileName:"",
        audioDownloadURL: "",
         photo: "",
-        record: false
+        record: false,
+        audio: ""
     }
 
     componentDidMount() {
@@ -54,9 +54,46 @@ export default class NewNoteForm extends Component {
 
     onStop = (recordedBlob) => {
         console.log('recordedBlob is: ', recordedBlob);
-        // this.setState({
-        //     audio: recordedBlob
-        // })
+        this.setState({
+            audio: recordedBlob
+        })
+
+
+        let file = recordedBlob.blob
+        //file name to save in database
+        let fileName = file.blobURL
+
+        //reference to the file location on firebase
+        let uploadedAudio = firebase.storage().ref("/audio")
+        //uploading the song
+        let task = uploadedAudio.put(file)
+        //an open connection to the status of that upload
+        task.on('state_changed', (snapshot) => {
+          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED:
+              console.log('Upload is paused');
+              break;
+            case firebase.storage.TaskState.RUNNING:
+              console.log('Upload is running');
+              break;
+          }
+        }, (error) => {
+          console.log(error)
+        },
+          () => {
+            //getting the download url
+            task.snapshot.ref.getDownloadURL().then((downloadURL) => {
+
+              //setting the download url and file name to state
+              this.setState({
+                uploadedFileName: fileName,
+               audioDownloadURL: downloadURL
+              })
+            })
+          })
+
     }
 
 
@@ -85,47 +122,12 @@ export default class NewNoteForm extends Component {
         this.props.editAppointment(this.props.match.params.id, newNoteObject)
             .then(() => this.props.history.push("/appointments"))
     }
-    fileUploader = (e) => {
-        let file = e.target.files[0];
-        //file name to save in database
-        let fileName = file.name
 
-        //reference to the file location on firebase
-        let uploadedSong = firebase.storage().ref(file.name)
-        //uploading the song
-        let task = uploadedSong.put(file)
-        //an open connection to the status of that upload
-        task.on('state_changed', (snapshot) => {
-          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-          switch (snapshot.state) {
-            case firebase.storage.TaskState.PAUSED:
-              console.log('Upload is paused');
-              break;
-            case firebase.storage.TaskState.RUNNING:
-              console.log('Upload is running');
-              break;
-          }
-        }, (error) => {
-          console.log(error)
-        },
-          () => {
-            //getting the download url
-            task.snapshot.ref.getDownloadURL().then((downloadURL) => {
-
-              //setting the download url and file name to state
-              this.setState({
-                uploadedFileName: fileName,
-               audioDownloadURL: downloadURL
-              })
-            })
-          })
-      };
     render() {
 
-            console.log("NEW NOTE STATE:", this.state)
-            return (
-                <>
+        console.log("NEW NOTE STATE:", this.state)
+        return (
+            <>
                     <h2>New Note</h2>
                     <div>
                         <label htmlFor="content">Content</label>
@@ -134,33 +136,62 @@ export default class NewNoteForm extends Component {
                         <input type="file" accept="audio/*" capture id="audio"  onChange={(e)=> {
                             {this.fileUploader(e)}
 
-                          }}/>
-                            {/* // reader.readAsDataURL(file)
-                            // let player = document.getElementById('player');
-                            // player.src= URL.createObjectURL(file)
-                            // console.log(file)
-                            // this.setState({audio: file})
-                        }}/> */}
-                        <audio id="player" controls></audio>
-                        {/* <ReactMicRecord
+                        }}/>
+                         <ReactMicRecord
                             record={this.state.record}
                             className="sound-wave"
                             onStop={this.onStop}
                             strokeColor="#000000"
                             backgroundColor="#ffffff" />
-                        <button onClick={this.startRecording} type="button">Start</button>
-                        <button onClick={this.stopRecording} value="audio" type="button">Stop</button> */}
-                        {/* <figure>
+                            <button onClick={this.startRecording} type="button">Start</button>
+                        <button onClick={this.stopRecording} value="audio" type="button">Stop</button>
+                        <figure>
                             <figcaption>Listen:</figcaption>
                             <audio
                                 controls
-                                src={this.state.audio.blobURL}>
+                                src={this.state.audioDownloadURL}>
                                 Your browser does not support the
                                 <code>audio</code> element.
                             </audio>
-                        </figure> */}
+                        </figure>
                     </div>
                 </>
             )
         }
     }
+                                                                                                                // fileUploader = (e) => {
+                                                                                                                //     let file = e.target.files[0];
+                                                                                                                //     //file name to save in database
+                                                                                                                //     let fileName = file.name
+
+                                                                                                                //     //reference to the file location on firebase
+                                                                                                                //     let uploadedSong = firebase.storage().ref(file.name)
+                                                                                                                //     //uploading the song
+                                                                                                                //     let task = uploadedSong.put(file)
+                                                                                                                //     //an open connection to the status of that upload
+                                                                                                                //     task.on('state_changed', (snapshot) => {
+                                                                                                                //       let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                                                                                                //       console.log('Upload is ' + progress + '% done');
+                                                                                                                //       switch (snapshot.state) {
+                                                                                                                //         case firebase.storage.TaskState.PAUSED:
+                                                                                                                //           console.log('Upload is paused');
+                                                                                                                //           break;
+                                                                                                                //         case firebase.storage.TaskState.RUNNING:
+                                                                                                                //           console.log('Upload is running');
+                                                                                                                //           break;
+                                                                                                                //       }
+                                                                                                                //     }, (error) => {
+                                                                                                                //       console.log(error)
+                                                                                                                //     },
+                                                                                                                //       () => {
+                                                                                                                //         //getting the download url
+                                                                                                                //         task.snapshot.ref.getDownloadURL().then((downloadURL) => {
+
+                                                                                                                //           //setting the download url and file name to state
+                                                                                                                //           this.setState({
+                                                                                                                //             uploadedFileName: fileName,
+                                                                                                                //            audioDownloadURL: downloadURL
+                                                                                                                //           })
+                                                                                                                //         })
+                                                                                                                //       })
+                                                                                                                //   };
