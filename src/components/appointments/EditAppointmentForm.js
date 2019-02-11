@@ -35,11 +35,14 @@ export default class EditAppointmentForm extends Component {
     getDoctors = () => {
         let doctors = this.props.allDoctors.map(doctor => {
             let doctorId = JSON.parse(doctor.id)
+            if (doctor.userId === Number(sessionStorage.getItem("User"))){
             return (
                   <option key={doctorId} value={doctor.id}>{doctor.name}</option>
 
             )
+            }
         })
+
         return doctors
     }
 

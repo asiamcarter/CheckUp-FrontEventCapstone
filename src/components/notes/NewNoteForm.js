@@ -13,7 +13,6 @@ export default class NewNoteForm extends Component {
         reason: "",
         note: "",
         timestamp: "",
-        uploadedFileName:"",
        audioDownloadURL: "",
         photo: "",
         record: false,
@@ -54,14 +53,11 @@ export default class NewNoteForm extends Component {
 
     onStop = (recordedBlob) => {
         console.log('recordedBlob is: ', recordedBlob);
-        this.setState({
-            audio: recordedBlob
-        })
+
 
 
         let file = recordedBlob.blob
         //file name to save in database
-        let fileName = file.blobURL
 
         //reference to the file location on firebase
         let uploadedAudio = firebase.storage().ref("/audio/"+ recordedBlob.blobURL)
@@ -69,34 +65,31 @@ export default class NewNoteForm extends Component {
         let task = uploadedAudio.put(file)
         //an open connection to the status of that upload
         task.on('state_changed', (snapshot) => {
-        //   let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        //   console.log('Upload is ' + progress + '% done');
-        //   switch (snapshot.state) {
-        //     case firebase.storage.TaskState.PAUSED:
-        //       console.log('Upload is paused');
-        //       break;
-        //     case firebase.storage.TaskState.RUNNING:
-        //       console.log('Upload is running');
-        //       break;
-        //   }
-        // }, (error) => {
-        //   console.log(error)
-        // },
-
+          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED:
+              console.log('Upload is paused');
+              break;
+            case firebase.storage.TaskState.RUNNING:
+              console.log('Upload is running');
+              break;
+          }
+        }, (error) => {
+          console.log(error)
+        },
+          () => {
             //getting the download url
             task.snapshot.ref.getDownloadURL().then((downloadURL) => {
 
               //setting the download url and file name to state
               this.setState({
-                uploadedFileName: fileName,
                audioDownloadURL: downloadURL
               })
             })
+          })
 
-
-    })
-}
-
+    }
 
 
     handleFieldChange = evt => {

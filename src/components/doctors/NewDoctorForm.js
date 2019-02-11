@@ -16,7 +16,8 @@ export default class NewDoctorForm extends Component {
         evt.preventDefault();
         const newDoctor = {
             name: this.state.name,
-            location: this.state.location
+            location: this.state.location,
+            userId: Number(sessionStorage.getItem("User"))
         }
         this.props.postNewDoctor(newDoctor).then(() =>
             alert("You're doctor has been added!"),
