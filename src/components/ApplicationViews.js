@@ -142,6 +142,7 @@ export default class ApplicationViews extends
                 .then(allAppointments => this.setState({
                     appointments: allAppointments
                 }))
+
         })
     }
 
@@ -182,6 +183,7 @@ export default class ApplicationViews extends
 
     render() {
         // console.log("ApplicationViewsState", this.state.appointments)
+        console.log("APPVIEWS STATE", this.state)
         return (
             <>
                 <Route exact path="/" render={(props) => {
