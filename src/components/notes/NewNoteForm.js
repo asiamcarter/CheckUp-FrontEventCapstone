@@ -69,20 +69,20 @@ export default class NewNoteForm extends Component {
         let task = uploadedAudio.put(file)
         //an open connection to the status of that upload
         task.on('state_changed', (snapshot) => {
-          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-          switch (snapshot.state) {
-            case firebase.storage.TaskState.PAUSED:
-              console.log('Upload is paused');
-              break;
-            case firebase.storage.TaskState.RUNNING:
-              console.log('Upload is running');
-              break;
-          }
-        }, (error) => {
-          console.log(error)
-        },
-          () => {
+        //   let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        //   console.log('Upload is ' + progress + '% done');
+        //   switch (snapshot.state) {
+        //     case firebase.storage.TaskState.PAUSED:
+        //       console.log('Upload is paused');
+        //       break;
+        //     case firebase.storage.TaskState.RUNNING:
+        //       console.log('Upload is running');
+        //       break;
+        //   }
+        // }, (error) => {
+        //   console.log(error)
+        // },
+
             //getting the download url
             task.snapshot.ref.getDownloadURL().then((downloadURL) => {
 
@@ -92,9 +92,11 @@ export default class NewNoteForm extends Component {
                audioDownloadURL: downloadURL
               })
             })
-          })
 
-    }
+
+    })
+}
+
 
 
     handleFieldChange = evt => {

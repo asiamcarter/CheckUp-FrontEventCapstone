@@ -57,7 +57,7 @@ export default class AppointmentCard extends Component {
         }
     }
     render() {
-        console.log(this.noteButton())
+
         return (
             <>
                 {this.showUserAppointments()}
