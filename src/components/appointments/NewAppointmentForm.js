@@ -36,8 +36,9 @@ export default class NewAppointmentForm extends Component {
 
             )
             }
+            return doctors
         })
-        return doctors
+
     }
 
     addAppointment = evt => {
