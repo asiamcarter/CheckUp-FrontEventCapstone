@@ -1,6 +1,7 @@
 .feeling-icon {
     width: 50px;
     height: 50px;
+    margin-right: 10px;
 }
 
 .homepage-feeling{
@@ -8,4 +9,5 @@
     flex-direction: column;
     align-items: center;
     align-content:center;
+    margin-top: 50px;
 }

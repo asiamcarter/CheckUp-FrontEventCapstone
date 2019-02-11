@@ -25,7 +25,7 @@ export default class Homepage extends Component {
         })
        return (
        <div className="homepage-feeling">
-                        <h4>How are you feeling, {userObject.name}</h4>
+                        <h4>How are you feeling, {userObject.name}?</h4>
                         <div className="homepage-feeling-icons">
                         <img src={happy} alt="happy face" className="feeling-icon"/>
                         <img src={mild} alt="okay face" className="feeling-icon"/>
