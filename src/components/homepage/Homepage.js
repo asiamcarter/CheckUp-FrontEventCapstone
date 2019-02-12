@@ -20,8 +20,14 @@ export default class Homepage extends Component {
     componentDidMount() {
         const newState = {}
         DataManager.getAllUserInfo().then(allUsers => newState.users= allUsers, newState.dataLoaded= true)
-        .then(()=> DataManager.getAptDoc()).then(allDocs => newState.userAptDoc= allDocs)
-        .then(()=> this.setState(newState))
+        .then(()=> DataManager.getAptDoc()).then(allDocs => {
+            let sortedApts = allDocs.sort(function (aptA, aptB) {
+                return new Date (aptA.date) - new Date(aptB.date)
+            })
+            newState.userAptDoc= sortedApts
+           })
+    .then(()=>  this.setState(newState))
+
     }
 
     moodCheck() {
@@ -51,7 +57,7 @@ export default class Homepage extends Component {
 
     welcomeUser() {
         let seshUser = Number(sessionStorage.getItem("User"))
-        console.log("session user:", seshUser)
+        // console.log("session user:", seshUser)
 
         let userObject = this.state.users.find(user => {
             return (seshUser === user.id)
@@ -59,7 +65,8 @@ export default class Homepage extends Component {
         let aptMap = this.state.userAptDoc.filter(apt => {
             return (apt.userId === Number(sessionStorage.getItem("User")))
          })
-        console.log(userObject)
+         console.log("LOOK HERE",aptMap)
+        // console.log(userObject)
         if (aptMap.length > 0  && userObject.medications.length > 0) {
             return (
                 <div>
@@ -152,13 +159,16 @@ export default class Homepage extends Component {
         } else if (this.state.dataLoaded === true && this.state.userAptDoc) {
             return (
                 <>
-                <nav className="navbar sticky-top navbar-light light-blue flex-md-nowrap p-0 shadow">
+                <nav className="navbar sticky-top flex-md-nowrap p-0 shadow ">
                 <div className="container">
                     <ul className="nav nav-pills nav-fill homepage-top-nav">
                         <li className="nav-item dropdown">
-                        <Link to={"/"} onClick={()=> (this.removeSessionUser())}>
+                        <Link to={"/"}
+                        onClick={()=> (this.removeSessionUser())}
+                        >
                            <img src={dummyavatar} alt="dummy profile" className="homepage-avatar" width="20px" height="20px"/>
                            </Link>
+
                         </li>
                         </ul>
 

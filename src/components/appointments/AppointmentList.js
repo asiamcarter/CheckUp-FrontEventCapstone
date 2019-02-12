@@ -6,7 +6,7 @@ export default class AppointmentList extends Component {
 
 
     render() {
-        console.log("APT PROPS",this.props)
+        // console.log("APT PROPS",this.props)
          const sortedApts = this.props.appointments.sort(function (aptA, aptB) {
             return new Date (aptA.date) - new Date(aptB.date)
         })
@@ -26,9 +26,9 @@ export default class AppointmentList extends Component {
                 </button>
                 </div>
                 <section>
-                    {sortedApts.map(appointment => (
-
-                        <div key={appointment.id} >
+                    {sortedApts.map(appointment =>
+                    (
+                        <div key={appointment.id}>
                         <AppointmentCard key={appointment.id} appointment={appointment} {...this.props} />
                         </div>
 

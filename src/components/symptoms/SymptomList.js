@@ -9,7 +9,7 @@ export default class SymptomList extends Component {
                 <div className="symptomList">
                     <h2>Symptom List</h2>
                     <button type="submit" onClick={() => {
-                        this.props.history.push("/symptoms/new")
+                        this.props.history.push("/track")
                     }} >
                         Add
                 </button>

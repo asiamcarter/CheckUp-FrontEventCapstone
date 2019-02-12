@@ -14,7 +14,7 @@ export default class NewSymptomForm extends Component {
         const stateToChange={};
         stateToChange[evt.target.id] = evt.target.value;
         this.setState(stateToChange);
-        console.log(evt.target, evt.target.value)
+        console.log(stateToChange)
     }
 
 //    getDate = function() {
@@ -38,7 +38,7 @@ export default class NewSymptomForm extends Component {
         // let hours = (d.getHours()-12)
         // let minutes = d.getMinutes()
         const newSymptomObject = {
-            name: this.state.name,
+            name: this.props.match.params.symptomId,
             intensity: this.state.intensity,
             date: this.state.date,
             time: this.state.time,
@@ -46,7 +46,7 @@ export default class NewSymptomForm extends Component {
             userId: Number(sessionStorage.getItem("User"))
         }
         this.props.addSymptom(newSymptomObject)
-        .then(() => this.props.history.push("/track"))
+        .then(() => this.props.history.push("/trackedsymptoms"))
     }
     render() {
         return (
@@ -54,23 +54,28 @@ export default class NewSymptomForm extends Component {
             <form>
                 <h2> Add New Symptom </h2>
                 <div>
-                    <label htmlFor="name">Name
+                    <h4>{this.props.match.params.symptomId}</h4>
+                    {/* <label htmlFor="name">Name
                     </label>
                     <select id="name" required onChange={this.handleFieldChange}>
                         <option value="nausea">Nausea</option>
                         <option value="cough">Cough</option>
                         <option value="headache">Headache</option>
                         <option value="pain">Pain</option>
-                    </select>
+                    </select> */}
                 </div>
-                <div>
-                    <label htmlFor="intensity">Intensity</label>
-                    <select id="intensity" required onChange={this.handleFieldChange}>
-                        <option value="none">None</option>
-                        <option value="mild">Mild</option>
-                        <option value="medium">Medium</option>
-                        <option value="severe">Severe</option>
-                    </select>
+                <div className="box">
+                    <p className="intensity">Intensity</p>
+                    <div className="rating" onChange={this.handleFieldChange} id="intensity">
+
+                        <input type="radio" name="rating" id="none" value="none" /><label htmlFor="none" className="none"
+                        >None</label>
+
+                        <input type="radio" name="rating" id="mild" value="mild"/><label htmlFor="mild" className="mild">Mild</label>
+                        <input type="radio" name="rating" id="med" value="med"/><label htmlFor="med" className="med">Med</label>
+                        <input type="radio" name="rating" id="severe" value="severe"/><label htmlFor="severe" className="severe">Severe</label>
+
+                </div>
                 </div>
                 <div>
                     <label htmlFor="date">Date</label>
