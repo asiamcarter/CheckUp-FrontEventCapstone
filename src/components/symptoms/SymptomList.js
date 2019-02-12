@@ -3,14 +3,21 @@ import React, { Component } from "react"
 import SymptomCard from "./SymptomCard"
 
 export default class SymptomList extends Component {
+
+    getAllTrackedSymptoms = () => {
+        this.props.getAll()
+        .then(()=> {
+            this.props.history.push("/track")
+        })
+    }
+
     render() {
+
         return (
             <>
                 <div className="symptomList">
                     <h2>Symptom List</h2>
-                    <button type="submit" onClick={() => {
-                        this.props.history.push("/track")
-                    }} >
+                    <button type="submit" onClick={this.getAllTrackedSymptoms} >
                         Add
                 </button>
                 </div>

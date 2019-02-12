@@ -1,25 +1,18 @@
 .my-list-group {
-    width: 50%;
     display: inline-block;
 }
-
-.left .list-group-item {
-display: flex;
-  padding: 50px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
+#add {
+    order: -1;
 }
 
-#nausea,
+
+/* #nausea,
 .nausea-h1 {
     background-color: #AFD3BF;
     color: white;
-}
+} */
 
-#weight {
+/* #weight {
     background-color: #819FA3;
     opacity: 0.52;
     color: white;
@@ -30,26 +23,12 @@ display: flex;
     background-color: #FCCE77;
     opacity: 0.91;
    color: white;
-}
-
-#add {
-    background-color: #EDDECA;
-    opacity: 0.92;
-   color: white;
-}
-
-
-.right {
-  float: right;
-}
-
-.left {
-    float: left;
-}
+} */
 
 .right .list-group-item {
   display: flex;
-  padding: 50px;
+  flex-direction: column-reverse;
+  padding: 10px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
   justify-content: center;
@@ -59,8 +38,8 @@ display: flex;
 
 .symptom-container {
     display: flex;
-    flex-direction: column;
-    margin-top: 50px;
+    flex-direction: column-reverse;
+    margin-top: 10px;
 }
 
 .symptom-name-container{
@@ -72,6 +51,7 @@ display: flex;
     margin-top: 10px;
 }
 
+
 .box {
     width: 500px;
 }
@@ -82,7 +62,7 @@ display: flex;
     flex-direction: row;
     /* border: 1px solid black; */
     margin-bottom: 10px;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     /* background: linear-gradient(to right, #f00, #ff0, #0f0); */
 }
 
@@ -128,7 +108,7 @@ label.severe {
       display: flex;
         justify-content: center;
         align-content: center;
-    } */
+    }  */
 
     .modalSize{
         max-width: 71.5%;

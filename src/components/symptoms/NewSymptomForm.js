@@ -16,14 +16,14 @@ export default class NewSymptomForm extends Component {
         const stateToChange = {};
         stateToChange[evt.target.className] = evt.target.value;
         this.setState(stateToChange);
-        console.log(stateToChange)
-        console.log(evt.target)
+        // console.log(stateToChange)
+        // console.log(evt.target)
     }
     handleFieldChange = evt => {
         const stateToChange = {};
         stateToChange[evt.target.id] = evt.target.value;
         this.setState(stateToChange);
-        console.log(stateToChange)
+        // console.log(stateToChange)
 
     }
 
