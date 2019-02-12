@@ -195,7 +195,7 @@ export default class ApplicationViews extends
                         postUser={this.postUser} />
                 }} />
                 <Route exact path="/home" render={(props) => {
-                    return <Homepage {...props} users={this.state.users} />
+                    return <Homepage {...props} users={this.state.users} appointments={this.state.appointments} doctors={this.getAptDocs()} />
                 }} />
                 <Route exact path="/track" render={(props) => {
                     return <SymptomList {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} deleteSymptom={this.deleteSymptom} getAll={this.getAllSymptoms} />

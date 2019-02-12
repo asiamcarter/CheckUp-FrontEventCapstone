@@ -29,16 +29,13 @@ export default class NewAppointmentForm extends Component {
 
     getDoctors = () => {
         let doctors = this.props.allDoctors.map(doctor => {
-            let doctorId = JSON.parse(doctor.id)
-            if (doctor.userId === Number(sessionStorage.getItem("User"))){
-            return (
-                  <option key={doctorId} value={doctor.id}>{doctor.name}</option>
 
-            )
+        if (doctor.userId === Number(sessionStorage.getItem("User"))) {
+                let doctorId = JSON.parse(doctor.id)
+                return <option key={doctorId} value={doctor.id}>{doctor.name}</option>
             }
-            return doctors
         })
-
+        return doctors
     }
 
     addAppointment = evt => {
@@ -58,10 +55,12 @@ export default class NewAppointmentForm extends Component {
 
         this.props.addAppointment(newAppointmentObject)
             .then(() =>
-            this.props.history.push("/appointments"))
+                this.props.history.push("/appointments"))
     }
     render() {
-        console.log(this.state.doctorId)
+        console.log(this.props.allDoctors)
+        console.log(Number(sessionStorage.getItem("User")))
+
         return (
             <>
                 <form>
@@ -95,5 +94,6 @@ export default class NewAppointmentForm extends Component {
                 </form>
             </>
         )
+
     }
 }
