@@ -4,6 +4,7 @@ import './index.css';
 import ApplicationViews from "./components/ApplicationViews"
 import { BrowserRouter as Router } from "react-router-dom"
 import * as firebase from "firebase"
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 

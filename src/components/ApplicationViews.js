@@ -20,7 +20,7 @@ import NoteCard from "./notes/NoteCard"
 import EditNoteForm from "./notes/EditNoteForm"
 import EditAppointmentForm from "./appointments/EditAppointmentForm"
 import TrackChoice from "./symptoms/TrackChoice"
-
+import { Button } from 'reactstrap';
 export default class ApplicationViews extends
     Component {
 
