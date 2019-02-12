@@ -1,98 +1,182 @@
 import React, { Component } from "react"
 import DataManager from "../../modules/DataManager";
 import { Link } from "react-router-dom"
+import happy from "../../images/homepage/happy.png"
+import  mild from "../../images/homepage/mild.png"
+import med from "../../images/homepage/med.png"
+import severe from "../../images/homepage/severe.png"
+import pill from "../../images/homepage/pill.png"
+import "./Homepage.css"
+import dummyavatar from "../../images/homepage/avatar.jpg"
 
 export default class Homepage extends Component {
 
     state = {
         users: "",
-        dataLoaded: false
+        dataLoaded: false,
+        userAptDoc:""
     }
 
     componentDidMount() {
-        DataManager.getAllUserInfo().then(allUsers => this.setState({ users: allUsers, dataLoaded: true }))
+        const newState = {}
+        DataManager.getAllUserInfo().then(allUsers => newState.users= allUsers, newState.dataLoaded= true)
+        .then(()=> DataManager.getAptDoc()).then(allDocs => {
+            let sortedApts = allDocs.sort(function (aptA, aptB) {
+                return new Date (aptA.date) - new Date(aptB.date)
+            })
+            newState.userAptDoc= sortedApts
+           })
+    .then(()=>  this.setState(newState))
+
     }
 
+    moodCheck() {
+        let seshUser = Number(sessionStorage.getItem("User"))
+        let userObject = this.state.users.find(user => {
+            return (seshUser === user.id)
+        })
+       return (
+       <div className="homepage-feeling">
+                        <h4>How are you feeling, {userObject.name}?</h4>
+                        <div className="homepage-feeling-icons">
+                        <img src={happy} alt="happy face" className="feeling-icon"/>
+                        <img src={mild} alt="okay face" className="feeling-icon"/>
+                        <img src={med} alt="sad face" className="feeling-icon"/>
+                        <img src={severe} alt="pain face" className="feeling-icon"/>
+                        </div>
+                    </div>
+
+       )
+    }
+    // test = () => {
+    //     let aptMap = this.state.userAptDoc.filter(apt => {
+    //         return (apt.userId === Number(sessionStorage.getItem("User")))
+    //      })
+    //     console.log(aptMap)
+    // }
 
     welcomeUser() {
         let seshUser = Number(sessionStorage.getItem("User"))
-        console.log("session user:", seshUser)
+        // console.log("session user:", seshUser)
+
         let userObject = this.state.users.find(user => {
-            console.log("find method user id:", user.id)
             return (seshUser === user.id)
         })
-        if (userObject.appointments.length > 0 && userObject.medications.length > 0) {
+        let aptMap = this.state.userAptDoc.filter(apt => {
+            return (apt.userId === Number(sessionStorage.getItem("User")))
+         })
+         console.log("LOOK HERE",aptMap)
+        // console.log(userObject)
+        if (aptMap.length > 0  && userObject.medications.length > 0) {
             return (
                 <div>
-                    <h3>Welcome to your homepage, {userObject.name}!</h3>
-                    <br />
-                    <div>
-                        <Link to={"/appointments"}> <h4> Appointment: </h4></Link>
-                        <p>{userObject.appointments[0].reason}</p>
-                        <p>{userObject.appointments[0].date}</p>
-                        <p>{userObject.appointments[0].time}</p>
-                    </div>
-                    <div>
-                        <Link to={"/meds"}><h4>Next Medication:</h4></Link>
-                        <p>{userObject.medications[0].name} </p>
-                        <p>{userObject.medications[0].quantity}</p>
-                        <p>{userObject.medications[0].date}</p>
-                    </div>
+                    <Link to={"/meds"}>
+                        <hr />
+                        <div className="homepage-medication">
+                            <div className="homepage-pill-image">
+                                <img src={pill} alt="pill graphic" width="50px" height="50px"/>
+                            </div>
+                            <div className="homepage-medication-info">
+                                <p className="homepage-medication-quantity-name">
+                                    {userObject.medications[0].quantity} {userObject.medications[0].name}
+                                </p>
+                                <p className="homepage-medication-time">
+                                    {userObject.medications[0].time}
+                                </p>
+                            </div>
+                        </div>
+                    </Link>
+                        <Link to={"/appointments"} className="homepage-appointment-link">
+                    <div className="homepage-appointment">
+                            <h4> Upcoming Appointment: </h4>
+                            <p className="homepage-appointment-date">{aptMap[0].date}</p>
+                            <p>{aptMap[0].doctor.name} at {aptMap[0].doctor.location}</p>
+                            </div>
+                        </Link>
+
                 </div>
             )
 
-        } else if (userObject.appointments.length > 0) {
+        } else if (aptMap.length > 0) {
             return (
+
                 <div>
-                    <h3>Welcome to your homepage, {userObject.name}!</h3>
-                    <br />
-                    <div>
-                        <Link to={"/appointments"}> <h4> Appointment: </h4></Link>
-                        <p>{userObject.appointments[0].reason}</p>
-                        <p>{userObject.appointments[0].date}</p>
-                        <p>{userObject.appointments[0].time}</p>
-                    </div>
+                      <Link to={"/appointments"} className="homepage-appointment-link">
+                    <div className="homepage-appointment">
+                            <h4> Upcoming Appointment: </h4>
+                            <p className="homepage-appointment-date">{aptMap[0].date}</p>
+                            <p>{aptMap[0].doctor.name} at {aptMap[0].doctor.location}</p>
+                            </div>
+                        </Link>
                 </div>
 
             )
         } else if (userObject.medications.length > 0) {
             return (
-                <div>
-                    <h3>Welcome to your homepage, {userObject.name}!</h3>
-                    <br />
-                    <div>
-                        <Link to={"/meds"}><h4>Next Medication:</h4></Link>
-                        <p>{userObject.medications[0].name} </p>
-                        <p>{userObject.medications[0].quantity}</p>
-                        <p>{userObject.medications[0].date}</p>
+               <Link to={"/meds"}>
+               <hr />
+                <div className="homepage-medication">
+                    <div className="homepage-pill-image">
+                        <img src={pill} alt="graphic of pill" width="50px" height="50px"/>
+                    </div>
+                    <div className="homepage-medication-info">
+                        <p className="homepage-medication-quantity-name">
+                            {userObject.medications[0].quantity} {userObject.medications[0].name}
+                        </p>
+                        <p className="homepage-medication-time">
+                            {userObject.medications[0].time}
+                        </p>
                     </div>
                 </div>
+                </Link>
             )
 
         } else {
             return (
                 <div>
-                    <h3>Welcome to your homepage, {userObject.name}!</h3>
-                    <br />
+                    {/* <h3>Hi, {userObject.name}!</h3>
+                    <h4>How are you feeling?</h4>
+                    <br /> */}
+                    {/* be sure to add that they have no medicines to track or upcoming appointments? */}
                 </div>
             )
         }
 
 
     }
+    removeSessionUser = () => {
+        sessionStorage.clear()
+    }
 
 
     render() {
-        console.log(this.state)
+
         if (this.state.dataLoaded === false) {
             return (
                 <>
                 </>
             )
-        } else if (this.state.dataLoaded === true) {
+        } else if (this.state.dataLoaded === true && this.state.userAptDoc) {
             return (
                 <>
+                <nav className="navbar sticky-top flex-md-nowrap p-0 shadow ">
+                <div className="container">
+                    <ul className="nav nav-pills nav-fill homepage-top-nav">
+                        <li className="nav-item dropdown">
+                        <Link to={"/"}
+                        onClick={()=> (this.removeSessionUser())}
+                        >
+                           <img src={dummyavatar} alt="dummy profile" className="homepage-avatar" width="20px" height="20px"/>
+                           </Link>
+
+                        </li>
+                        </ul>
+
+                </div>
+                </nav>
+                    {this.moodCheck()}
                     {this.welcomeUser()}
+
                 </>
             )
         }

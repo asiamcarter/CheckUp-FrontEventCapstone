@@ -19,7 +19,8 @@ import NewNoteForm from "./notes/NewNoteForm"
 import NoteCard from "./notes/NoteCard"
 import EditNoteForm from "./notes/EditNoteForm"
 import EditAppointmentForm from "./appointments/EditAppointmentForm"
-
+import TrackChoice from "./symptoms/TrackChoice"
+import { Button } from 'reactstrap';
 export default class ApplicationViews extends
     Component {
 
@@ -195,12 +196,16 @@ export default class ApplicationViews extends
                         postUser={this.postUser} />
                 }} />
                 <Route exact path="/home" render={(props) => {
-                    return <Homepage {...props} users={this.state.users} />
+                    return <Homepage {...props} users={this.state.users} appointments={this.state.appointments} doctors={this.getAptDocs()} />
                 }} />
                 <Route exact path="/track" render={(props) => {
+                    return <TrackChoice {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} deleteSymptom={this.deleteSymptom} getAll={this.getAllSymptoms} />
+                }} />
+                <Route exact path="/trackedsymptoms" render={(props)=> {
                     return <SymptomList {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} deleteSymptom={this.deleteSymptom} getAll={this.getAllSymptoms} />
                 }} />
-                <Route exact path="/symptoms/new" render={props => {
+
+                <Route exact path="/symptoms/:symptomId/new" render={props => {
                     return <NewSymptomForm {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} getAll={this.getAllSymptoms} />
                 }} />
                 <Route exact path="/meds" render={props => {

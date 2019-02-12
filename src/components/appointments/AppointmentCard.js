@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 
 export default class AppointmentCard extends Component {
 
+
     noteButton = () => {
         if (this.props.appointment.note === "") {
             return (
@@ -26,9 +27,10 @@ export default class AppointmentCard extends Component {
     showUserAppointments = () => {
 
         // console.log(parseInt(sessionStorage.getItem("User")), this.props.appointment.userId)
-        console.log("APT CARD",this.props)
+
         if (this.props.appointment.userId === parseInt(sessionStorage.getItem("User"))) {
             return (
+
                 <>
                     <div key={this.props.appointment.id}
                         className="card">

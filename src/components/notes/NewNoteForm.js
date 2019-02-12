@@ -74,6 +74,7 @@ export default class NewNoteForm extends Component {
             case firebase.storage.TaskState.RUNNING:
               console.log('Upload is running');
               break;
+              default: //
           }
         }, (error) => {
           console.log(error)
@@ -129,7 +130,7 @@ export default class NewNoteForm extends Component {
                         <input type="text" required onChange={this.handleFieldChange} id="note" />
                         <button type="submit" onClick={this.addNewNote} >Add</button>
                         <input type="file" accept="audio/*" capture id="audio"  onChange={(e)=> {
-                            {this.fileUploader(e)}
+                            this.fileUploader(e)
 
                         }}/>
                          <ReactMicRecord

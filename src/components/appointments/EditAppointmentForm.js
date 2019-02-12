@@ -41,9 +41,10 @@ export default class EditAppointmentForm extends Component {
 
             )
             }
+            return doctors
         })
 
-        return doctors
+
     }
 
     handleFieldChange = evt => {
