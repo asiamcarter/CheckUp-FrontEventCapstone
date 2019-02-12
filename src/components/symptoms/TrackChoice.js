@@ -40,8 +40,40 @@ export default class TrackChoice extends Component {
         this.props.deleteSymptom(e.target.parentNode.id)
     }
 
+    test = () => {
+        let sortedSymptom = this.props.trackedSymptoms.filter( symptom=> {
+            return (symptom.userId === Number(sessionStorage.getItem("User")))
+        })
+        let sorted = sortedSymptom.map(symptom => {
+            console.log(symptom)
+           return (
+
+               <>
+                  <div key={symptom.id} className="list-group my-list-group right">
+                     <div className="list-group-item" id={symptom.id}>
+                         <Link to={`/symptoms/${symptom.name}/new`}>
+                             <h1 className="nausea-h1" id="nausea">
+                                 {symptom.name}
+                             </h1>
+                         </Link>
+                         <button onClick={this.deleteSymptom}>Delete</button>
+                     </div>
+                     </div>
+            </>
+             )
+
+        })
+        return sorted
+    }
+
+
+
+
+
     render() {
         console.log("PROPROPRORPRO",this.props.trackedSymptoms)
+        console.log(this.test())
+
 
         return (
             <>
@@ -82,8 +114,10 @@ export default class TrackChoice extends Component {
                             </h1>
                         </Link>
                     </div>
-
-                    {
+                    <>
+                    {this.test()}
+                    </>
+                    {/* {
                         this.props.trackedSymptoms.map(symptom=>
            (
 
@@ -100,7 +134,7 @@ export default class TrackChoice extends Component {
 
             ))
 
-    }
+    } */}
                     <div className="list-group-item" id="add">
                     <Button color="none" onClick={this.toggle}> {this.props.buttonLabel}
                              <h1 className="add-h1" id="add">
