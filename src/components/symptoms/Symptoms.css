@@ -87,7 +87,7 @@ display: flex;
 }
 
 .rating label {
-    flex-basis: 30%;
+    flex-basis: 18.9%;
     cursor: pointer;
     width: 50px;
     height: 40px;
