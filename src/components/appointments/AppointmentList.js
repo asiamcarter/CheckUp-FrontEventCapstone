@@ -4,6 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import "./Appointment.css"
 import DoctorIcon from "../../images/appointments/doctor.png"
 import NewDoctorForm from "../doctors/NewDoctorForm"
+import NewAppointmentForm from "./NewAppointmentForm"
 
 
 export default class AppointmentList extends Component {
@@ -45,12 +46,7 @@ export default class AppointmentList extends Component {
                     ))}
                 </section>
 
-                <Button color="success" type="submit" id="add-appointment-button" onClick={() => {
-                        this.props.history.push("/appointment/new")
-                    }} >
-                        Add
-                </Button>
-
+                <NewAppointmentForm {...this.props}/>
             </>
         )
     }

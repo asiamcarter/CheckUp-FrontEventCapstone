@@ -9,16 +9,14 @@ export default class AppointmentCard extends Component {
         if (this.props.appointment.note === "") {
             return (
                 <>
-                    <Link to={`appointment/newnote/${this.props.appointment.id}`}>Add Note</Link>
-                    {/* <button type="button" onClick={()=> this.props.history.push("/appointment/newnote")}>
-                        Add Note
-                    </button> */}
+                    <button onClick={()=>{this.props.history.push(`appointment/newnote/${this.props.appointment.id}`)}} id="addAppointmentNote">Add Note</button>
+
                 </>
             )
         } else {
             return (
                 <>
-                    <Link to={`/note/${this.props.appointment.id}`}>View Note</Link>
+                    <button onClick={()=>{this.props.history.push(`/note/${this.props.appointment.id}`)}} id="viewAppointmentNote">View Note</button>
                 </>
             )
         }
@@ -37,18 +35,19 @@ export default class AppointmentCard extends Component {
                     <div key={this.props.appointment.id}
                         className="card">
                         <div className="card-body">
-                            <div>
+                            {/* <div>
                                 <h5 className="card-title">
                                     {this.props.appointment.doctor.name}
                                 </h5>
                                 <p>{this.props.appointment.doctor.location}</p>
                                 <hr />
-                            </div>
+                            </div> */}
                             <div>
                                 <Link to={`/appointments/edit/${this.props.appointment.id}`}>Edit</Link>
-                                <p>Date: {this.props.appointment.date}</p>
-                                <p>Time: {this.props.appointment.time}</p>
-                                <p>Reason: {this.props.appointment.reason}</p>
+                                <h4>{this.props.appointment.date}</h4>
+                                <p>At {this.props.appointment.time} with {this.props.appointment.doctor.name}</p>
+                                <p>{this.props.appointment.doctor.location}</p>
+                                <p>{this.props.appointment.reason}</p>
                                 {/* <p>{this.state.notes}</p> */}
                                 {this.noteButton()}
                             </div>

@@ -11,8 +11,21 @@
     height: 60vh;
 }
 
-#add-appointment-button{
-    padding-left: 100px;
-    padding-right: 100px;
-    margin-top: 20px;
+/* #add-appointment-button{
+    height: 30px;
+    width: 200px;
+    margin-top: 2px;
+    padding: 10px;
+    font-size: 5%;
+} */
+
+#addAppointmentNote, #viewAppointmentNote {
+background-color: #F2C496;
+opacity: 64%;
+color: white;
+padding-right: 10px;
+padding-left: 10px;
+width: 90%;
+height: 90%;
+
 }
