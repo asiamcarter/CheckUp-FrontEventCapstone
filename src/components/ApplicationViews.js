@@ -244,11 +244,17 @@ export default class ApplicationViews extends
                     return <EditMedicationForm {...props} medications={this.state.medications} editMedication={this.editMedication} />
                 }} />
                 <Route exact path="/appointments" render={(props) => {
-                    return <AppointmentList {...props} addAppointment={this.addAppointment} appointments={this.state.appointments} editAppointment={this.editAppointment}
-                        getAptNotes={this.getAllAppointments}
-                        getAptDocs={this.getAptDocs}
-                        getAllDoctors={this.componentDidMount}
-                        getAppointmentNotes={this.getAppointmentNotes}
+                    return <AppointmentList {...props}
+                    addAppointment={this.addAppointment}
+                    appointments={this.state.appointments}
+                    editAppointment={this.editAppointment}
+                    getAptNotes={this.getAllAppointments}
+                    getAptDocs={this.getAptDocs}
+                    getAllDoctors={this.componentDidMount}
+                    getAppointmentNotes={this.getAppointmentNotes}
+                    doctors={this.state.doctors}
+                    postNewDoctor={this.postNewDoctor}
+                    allDoctors={this.state.doctors}
                     />
                 }} />
                 <Route exact path="/appointment/new" render={props => {
@@ -257,7 +263,7 @@ export default class ApplicationViews extends
                      />
                 }} />
                 <Route exact path="/doctor/new" render={props => {
-                    return <NewDoctorForm {...props} doctors={this.state.doctors}postNewDoctor={this.postNewDoctor}
+                    return <NewDoctorForm {...props} doctors={this.state.doctors} postNewDoctor={this.postNewDoctor}
                      />
                 }} />
                 <Route exact path="/appointment/newnote/:id" render={props=> {

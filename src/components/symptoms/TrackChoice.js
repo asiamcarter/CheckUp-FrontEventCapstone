@@ -48,9 +48,9 @@ export default class TrackChoice extends Component {
             console.log(symptom)
            return (
 
-               <>
+
                   <div key={symptom.id} className="list-group my-list-group right">
-                     <div className="list-group-item" id={symptom.id}>
+                     <div key={symptom.id} className="list-group-item" id={symptom.id}>
                          <Link to={`/symptoms/${symptom.name}/new`}>
                              <h1 className="nausea-h1" id="nausea">
                                  {symptom.name}
@@ -59,7 +59,7 @@ export default class TrackChoice extends Component {
                          <button onClick={this.deleteSymptom}>Delete</button>
                      </div>
                      </div>
-            </>
+
              )
 
         })
@@ -117,24 +117,7 @@ export default class TrackChoice extends Component {
                     <>
                     {this.test()}
                     </>
-                    {/* {
-                        this.props.trackedSymptoms.map(symptom=>
-           (
 
-                 <div key={symptom.id} className="list-group my-list-group right">
-                    <div className="list-group-item" id={symptom.id}>
-                        <Link to={`/symptoms/${symptom.name}/new`}>
-                            <h1 className="nausea-h1" id="nausea">
-                                {symptom.name}
-                            </h1>
-                        </Link>
-                        <button onClick={this.deleteSymptom}>Delete</button>
-                    </div>
-                    </div>
-
-            ))
-
-    } */}
                     <div className="list-group-item" id="add">
                     <Button color="none" onClick={this.toggle}> {this.props.buttonLabel}
                              <h1 className="add-h1" id="add">
