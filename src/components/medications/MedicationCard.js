@@ -10,19 +10,17 @@ export default class MedicationCard extends Component {
     }
 
     takeDosePressed = () => {
-        // let today = new Date()
-        //  let d = new Date();
-        // let day = d.getDate();
-        // let year = d.getFullYear();
-        // let month = (d.getMonth() + 1);
-        // let hours = (d.getHours()-12)
-        // let minutes = d.getMinutes()
+
         let today = new Date();
         let time = today.toLocaleTimeString('en-US')
         this.setState({
             textValue: `Taken at ${time}`,
             buttonPressed: true
         })
+    }
+
+    updateMeds = () => {
+
     }
 
     showUsersMedications = () => {
@@ -63,6 +61,7 @@ export default class MedicationCard extends Component {
     }
     render() {
         console.log("STATE",this.state)
+        this.updateMeds()
         return (
             <>
                 {this.showUsersMedications()}

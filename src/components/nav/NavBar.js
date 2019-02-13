@@ -28,11 +28,11 @@ export default class NavBar extends Component {
                         <li className="nav-item">
                             <Link className="nav-link" to="/appointments">APTS</Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                            <img src={plusIcon} height="20px" width="20px" alt="plus icon"/>
-                            {/* Will be dropdown menu */}
-                            {/* MORE */}
-                        </li>
+                            Will be dropdown menu
+                            MORE
+                        </li> */}
 
                     </ul>
                 </div>

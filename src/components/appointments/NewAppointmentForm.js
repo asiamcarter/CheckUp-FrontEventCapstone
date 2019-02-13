@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { throws } from "assert";
 
 export default class NewAppointmentForm extends Component {
     state = {
@@ -21,6 +22,7 @@ export default class NewAppointmentForm extends Component {
         this.setState(stateToChange);
     }
 
+
     handleIdFieldChange = evt => {
         const stateToChange = {};
         stateToChange[evt.target.id] = JSON.parse(evt.target.value);
@@ -29,10 +31,25 @@ export default class NewAppointmentForm extends Component {
 
     getDoctors = () => {
         let doctors = this.props.allDoctors.map(doctor => {
+            console.log("doctor", doctor)
 
         if (doctor.userId === Number(sessionStorage.getItem("User"))) {
                 let doctorId = JSON.parse(doctor.id)
-                return <option key={doctorId} value={doctor.id}>{doctor.name}</option>
+                return <>
+                <option key={doctorId}  value={doctor.id}>{doctor.name}</option>
+                </>
+            }
+        })
+        return doctors
+    }
+
+    getDoctorLocation = () => {
+        let doctors = this.props.allDoctors.map(doctor => {
+            console.log(doctor.id, this.state.doctorId)
+            if (this.state.doctorId === doctor.id) {
+                return (
+                    <p>{doctor.location}</p>
+                )
             }
         })
         return doctors
@@ -58,8 +75,7 @@ export default class NewAppointmentForm extends Component {
                 this.props.history.push("/appointments"))
     }
     render() {
-        console.log(this.props.allDoctors)
-        console.log(Number(sessionStorage.getItem("User")))
+        console.log("Session User", Number(sessionStorage.getItem("User")))
 
         return (
             <>
@@ -69,9 +85,12 @@ export default class NewAppointmentForm extends Component {
                     <div>
                         <label htmlFor="doctor">Doctor</label>
                         <select id="doctorId" required onChange={this.handleIdFieldChange}>
+                        <option value="">Select your doctor</option>
                             {this.getDoctors()}
                         </select>
+                        {this.getDoctorLocation()}
                     </div>
+
                     {/* <div>
                         <label htmlFor="location">Location</label>
                         <input type="text" onChange={this.handleFieldChange} id="location" />
