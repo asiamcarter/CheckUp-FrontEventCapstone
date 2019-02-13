@@ -1,0 +1,18 @@
+#add-doctor-button {
+    width: 90.453px;
+    height: 20px;
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.appointment-list {
+    overflow: auto;
+    height: 60vh;
+}
+
+#add-appointment-button{
+    padding-left: 100px;
+    padding-right: 100px;
+    margin-top: 20px;
+}

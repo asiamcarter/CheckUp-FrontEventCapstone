@@ -1,31 +1,41 @@
 import React, { Component } from "react"
 import AppointmentCard from "./AppointmentCard"
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import "./Appointment.css"
+import DoctorIcon from "../../images/appointments/doctor.png"
+import NewDoctorForm from "../doctors/NewDoctorForm"
 
 
 export default class AppointmentList extends Component {
+    state = {
+        modal: false
+    }
 
+    handleFieldChange = evt => {
+        const stateToChange = {};
+        stateToChange[evt.target.id] = evt.target.value;
+        this.setState(stateToChange)
+    }
 
     render() {
-        // console.log("APT PROPS",this.props)
+        console.log("APT PROPS",this.state)
          const sortedApts = this.props.appointments.sort(function (aptA, aptB) {
             return new Date (aptA.date) - new Date(aptB.date)
         })
         return (
             <>
                 <div className="appointmentList">
+                <img src={DoctorIcon} alt="doctor icon" width="50" height="50"/>
                     <h2>Appointment List</h2>
-                    <button type="submit" onClick={() => {
-                        this.props.history.push("/appointment/new")
-                    }} >
-                        Add Appointment
-                </button>
-                <button type="submit" onClick={()=> {
-                    this.props.history.push("/doctor/new")
-                }} >
-                Add Doctor
-                </button>
                 </div>
-                <section>
+                <div>
+
+
+                <NewDoctorForm {...this.props}/>
+
+                </div>
+
+                <section className="appointment-list">
                     {sortedApts.map(appointment =>
                     (
                         <div key={appointment.id}>
@@ -34,6 +44,13 @@ export default class AppointmentList extends Component {
 
                     ))}
                 </section>
+
+                <Button color="success" type="submit" id="add-appointment-button" onClick={() => {
+                        this.props.history.push("/appointment/new")
+                    }} >
+                        Add
+                </Button>
+
             </>
         )
     }

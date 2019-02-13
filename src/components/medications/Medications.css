@@ -1,7 +1,6 @@
 .medication-list {
     overflow: auto;
     height: 60vh;
-
 }
 
 #add-medication-button{

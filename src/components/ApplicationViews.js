@@ -249,6 +249,8 @@ export default class ApplicationViews extends
                         getAptDocs={this.getAptDocs}
                         getAllDoctors={this.componentDidMount}
                         getAppointmentNotes={this.getAppointmentNotes}
+                        doctors={this.state.doctors}
+                        postNewDoctor={this.postNewDoctor}
                     />
                 }} />
                 <Route exact path="/appointment/new" render={props => {

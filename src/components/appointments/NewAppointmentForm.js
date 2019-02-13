@@ -31,13 +31,12 @@ export default class NewAppointmentForm extends Component {
 
     getDoctors = () => {
         let doctors = this.props.allDoctors.map(doctor => {
-            console.log("doctor", doctor)
 
         if (doctor.userId === Number(sessionStorage.getItem("User"))) {
                 let doctorId = JSON.parse(doctor.id)
-                return <>
+                return (
                 <option key={doctorId}  value={doctor.id}>{doctor.name}</option>
-                </>
+                )
             }
         })
         return doctors
@@ -45,10 +44,9 @@ export default class NewAppointmentForm extends Component {
 
     getDoctorLocation = () => {
         let doctors = this.props.allDoctors.map(doctor => {
-            console.log(doctor.id, this.state.doctorId)
             if (this.state.doctorId === doctor.id) {
                 return (
-                    <p>{doctor.location}</p>
+                    <p key={doctor.id}>{doctor.location}</p>
                 )
             }
         })
@@ -85,7 +83,7 @@ export default class NewAppointmentForm extends Component {
                     <div>
                         <label htmlFor="doctor">Doctor</label>
                         <select id="doctorId" required onChange={this.handleIdFieldChange}>
-                        <option value="">Select your doctor</option>
+                        <option>Select your doctor</option>
                             {this.getDoctors()}
                         </select>
                         {this.getDoctorLocation()}
