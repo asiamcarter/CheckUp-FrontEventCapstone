@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
+import EditAppointmentForm from "./EditAppointmentForm"
 
 export default class AppointmentCard extends Component {
 
@@ -49,6 +50,7 @@ export default class AppointmentCard extends Component {
                                 <hr />
                             </div> */}
                             <div>
+                                <EditAppointmentForm {...this.props}/>
                                 <Link to={`/appointments/edit/${this.props.appointment.id}`}>Edit</Link>
                                 <h4>{this.props.appointment.date}</h4>
                                 <p>At {this.props.appointment.time} with {this.props.appointment.doctor.name}</p>

@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import DataManager from "../../modules/DataManager"
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 export default class EditAppointmentForm extends Component {
     state = {
@@ -11,11 +12,12 @@ export default class EditAppointmentForm extends Component {
         note: "",
         timestamp: "",
         audio: "",
-        photo: ""
+        photo: "",
+        modal: false
     }
 
     componentDidMount() {
-        DataManager.getById(this.props.match.params.id, "appointments").then(appointment => {
+        DataManager.getById(this.props.appointment.id, "appointments").then(appointment => {
             console.log("appointment", appointment)
             this.setState({
                 userId: appointment.userId,
@@ -32,27 +34,44 @@ export default class EditAppointmentForm extends Component {
         })
     }
 
-    getDoctors = () => {
+    toggle= () => {
+        this.setState(prevState => ({
+          modal: !prevState.modal
+        }));
+      }
+
+      getDoctors = () => {
         let doctors = this.props.allDoctors.map(doctor => {
-            let doctorId = JSON.parse(doctor.id)
-            if (doctor.userId === Number(sessionStorage.getItem("User"))){
-            return (
-                  <option key={doctorId} value={doctor.id}>{doctor.name}</option>
 
-            )
+        if (doctor.userId === Number(sessionStorage.getItem("User"))) {
+                let doctorId = JSON.parse(doctor.id)
+                return (
+                <option key={doctorId}  value={doctor.id}>{doctor.name}</option>
+                )
             }
-            return doctors
         })
+        return doctors
+    }
 
-
+    getDoctorLocation = () => {
+        let doctors = this.props.allDoctors.map(doctor => {
+            if (this.state.doctorId === doctor.id) {
+                return (
+                    <p key={doctor.id}>{doctor.location}</p>
+                )
+            }
+        })
+        return doctors
     }
 
     handleFieldChange = evt => {
         const stateToChange = {};
         stateToChange[evt.target.id] = evt.target.value;
         this.setState(stateToChange);
+        console.log(stateToChange)
+        console.log(this.state)
     }
-    editAppointment = evt => {
+    editAppointment = (evt) => {
         evt.preventDefault();
         const newAppointmentObject = {
             userId: this.state.userId,
@@ -66,26 +85,41 @@ export default class EditAppointmentForm extends Component {
             photo: this.state.photo,
             id: this.state.id
         }
-         this.props.editAppointment(this.props.match.params.id, newAppointmentObject)
-         .then(()=> this.props.history.push(`/appointments`))
+         this.props.editAppointment(this.props.appointment.id, newAppointmentObject)
+        console.log(evt.target)
+         this.toggle()
     }
 
     render() {
+        console.log(this.props)
         return (
             <>
-             <form>
 
-<h2>Edit Appointment</h2>
-<div>
+<Button onClick={this.toggle} color="success" id="add-appointment-button"> {this.props.buttonLabel}
+                             <h1 className="add-h1">
+                               Edit
+                            </h1>
+                        </Button>
+
+
+
+                        <div className="centerModal">
+                <Modal isOpen={this.state.modal} toggle={this.toggle} >
+                <ModalHeader toggle={this.toggle}>Edit</ModalHeader>
+                <ModalBody >
+
+                <form>
+
+                    <h2>Edit Appointment</h2>
+                    <div>
     <label htmlFor="doctor">Doctor</label>
-    <select id="doctorId" required onChange={this.handleIdFieldChange}>
+    <select id="doctorId" required onChange={this.handleFieldChange}>
+    <option>Select your doctor</option>
         {this.getDoctors()}
     </select>
+    {this.getDoctorLocation()}
 </div>
-{/* <div>
-    <label htmlFor="location">Location</label>
-    <input type="text" onChange={this.handleFieldChange} id="location" />
-</div> */}
+
 <div>
     <label htmlFor="time">Time</label>
     <input type="time" onChange={this.handleFieldChange} id="time" />
@@ -98,10 +132,15 @@ export default class EditAppointmentForm extends Component {
     <label htmlFor="reason">Reason</label>
     <input type="text" onChange={this.handleFieldChange} id="reason" placeholder={this.state.reason} />
 </div>
-
-<button type="submit" onClick={this.editAppointment} >
-    Add</button>
 </form>
+
+                </ModalBody>
+                <ModalFooter id={this.props.appointment.id}>
+                    <Button color="success" onClick={this.editAppointment}>Save</Button>{' '}
+                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                </ModalFooter>
+                </Modal>
+                </div>
             </>
         )
     }

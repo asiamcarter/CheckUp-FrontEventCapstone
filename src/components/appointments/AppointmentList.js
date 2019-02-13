@@ -7,6 +7,7 @@ import NewDoctorForm from "../doctors/NewDoctorForm"
 import NewAppointmentForm from "./NewAppointmentForm"
 
 
+
 export default class AppointmentList extends Component {
     state = {
         modal: false
