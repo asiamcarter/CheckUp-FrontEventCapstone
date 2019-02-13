@@ -42,16 +42,8 @@ export default class AppointmentCard extends Component {
                         className="card">
                         <div className="card-body" id={this.props.appointment.id}>
                         <button onClick={this.deleteAppointment}>Delete</button>
-                            {/* <div>
-                                <h5 className="card-title">
-                                    {this.props.appointment.doctor.name}
-                                </h5>
-                                <p>{this.props.appointment.doctor.location}</p>
-                                <hr />
-                            </div> */}
                             <div>
                                 <EditAppointmentForm {...this.props}/>
-                                <Link to={`/appointments/edit/${this.props.appointment.id}`}>Edit</Link>
                                 <h4>{this.props.appointment.date}</h4>
                                 <p>At {this.props.appointment.time} with {this.props.appointment.doctor.name}</p>
                                 <p>{this.props.appointment.doctor.location}</p>
