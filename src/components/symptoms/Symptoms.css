@@ -120,3 +120,37 @@ label.severe {
         justify-content: center;
     } */
 
+.none {
+    background-color: #A0CD63;
+}
+
+.mild {
+    background-color: #FFD155;
+}
+
+.med {
+    background-color: #D6722E;
+}
+
+.severe {
+    background-color: #E74424;
+}
+
+.symptom-list-card {
+    height: 20vh;
+    color: white;
+}
+
+.symptom-card-button {
+    float: right;
+}
+
+.symptomList {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.symptom-dropdown {
+    margin-right: 10px;
+}

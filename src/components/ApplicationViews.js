@@ -228,7 +228,7 @@ export default class ApplicationViews extends
                     return <TrackChoice {...props} symptoms={this.state.symptoms} addTrackedSymptom={this.addTrackedSymptom} deleteSymptom={this.deleteTrackedSymptom} getAll={this.getAllSymptoms} trackedSymptoms={this.state.trackedSymptoms}/>
                 }} />
                 <Route exact path="/trackedsymptoms" render={(props)=> {
-                    return <SymptomList {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} deleteSymptom={this.deleteSymptom} getAll={this.getAllTrackedSymptoms} />
+                    return <SymptomList {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} deleteSymptom={this.deleteSymptom} getAll={this.getAllTrackedSymptoms} trackedSymptoms={this.state.trackedSymptoms}/>
                 }} />
 
                 <Route exact path="/symptoms/:symptomId/new" render={props => {

@@ -19,7 +19,7 @@ export default class NavBar extends Component {
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link"
-                            to="/track">TRACK</Link>
+                            to="/trackedsymptoms">TRACK</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link"
