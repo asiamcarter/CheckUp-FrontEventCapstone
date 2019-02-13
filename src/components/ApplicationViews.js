@@ -155,6 +155,15 @@ export default class ApplicationViews extends
 
     //appointments
 
+    deleteAppointment= id => {
+        return DataManager.delete(id, "appointments").then(() => {
+            DataManager.getAptDoc()
+                .then(allAppointments => this.setState({
+                    appointments: allAppointments
+                }))
+        })
+    }
+
     getAllAppointments() {
         return DataManager.getAllAptNotes()
     }
@@ -255,6 +264,7 @@ export default class ApplicationViews extends
                     doctors={this.state.doctors}
                     postNewDoctor={this.postNewDoctor}
                     allDoctors={this.state.doctors}
+                    deleteAppointment={this.deleteAppointment}
                     />
                 }} />
                 <Route exact path="/appointment/new" render={props => {

@@ -39,7 +39,7 @@ export default class AppointmentList extends Component {
                 <section className="appointment-list">
                     {sortedApts.map(appointment =>
                     (
-                        <div key={appointment.id}>
+                        <div key={appointment.id} id={appointment.id}>
                         <AppointmentCard key={appointment.id} appointment={appointment} {...this.props} />
                         </div>
 

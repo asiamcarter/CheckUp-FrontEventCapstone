@@ -23,6 +23,11 @@ export default class AppointmentCard extends Component {
 
     }
 
+    deleteAppointment = (e) => {
+        this.props.deleteAppointment(e.target.parentNode.id)
+
+    }
+
     showUserAppointments = () => {
 
         // console.log(parseInt(sessionStorage.getItem("User")), this.props.appointment.userId)
@@ -34,7 +39,8 @@ export default class AppointmentCard extends Component {
                 <>
                     <div key={this.props.appointment.id}
                         className="card">
-                        <div className="card-body">
+                        <div className="card-body" id={this.props.appointment.id}>
+                        <button onClick={this.deleteAppointment}>Delete</button>
                             {/* <div>
                                 <h5 className="card-title">
                                     {this.props.appointment.doctor.name}
