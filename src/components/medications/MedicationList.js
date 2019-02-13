@@ -2,6 +2,9 @@
 
 import React, { Component } from "react"
 import MedicationCard from "./MedicationCard"
+import pillicon from "../../images/medications/pills.png"
+import "./Medications.css"
+import { Button } from 'reactstrap';
 
 
 
@@ -15,18 +18,39 @@ export default class MedicationList extends Component {
 
         return (
             <>
-                <div className="medicationList">
-                    <h2>Medication List</h2>
-                    <button type="submit" onClick={() => { this.props.history.push("/medications/new") }} >
-                        Add
-            </button>
-                </div>
-                <section>
+            <nav className="navbar sticky-top flex-md-nowrap p-0 shadow ">
+                <div className="container">
+                    <ul className="nav nav-pills nav-fill homepage-top-nav">
+                        <li className="nav-item">
+                            MEDICATION LIST
+                        </li>
+                        </ul>
 
+                </div>
+                </nav>
+                <div className="medicationList">
+                    <img src={pillicon} alt="pill icon" width="60px" height="60px"/>
+                    <h2>Tracked Medications</h2>
+                    <hr />
+
+                </div>
+                <section className="medication-list">
+                    <section>10AM
                     {sortedMeds.map(medication => (
-                        <MedicationCard key={medication.id} medication={medication} {...this.props} />
+                        medication.time==="10:00" ?
+                        <MedicationCard key={medication.id} medication={medication} {...this.props} /> : ""
                     ))}
+                    </section>
+                    <section>11AM
+                    {sortedMeds.map(medication => (
+                        medication.time==="11:00" ?
+                        <MedicationCard key={medication.id} medication={medication} {...this.props} /> : ""
+                    ))}
+                    </section>
                 </section>
+                <Button color="success" type="submit" id="add-medication-button" onClick={() => { this.props.history.push("/medications/new") }} >
+                        Add
+            </Button>
             </>
         )
     }

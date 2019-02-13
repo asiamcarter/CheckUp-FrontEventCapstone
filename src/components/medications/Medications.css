@@ -1,0 +1,11 @@
+.medication-list {
+    overflow: auto;
+    height: 60vh;
+
+}
+
+#add-medication-button{
+    padding-left: 100px;
+    padding-right: 100px;
+    margin-top: 20px;
+}

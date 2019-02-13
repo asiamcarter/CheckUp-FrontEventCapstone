@@ -31,6 +31,8 @@ export default class NewMedicationForm extends Component{
         .then(()=> this.props.history.push("/meds"))
     }
     render() {
+
+
         return (
             <>
             <h2> Add New Medication</h2>

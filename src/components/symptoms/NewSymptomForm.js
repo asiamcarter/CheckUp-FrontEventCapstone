@@ -73,14 +73,6 @@ export default class NewSymptomForm extends Component {
                     <h2> Add New Symptom </h2>
                     <div>
                         <h4>{this.props.match.params.symptomId}</h4>
-                        {/* <label htmlFor="name">Name
-                    </label>
-                    <select id="name" required onChange={this.handleFieldChange}>
-                        <option value="nausea">Nausea</option>
-                        <option value="cough">Cough</option>
-                        <option value="headache">Headache</option>
-                        <option value="pain">Pain</option>
-                    </select> */}
                     </div>
                     <div className="box">
                         <p className="intensity">Intensity</p>

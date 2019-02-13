@@ -113,6 +113,7 @@ export default class Homepage extends Component {
             )
         } else if (userObject.medications.length > 0) {
             return (
+                <>
                <Link to={"/meds"}>
                <hr />
                 <div className="homepage-medication">
@@ -129,14 +130,32 @@ export default class Homepage extends Component {
                     </div>
                 </div>
                 </Link>
+                <Link to={"/meds"}>
+               <hr />
+                <div className="homepage-medication">
+                    <div className="homepage-pill-image">
+                        <img src={pill} alt="graphic of pill" width="50px" height="50px"/>
+                    </div>
+                    <div className="homepage-medication-info">
+                        <p className="homepage-medication-quantity-name">
+                            {userObject.medications[1].quantity} {userObject.medications[1].name}
+                        </p>
+                        <p className="homepage-medication-time">
+                            {userObject.medications[1].time}
+                        </p>
+                    </div>
+                </div>
+                </Link>
+                </>
             )
+
 
         } else {
             return (
                 <div>
-                    {/* <h3>Hi, {userObject.name}!</h3>
+                     <h3>Hi, {userObject.name}!</h3>
                     <h4>How are you feeling?</h4>
-                    <br /> */}
+                    <br />
                     {/* be sure to add that they have no medicines to track or upcoming appointments? */}
                 </div>
             )
