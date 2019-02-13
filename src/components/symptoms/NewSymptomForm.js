@@ -57,7 +57,6 @@ export default class NewSymptomForm extends Component {
             name: this.props.match.params.symptomId,
             intensity: this.state.intensity,
             date: this.state.date,
-            time: this.state.time,
             notes: this.state.notes,
             userId: Number(sessionStorage.getItem("User"))
         }
@@ -67,6 +66,7 @@ export default class NewSymptomForm extends Component {
 
 
     render() {
+        let today = new Date().toISOString().substr(0, 10);
         return (
             <>
                 <form>
@@ -108,11 +108,8 @@ export default class NewSymptomForm extends Component {
                     </div>
                     <div>
                         <label htmlFor="date">Date</label>
-                        <input type="date" required onChange={this.handleFieldChange} id="date" />
-                    </div>
-                    <div>
-                        <label htmlFor="time">Time</label>
-                        <input type="time" id="time" onChange={this.handleFieldChange} />
+
+                        <input type="date" value={today} required onChange={this.handleFieldChange} id="date" />
                     </div>
                     <div>
                         <label htmlFor="notes">Notes</label>
