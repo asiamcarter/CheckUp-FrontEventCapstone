@@ -30,7 +30,8 @@ export default class ApplicationViews extends
         medications: [],
         appointments: [],
         notes: [],
-        doctors: []
+        doctors: [],
+        trackedSymptoms: []
 
     }
 
@@ -43,6 +44,8 @@ export default class ApplicationViews extends
             .then(() => DataManager.getAptDoc()).then(allAppointments => newState.appointments = allAppointments)
             // .then(() => DataManager.getAll("notes")).then(allNotes => newState.notes = allNotes)
             .then(() => DataManager.getAll("doctors")).then(allDoctors => newState.doctors = allDoctors)
+            .then(()=> DataManager.getAll("trackedSymptoms").then(allSymptoms =>
+                newState.trackedSymptoms = allSymptoms))
             .then(() => this.setState(newState))
             .then(() => { console.log("COMPONENTDIDMOUNT:", this.state) })
     }
@@ -82,6 +85,14 @@ export default class ApplicationViews extends
                 );
         })
     }
+
+    addTrackedSymptom = (newTrackedSymptom) => {
+        return DataManager.postTrackedSymptom(newTrackedSymptom)
+        .then(()=> DataManager.getAll("trackedSymptoms"))
+        .then(allTrackedSymptoms => {
+            this.setState({trackedSymptoms: allTrackedSymptoms})
+        })
+    }
     deleteSymptom = id => {
         return DataManager.delete(id, "symptoms").then(() => {
             DataManager.getAll("symptoms")
@@ -93,8 +104,23 @@ export default class ApplicationViews extends
                 })
         })
     }
+    deleteTrackedSymptom = id => {
+        return DataManager.delete(id, "trackedSymptoms").then(() => {
+            DataManager.getAll("trackedSymptoms")
+                .then(allSymptoms => {
+                    this.setState({
+                        trackedSymptoms: allSymptoms
+                    })
+
+                })
+        })
+    }
     getAllSymptoms() {
         DataManager.getAll("symptoms")
+    }
+
+    getAllTrackedSymptoms() {
+       return DataManager.getAll("trackedSymptoms")
     }
     //medications
     getAllMedications() {
@@ -184,7 +210,7 @@ export default class ApplicationViews extends
 
     render() {
         // console.log("ApplicationViewsState", this.state.appointments)
-        console.log("APPVIEWS STATE", this.state)
+        // console.log("APPVIEWS STATE", this.state)
         return (
             <>
                 <Route exact path="/" render={(props) => {
@@ -199,10 +225,10 @@ export default class ApplicationViews extends
                     return <Homepage {...props} users={this.state.users} appointments={this.state.appointments} doctors={this.getAptDocs()} />
                 }} />
                 <Route exact path="/track" render={(props) => {
-                    return <TrackChoice {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} deleteSymptom={this.deleteSymptom} getAll={this.getAllSymptoms} />
+                    return <TrackChoice {...props} symptoms={this.state.symptoms} addTrackedSymptom={this.addTrackedSymptom} deleteSymptom={this.deleteTrackedSymptom} getAll={this.getAllSymptoms} trackedSymptoms={this.state.trackedSymptoms}/>
                 }} />
                 <Route exact path="/trackedsymptoms" render={(props)=> {
-                    return <SymptomList {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} deleteSymptom={this.deleteSymptom} getAll={this.getAllSymptoms} />
+                    return <SymptomList {...props} symptoms={this.state.symptoms} addSymptom={this.addSymptom} deleteSymptom={this.deleteSymptom} getAll={this.getAllTrackedSymptoms} trackedSymptoms={this.state.trackedSymptoms}/>
                 }} />
 
                 <Route exact path="/symptoms/:symptomId/new" render={props => {

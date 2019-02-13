@@ -12,11 +12,19 @@ export default class NewSymptomForm extends Component {
         modal: false
     }
 
+    handleFieldChange2 = evt => {
+        const stateToChange = {};
+        stateToChange[evt.target.className] = evt.target.value;
+        this.setState(stateToChange);
+        // console.log(stateToChange)
+        // console.log(evt.target)
+    }
     handleFieldChange = evt => {
         const stateToChange = {};
         stateToChange[evt.target.id] = evt.target.value;
         this.setState(stateToChange);
-        console.log(stateToChange)
+        // console.log(stateToChange)
+
     }
 
     toggle= () => {
@@ -49,7 +57,6 @@ export default class NewSymptomForm extends Component {
             name: this.props.match.params.symptomId,
             intensity: this.state.intensity,
             date: this.state.date,
-            time: this.state.time,
             notes: this.state.notes,
             userId: Number(sessionStorage.getItem("User"))
         }
@@ -59,6 +66,7 @@ export default class NewSymptomForm extends Component {
 
 
     render() {
+        let today = new Date().toISOString().substr(0, 10);
         return (
             <>
                 <form>
@@ -76,24 +84,32 @@ export default class NewSymptomForm extends Component {
                     </div>
                     <div className="box">
                         <p className="intensity">Intensity</p>
-                        <div className="rating" onChange={this.handleFieldChange} id="intensity">
+                        <div className="rating" onChange={this.handleFieldChange2} id="intensity">
 
-                            <input type="radio" name="rating" id="none" value="none" /><label htmlFor="none" className="none"
-                            >None</label>
+                            <input type="radio" name="rating" id="none" value="none" className="intensity" />
+                            <label htmlFor="none" className="none"
+                            >None
+                            </label>
 
-                            <input type="radio" name="rating" id="mild" value="mild" /><label htmlFor="mild" className="mild">Mild</label>
-                            <input type="radio" name="rating" id="med" value="med" /><label htmlFor="med" className="med">Med</label>
-                            <input type="radio" name="rating" id="severe" value="severe" /><label htmlFor="severe" className="severe">Severe</label>
+                            <input type="radio" name="rating" id="mild" value="mild" className="intensity" />
+                            <label htmlFor="mild" className="mild">
+                            Mild
+                            </label>
+                            <input type="radio" name="rating" id="med" value="med" className="intensity" />
+                            <label htmlFor="med" className="med">
+                            Med
+                            </label>
+                            <input type="radio" name="rating" id="severe" value="severe" className="intensity" />
+                            <label htmlFor="severe" className="severe">
+                            Severe
+                            </label>
 
                         </div>
                     </div>
                     <div>
                         <label htmlFor="date">Date</label>
-                        <input type="date" required onChange={this.handleFieldChange} id="date" />
-                    </div>
-                    <div>
-                        <label htmlFor="time">Time</label>
-                        <input type="time" id="time" onChange={this.handleFieldChange} />
+
+                        <input type="date" value={today} required onChange={this.handleFieldChange} id="date" />
                     </div>
                     <div>
                         <label htmlFor="notes">Notes</label>

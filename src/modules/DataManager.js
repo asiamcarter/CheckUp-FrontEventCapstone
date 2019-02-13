@@ -29,6 +29,15 @@ export default {
         }).then(r => r.json())
 
     },
+    postTrackedSymptom(newTrackedSymptom) {
+        return fetch(`${remoteURL}/trackedSymptoms`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newTrackedSymptom)
+        }).then(r=> r.json())
+    },
 
     checkForUser(email, password) {
         return fetch(`${remoteURL}/users?email=${email}&password=${password}`).then(r => r.json())
