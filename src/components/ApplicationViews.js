@@ -281,7 +281,7 @@ export default class ApplicationViews extends
                   />
                 }} />
                 <Route exact path="/note/:id" render={props => {
-                    return <NoteCard {...props} appointments={this.state.appointments} />
+                    return <NoteCard {...props} appointments={this.state.appointments} editAppointment={this.editAppointment}/>
                 }} />
                  <Route exact path="/note/edit/:id" render={props => {
                     return <EditNoteForm {...props} appointments={this.state.appointments} editAppointment={this.editAppointment} />

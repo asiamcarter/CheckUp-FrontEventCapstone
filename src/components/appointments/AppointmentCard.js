@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import EditAppointmentForm from "./EditAppointmentForm"
+import NewNoteForm from "../notes/NewNoteForm"
 
 export default class AppointmentCard extends Component {
 
@@ -11,6 +12,7 @@ export default class AppointmentCard extends Component {
             return (
                 <>
                     <button onClick={()=>{this.props.history.push(`appointment/newnote/${this.props.appointment.id}`)}} id="addAppointmentNote">Add Note</button>
+                    <NewNoteForm {...this.props}/>
 
                 </>
             )
@@ -39,7 +41,7 @@ export default class AppointmentCard extends Component {
                         className="card">
                         <div className="card-body" id={this.props.appointment.id}>
                         <button onClick={this.deleteAppointment}>Delete</button>
-                            <div>
+                            <div id={this.props.appointment.id}>
                                 <EditAppointmentForm {...this.props}/>
                                 <h4>{this.props.appointment.date}</h4>
                                 <p>At {this.props.appointment.time} with {this.props.appointment.doctor.name}</p>

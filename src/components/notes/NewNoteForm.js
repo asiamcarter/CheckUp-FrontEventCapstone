@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import DataManager from "../../modules/DataManager"
 import ReactMicRecord from "react-mic-record"
 import * as firebase from "firebase"
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
 export default class NewNoteForm extends Component {
@@ -34,7 +35,11 @@ export default class NewNoteForm extends Component {
             })
         })
     }
-
+    toggle= () => {
+        this.setState(prevState => ({
+          modal: !prevState.modal
+        }));
+      }
     startRecording = () => {
         this.setState({
             record: true
@@ -116,12 +121,12 @@ export default class NewNoteForm extends Component {
             photo: this.state.photo
         }
         this.props.editAppointment(this.props.match.params.id, newNoteObject)
-            .then(() => this.props.history.push("/appointments"))
+            this.toggle()
     }
 
     render() {
 
-        console.log("NEW NOTE STATE:", this.state)
+        console.log("NEW NOTE STATE:", this.props.noteid)
         return (
             <>
                     <h2>New Note</h2>

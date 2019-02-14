@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import DataManager from "../../modules/DataManager"
 import { Link } from "react-router-dom"
+
 export default class NoteCard extends Component {
 
     state = {
@@ -37,6 +38,7 @@ export default class NoteCard extends Component {
 
 
     render () {
+        console.log(this.state)
 
         return (
             <>
@@ -45,10 +47,6 @@ export default class NoteCard extends Component {
                 <Link to={`/note/edit/${this.state.id}`}>Edit</Link>
             </div>
             <figcaption>Listen:</figcaption>
-            {/* <audio controls>
-  <source src={this.state.audio}/>
-
-</audio> */}
         <audio
         controls
         src={this.state.audio}>
