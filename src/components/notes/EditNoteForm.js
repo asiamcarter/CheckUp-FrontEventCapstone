@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import DataManager from "../../modules/DataManager"
 
+
 export default class EditNoteForm extends Component {
     state = {
         userId: "",

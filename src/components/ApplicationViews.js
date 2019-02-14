@@ -21,6 +21,7 @@ import EditNoteForm from "./notes/EditNoteForm"
 import EditAppointmentForm from "./appointments/EditAppointmentForm"
 import TrackChoice from "./symptoms/TrackChoice"
 import { Button } from 'reactstrap';
+import Callback from "../Callback"
 export default class ApplicationViews extends
     Component {
 
@@ -290,6 +291,7 @@ export default class ApplicationViews extends
                     return <EditAppointmentForm {...props} appointments={this.state.appointments} editAppointment={this.editAppointment}
                     allDoctors={this.state.doctors} />
                 }} />
+                <Route exact path='/callback' component={Callback}/>
 
 
 
