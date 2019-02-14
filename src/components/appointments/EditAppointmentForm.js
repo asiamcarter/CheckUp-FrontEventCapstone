@@ -18,7 +18,6 @@ export default class EditAppointmentForm extends Component {
 
     componentDidMount() {
         DataManager.getById(this.props.appointment.id, "appointments").then(appointment => {
-            console.log("appointment", appointment)
             this.setState({
                 userId: appointment.userId,
                 doctorId: appointment.doctorId,
@@ -86,12 +85,10 @@ export default class EditAppointmentForm extends Component {
             id: this.state.id
         }
          this.props.editAppointment(this.props.appointment.id, newAppointmentObject)
-        console.log(evt.target)
          this.toggle()
     }
 
     render() {
-        console.log(this.props)
         return (
             <>
 

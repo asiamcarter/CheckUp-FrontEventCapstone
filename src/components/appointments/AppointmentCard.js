@@ -31,9 +31,6 @@ export default class AppointmentCard extends Component {
 
     showUserAppointments = () => {
 
-        // console.log(parseInt(sessionStorage.getItem("User")), this.props.appointment.userId)
-        console.log(this.props.appointment)
-
         if (this.props.appointment.userId === parseInt(sessionStorage.getItem("User"))) {
             return (
 
@@ -48,7 +45,6 @@ export default class AppointmentCard extends Component {
                                 <p>At {this.props.appointment.time} with {this.props.appointment.doctor.name}</p>
                                 <p>{this.props.appointment.doctor.location}</p>
                                 <p>{this.props.appointment.reason}</p>
-                                {/* <p>{this.state.notes}</p> */}
                                 {this.noteButton()}
                             </div>
                         </div>
