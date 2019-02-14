@@ -11,7 +11,9 @@ export default class EditNoteForm extends Component {
         note: "",
         timestamp: "",
         audio: "",
-        photo: ""
+        photo: "",
+        record: false,
+        audioDownloadURL: ""
     }
 
     componentDidMount() {
@@ -27,7 +29,8 @@ export default class EditNoteForm extends Component {
                 timestamp: appointment.timestamp,
                 audio: appointment.audio,
                 photo: appointment.photo,
-                id: appointment.id
+                id: appointment.id,
+                audioDownloadURL: appointment.audioDownloadURL
             })
         })
     }
@@ -60,14 +63,13 @@ export default class EditNoteForm extends Component {
         console.log(this.state)
         return (
             <>
-                <h2>Edit Note</h2>
                 <div>
-                    <label htmlFor="content">Content</label>
-                    <input type="text" required onChange={this.handleFieldChange} id="note" />
+                    <label htmlFor="content"></label>
+                    <input type="text" value={this.state.note}required onChange={this.handleFieldChange} id="note" />
                     <figcaption>Listen:</figcaption>
                     <audio
                         controls
-                        src={this.state.audio.blobURL}>
+                        src={this.state.audioDownloadURL}>
                         Your browser does not support the
             <code>audio</code> element.
     </audio>

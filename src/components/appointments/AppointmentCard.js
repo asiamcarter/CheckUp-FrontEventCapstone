@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import EditAppointmentForm from "./EditAppointmentForm"
-import NewNoteForm from "../notes/NewNoteForm"
+
 
 export default class AppointmentCard extends Component {
 
@@ -12,7 +12,6 @@ export default class AppointmentCard extends Component {
             return (
                 <>
                     <button onClick={()=>{this.props.history.push(`appointment/newnote/${this.props.appointment.id}`)}} id="addAppointmentNote">Add Note</button>
-                    <NewNoteForm {...this.props}/>
 
                 </>
             )

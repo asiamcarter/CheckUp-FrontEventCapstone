@@ -65,8 +65,8 @@ export default class Homepage extends Component {
         let aptMap = this.state.userAptDoc.filter(apt => {
             return (apt.userId === Number(sessionStorage.getItem("User")))
          })
-         console.log("LOOK HERE",aptMap)
-        // console.log(userObject)
+         console.log("LOOK HERE", aptMap[0])
+        let appointmentId= aptMap[0].id
         if (aptMap.length > 0  && userObject.medications.length > 0) {
             return (
                 <div>
@@ -86,13 +86,18 @@ export default class Homepage extends Component {
                             </div>
                         </div>
                     </Link>
-                        <Link to={"/appointments"} className="homepage-appointment-link">
+
                     <div className="homepage-appointment">
+                    <Link to={"/appointments"} className="homepage-appointment-link">
                             <h4> Upcoming Appointment: </h4>
-                            <p className="homepage-appointment-date">{aptMap[0].date}</p>
+                            </Link>
+                            <p  className="homepage-appointment-date">{aptMap[0].date}</p>
                             <p>{aptMap[0].doctor.name} at {aptMap[0].doctor.location}</p>
+                            {aptMap[0].note === "" ?
+                            <button onClick={() => this.props.history.push(`appointment/newnote/${aptMap[0].id}`)}>Add Note</button>
+                            :  <button onClick={() => this.props.history.push(`note/${aptMap[0].id}`)}>View Note</button> }
                             </div>
-                        </Link>
+
 
                 </div>
             )

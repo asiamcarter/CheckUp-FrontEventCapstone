@@ -43,7 +43,7 @@ export default class NoteCard extends Component {
         return (
             <>
             <div>
-                <p>{this.state.note}</p>
+                <p onClick={()=> this.props.history.push(`/note/edit/${this.state.id}`)}>{this.state.note}</p>
                 <Link to={`/note/edit/${this.state.id}`}>Edit</Link>
             </div>
             <figcaption>Listen:</figcaption>
