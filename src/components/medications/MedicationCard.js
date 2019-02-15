@@ -3,10 +3,12 @@ import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import { Button } from 'reactstrap';
 
+
 export default class MedicationCard extends Component {
     state = {
         textValue : "Take Dose",
-        buttonPressed: false
+        buttonPressed: false,
+
     }
 
     takeDosePressed = () => {
@@ -60,11 +62,15 @@ export default class MedicationCard extends Component {
         }
     }
     render() {
+
+
+
         console.log("STATE",this.state)
         this.updateMeds()
         return (
             <>
                 {this.showUsersMedications()}
+
             </>
         )
     }

@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import AddToCalendar from 'react-add-to-calendar';
 
 export default class NewMedicationForm extends Component{
     state= {
@@ -8,6 +9,7 @@ export default class NewMedicationForm extends Component{
         quantity: "",
         frequency: "",
         userId: ""
+
     }
 
     handleFieldChange = evt => {
@@ -25,13 +27,18 @@ export default class NewMedicationForm extends Component{
             time: this.state.time,
             quantity: this.state.quantity,
             frequency: this.state.frequency,
-            userId: Number(sessionStorage.getItem("User"))
+            userId: Number(sessionStorage.getItem("User")),
         }
         this.props.addMedication(newMedicationObject)
         .then(()=> this.props.history.push("/meds"))
     }
     render() {
 
+        let event = {title: `Take ${this.state.quantity} ${this.state.name}`,
+        description: "Don't forget to take your medicine! If you need an accountability partner, add guests to this event so they will also be notified",
+        location: "Anywhere",
+        startTime: `${this.state.date}`,
+        endTime: `${this.state.date}`}
 
         return (
             <>
@@ -52,12 +59,13 @@ export default class NewMedicationForm extends Component{
                 <label htmlFor="quantity">Quantity</label>
                 <input type="text" required id="quantity" onChange={this.handleFieldChange} />
             </div>
-            <label htmlFor="frequency">Frequency</label>
-            <input type="text" required id="frequency" onChange={this.handleFieldChange} />
+            {/* <label htmlFor="frequency">Frequency</label>
+            <input type="text" required id="frequency" onChange={this.handleFieldChange} /> */}
             <div>
                 <button type="submit" onClick={this.addNewMedication} >
                     Add
                 </button>
+                <AddToCalendar event={event}/>
             </div>
             </>
 

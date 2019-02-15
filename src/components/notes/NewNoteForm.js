@@ -6,7 +6,8 @@ import mic from "../../images/notes/microphone.png"
 import camera from "../../images/notes/camera.png"
 import note from "../../images/notes/edit.png"
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { Link } from "react-router-dom"
+
+
 
 export default class NewNoteForm extends Component {
     state = {
