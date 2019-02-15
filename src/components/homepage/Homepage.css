@@ -1,6 +1,6 @@
-/* .homepage-body {
-    background-color: #F6F5F3;
-} */
+.homepage-body {
+    background-color: #FFFDFA;
+}
 
 .feeling-icon {
     width: 50px;
@@ -113,9 +113,10 @@
 
 .homepage-note {
     margin-top: -50px;
-    border: 1px solid #F6F5F3;
+    border: 1px solid #FFFDFA;
     border-radius: 25px;
     margin-left: 50vw;
+    background-color:#FFFDFA;
 }
 
 .homepage-appointment-location {

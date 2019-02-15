@@ -6,24 +6,9 @@
 }
 
 
-/* #nausea,
-.nausea-h1 {
-    background-color: #AFD3BF;
-    color: white;
-} */
-
-/* #weight {
-    background-color: #819FA3;
-    opacity: 0.52;
-    color: white;
-
-}
-
-#pain {
-    background-color: #FCCE77;
-    opacity: 0.91;
-   color: white;
-} */
+ #track-link {
+     color: black;
+ }
 
 .right .list-group-item {
   display: flex;
@@ -137,8 +122,9 @@ label.severe {
 }
 
 .symptom-list-card {
-    height: 20vh;
+    height: 18vh;
     color: white;
+    display: inline-flex;
 }
 
 .symptom-card-button {
@@ -153,4 +139,28 @@ label.severe {
 
 .symptom-dropdown {
     margin-right: 10px;
+}
+
+#symptom-list {
+    overflow: auto;
+    height: 70vh;
+    margin-top: 40px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+#add-symptom-buttom {
+    /* background-color: #CCD8D8;
+    border: 1px solid #CCD8D8; */
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 90px;
+    padding-left: 90px;
+    margin-top: 15px;
+    margin-left: 20vw;
+}
+
+#symptom-dropdown {
+    margin-left: 80vw;
+
 }

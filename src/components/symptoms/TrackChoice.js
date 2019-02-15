@@ -51,7 +51,7 @@ export default class TrackChoice extends Component {
 
                   <div key={symptom.id} className="list-group my-list-group right">
                      <div key={symptom.id} className="list-group-item" id={symptom.id}>
-                         <Link to={`/symptoms/${symptom.name}/new`}>
+                         <Link to={`/symptoms/${symptom.name}/new`} id="track-link">
                              <h1 className="nausea-h1" id="nausea">
                                  {symptom.name}
                              </h1>
@@ -87,28 +87,28 @@ export default class TrackChoice extends Component {
                     </div>
                </nav>
             <div className="symptom-container">
-            <h5 className="symptom-question">What symptoms would you like to track?</h5>
+            <h5 className="symptom-question">What symptom would you like to track?</h5>
             <div className="symptom-name-container">
             </div></div>
 
             <div className="container">
                 <div className="list-group my-list-group right">
                     <div className="list-group-item" id="nausea">
-                        <Link to={"/symptoms/Nausea/new"}>
+                        <Link to={"/symptoms/Nausea/new"} id="track-link">
                             <h1 className="nausea-h1" id="nausea">
                                 Nausea
                             </h1>
                         </Link>
                     </div>
-                    <div className="list-group-item" id="weight">
-                    <Link to={"/symptoms/Weight/new"}>
-                            <h1 className="weight-h1" id="weight">
+                    <div className="list-group-item" id="Blood Pressure">
+                    <Link to={"/symptoms/Blood Pressure/new"} id="track-link">
+                            <h1 className="weight-h1" id="Blood Pressure">
                                 Blood Pressure
                             </h1>
                         </Link>
                     </div>
                     <div className="list-group-item" id="pain">
-                    <Link to={"/symptoms/Pain/new"}>
+                    <Link to={"/symptoms/Pain/new"} id="track-link">
                             <h1 className="pain-h1" id="pain">
                                Pain
                             </h1>
