@@ -22,7 +22,7 @@ export default class Homepage extends Component {
         DataManager.getAllUserInfo().then(allUsers => newState.users= allUsers, newState.dataLoaded= true)
         .then(()=> DataManager.getAptDoc()).then(allDocs => {
             let sortedApts = allDocs.sort(function (aptA, aptB) {
-                return new Date (aptA.date) - new Date(aptB.date)
+                return new Date (aptB.date) - new Date(aptA.date)
             })
             newState.userAptDoc= sortedApts
            })

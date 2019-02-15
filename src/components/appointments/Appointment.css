@@ -1,16 +1,28 @@
 #add-doctor-button {
-    width: 90.453px;
-    height: 20px;
+    width: 150.453px;
+    height: 10px;
     font-size: 16px;
-    margin-top: 5px;
+    /* padding-left: -20px; */
+    /* margin-top: 5px; */
+    /* margin-bottom: 5px; */
+}
+
+#add-doctor-button2 {
+    margin-top: 10px;
     margin-bottom: 5px;
 }
 
 .appointment-list {
     overflow: auto;
-    height: 60vh;
+    height: 30vh;
+}
+.prev-appt-header {
+    margin-top: 10px;
 }
 
+.appointments-section{
+    height: 70vh;
+}
 /* #add-appointment-button{
     height: 30px;
     width: 200px;
@@ -40,4 +52,32 @@ margin-top: 20px;
     height: 250px;
   }
 
+  .appointmentList {
+      margin-left: 20vw;
+      margin-top: 30px;
+  }
 
+  .doctor-icon {
+      margin-left: 13vw;
+  }
+
+#add-appointment-button{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#edit-appointment-button{
+    width: 50px;
+}
+
+.add-edit-h1{
+    font-size: 15px;
+}
+
+.add-h1{
+    width: 150.453px;
+    height: 10px;
+    font-size: 16px;
+
+    /* padding-bottom: 50px; */
+}

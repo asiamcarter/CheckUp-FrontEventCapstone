@@ -90,8 +90,8 @@ console.log(this.state)
 
     <h4>Text</h4>
     <hr/>
-   <p id="note" onChange={this.saveEdits}>
-   {this.state.note}</p>
+    <pre> <p id="note" onChange={this.saveEdits}>
+{this.state.note}</p></pre>
     <h4>Audio</h4>
     <hr/>
                             {this.state.audio === "" ? <></> :

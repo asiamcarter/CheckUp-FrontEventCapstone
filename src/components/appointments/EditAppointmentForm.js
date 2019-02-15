@@ -92,8 +92,8 @@ export default class EditAppointmentForm extends Component {
         return (
             <>
 
-<Button onClick={this.toggle} color="success" id="add-appointment-button"> {this.props.buttonLabel}
-                             <h1 className="add-h1">
+<Button onClick={this.toggle} size="sm"  id="edit-appointment-button"> {this.props.buttonLabel}
+                             <h1 className="add-edit-h1">
                                Edit
                             </h1>
                         </Button>

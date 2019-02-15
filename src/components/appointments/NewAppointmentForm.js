@@ -94,7 +94,7 @@ export default class NewAppointmentForm extends Component {
 
                         <div className="centerModal">
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
-                <ModalHeader toggle={this.toggle}>Add New Doctor</ModalHeader>
+                <ModalHeader toggle={this.toggle}></ModalHeader>
                 <ModalBody >
 
                 <form>

@@ -35,7 +35,7 @@ export default class NewDoctorForm extends Component {
         console.log(this.props)
         return (
             <>
-                <Button onClick={this.toggle} size="sm"> {this.props.buttonLabel}
+                <Button onClick={this.toggle} size="sm" id="add-doctor-button2"> {this.props.buttonLabel}
                              <h1 className="add-h1" id="add-doctor-button">
                                Add Doctor
                             </h1>
