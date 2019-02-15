@@ -22,7 +22,8 @@ export default class NewNoteForm extends Component {
         record: false,
         audio: "",
         stream: "",
-        modal: false
+        modal: false,
+        photoButtonClicked: false
     }
 
     componentDidMount() {
@@ -36,7 +37,7 @@ export default class NewNoteForm extends Component {
                 note: appointment.note,
                 timestamp: appointment.timestamp,
                 photo: appointment.photo,
-                audioDownloadURL: appointment.audioDownloadURL,
+                audioDownloadURL: appointment.audio,
             })
         })
     }
@@ -103,7 +104,7 @@ export default class NewNoteForm extends Component {
     }
 
     onImageSave = (e) => {
-        console.log('This is an image: ', e.target.files[0]);
+        console.log('This is an image: ', e.target.files);
         let file = e.target.files[0]
         //file name to save in database
 
@@ -134,6 +135,7 @@ export default class NewNoteForm extends Component {
               //setting the download url and file name to state
               let photosArray= []
               photosArray.push(downloadURL)
+              console.log(photosArray)
 
               this.setState({
                photo: photosArray
@@ -165,6 +167,27 @@ export default class NewNoteForm extends Component {
             photo: this.state.photo
         }
         this.props.editAppointment(this.props.match.params.id, newNoteObject)
+        this.toggle()
+
+            // .then(() => this.props.history.push(`/note/${this.props.match.params.id}`))
+    }
+
+    addNewNote2 = evt => {
+        evt.preventDefault();
+        const newNoteObject = {
+            userId: this.state.userId,
+            doctorId: this.state.doctorId,
+            time: this.state.time,
+            date: this.state.date,
+            reason: this.state.reason,
+            note: this.state.note,
+            timestamp: new Date(),
+            uploadedFileName: this.state.uploadedFileName,
+            audioDownloadURL: this.state.audioDownloadURL,
+            photo: this.state.photo
+        }
+        this.props.editAppointment(this.props.match.params.id, newNoteObject)
+
 
             .then(() => this.props.history.push(`/note/${this.props.match.params.id}`))
     }
@@ -211,27 +234,27 @@ export default class NewNoteForm extends Component {
                 </Modal>
 
 
-                <button onClick={this.toggle} id="myModal2" data-toggle="modal">
+                <button onClick={()=>{this.setState({
+                    photoButtonClicked : true
+                })}} id="myModal2" data-toggle="modal">
                         <img src={camera} alt="camera icon" height="50px" width="50px" id="camera-icon"/>
                 </button>
 
-                <Modal id="myModal2" isOpen={this.state.modal} toggle={this.toggle} >
+                {/* <Modal id="myModal2" isOpen={this.state.modal} toggle={this.toggle} >
                 <ModalHeader toggle={this.toggle}>Photo/Files</ModalHeader>
-                <ModalBody id="myModal2" >
+                <ModalBody id="myModal2" > */}
+                {this.state.photoButtonClicked === true ?
 
-                <input type="file" accept="image/*" capture onChange={(e)=> this.onImageSave(e)}></input>
-
-               {this.state.photo !== "" ?
-                        <img src={this.state.photo} alt="savedbyuser" width="50px" height="50px"/>
-                        : ""}
+                <input type="file" accept="image/*" capture multiple onChange={(e)=> this.onImageSave(e)}></input>
+                : <></>}
 
 
-                </ModalBody>
+                {/* </ModalBody>
                 <ModalFooter>
                     <Button color="success" onClick={this.addNewNote}>Save</Button >{' '}
                     <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                 </ModalFooter>
-                </Modal>
+                </Modal> */}
 
 
 
@@ -271,11 +294,14 @@ export default class NewNoteForm extends Component {
                         <h4>Images</h4>
                         <hr />
                         {this.state.photo !== "" ?
-                        <img src={this.state.photo} alt="savedbyuser" width="50px" height="50px"/>
+                        this.state.photo.map(photo =>{
+                            console.log(photo)
+                            return(
+                        <img src={photo} alt="savedbyuser" width="50px" height="50px"/>)})
                         : ""}
                         </div>
 
-<button type="submit" onClick={this.addNewNote} >Add</button>
+<button type="submit" onClick={this.addNewNote2} >Add</button>
                     </div>
 
 

@@ -35,6 +35,14 @@ export default class NoteCard extends Component {
         })
     }
     editNote = evt => {
+        var editElem = document.getElementById("note");
+
+        //get the edited element content
+        var userVersion = editElem.innerHTML;
+
+        //save the content to local storage
+
+        console.log(this.state)
         evt.preventDefault();
         const newNoteObject = {
             userId: this.state.userId,
@@ -42,7 +50,7 @@ export default class NoteCard extends Component {
             time: this.state.time,
             date: this.state.date,
             reason: this.state.reason,
-            note: this.state.note,
+            note: userVersion,
             timestamp: new Date(),
             audio: this.state.audio,
             photo: this.state.photo,
@@ -82,7 +90,7 @@ console.log(this.state)
 
     <h4>Text</h4>
     <hr/>
-   <p contentEditable={true} onMouseLeave={this.saveEdits}
+   <p contentEditable={true} onMouseLeave={this.editNote}
 id="note" onChange={this.saveEdits}>
    {this.state.note}</p>
     <h4>Audio</h4>
@@ -102,7 +110,9 @@ id="note" onChange={this.saveEdits}>
                         <h4>Images</h4>
                         <hr />
                         {this.state.photo !== "" ?
+                        <div class="imageContainer">
                         <img src={this.state.photo} alt="savedbyuser" width="50px" height="50px"/>
+                        </div>
                         : ""}
                         </div>
 
