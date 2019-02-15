@@ -111,7 +111,7 @@ export default class EditAppointmentForm extends Component {
                     <div>
     <label htmlFor="doctor">Doctor</label>
     <select id="doctorId" required onChange={this.handleFieldChange}>
-    <option>Select your doctor</option>
+    <option>{this.props.appointment.doctor.name}</option>
         {this.getDoctors()}
     </select>
     {this.getDoctorLocation()}
@@ -119,11 +119,11 @@ export default class EditAppointmentForm extends Component {
 
 <div>
     <label htmlFor="time">Time</label>
-    <input type="time" onChange={this.handleFieldChange} id="time" />
+    <input type="time" value={this.state.time} onChange={this.handleFieldChange} id="time" />
 </div>
 <div>
     <label htmlFor="date">Date</label>
-    <input type="date" onChange={this.handleFieldChange} id="date" />
+    <input type="date" value={this.state.date} onChange={this.handleFieldChange} id="date" />
 </div>
 <div>
     <label htmlFor="reason">Reason</label>

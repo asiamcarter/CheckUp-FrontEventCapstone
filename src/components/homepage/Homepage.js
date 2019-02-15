@@ -66,7 +66,7 @@ export default class Homepage extends Component {
             return (apt.userId === Number(sessionStorage.getItem("User")))
          })
          console.log("LOOK HERE", aptMap[0])
-        let appointmentId= aptMap[0].id
+        // let appointmentId= aptMap[0].id
         if (aptMap.length > 0  && userObject.medications.length > 0) {
             return (
                 <div>

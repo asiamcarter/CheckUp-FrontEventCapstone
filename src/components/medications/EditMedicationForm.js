@@ -46,6 +46,7 @@ export default class EditMedicationForm extends Component {
         })
     }
     render() {
+        console.log(this.state.date)
         return (
             <>
                 {console.log("NAME:", this.props)}
@@ -57,20 +58,20 @@ export default class EditMedicationForm extends Component {
                     </div>
                     <div>
                         <label htmlFor="date">Date</label>
-                        <input type="date" onChange={this.handleFieldChange} id="date" placeholder={this.state.date} />
+                        <input type="date" onChange={this.handleFieldChange} value={this.state.date} id="date" placeholder={this.state.date} />
                     </div>
                     <div>
                         <label htmlFor="time">Time</label>
-                        <input type="time" onChange={this.handleFieldChange} id="time" placeholder={this.state.time} />
+                        <input type="time" onChange={this.handleFieldChange} value={this.state.time} id="time" placeholder={this.state.time} />
                     </div>
                     <div>
                         <label htmlFor="quantity">Quantity</label>
                         <input type="text" onChange={this.handleFieldChange} id="quantity" placeholder={this.state.quantity} />
                     </div>
-                    <div>
+                    {/* <div>
                         <label htmlFor="frequency">Frequency</label>
                         <input type="text" onChange={this.handleFieldChange} id="frequency" placeholder={this.state.frequency} />
-                    </div>
+                    </div> */}
                     <div>
                         <button type="submit" onClick={this.editMedication}>Submit</button>
                     </div>

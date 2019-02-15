@@ -28,7 +28,7 @@ export default class NoteCard extends Component {
                 reason: appointment.reason,
                 note: appointment.note,
                 timestamp: appointment.timestamp,
-                audio: appointment.audioDownloadURL,
+                audio: appointment.audio,
                 photo: appointment.photo,
                 id: appointment.id
             })
@@ -83,15 +83,14 @@ console.log(this.state)
 
         return (
             <>
-            {/* <div> */}
+         <div>
 
-                {/* <Link to={`/note/edit/${this.state.id}`}>Edit</Link> */}
-            {/* </div> */}
+                <Link to={`/note/edit/${this.state.id}`}>Edit</Link>
+            </div>
 
     <h4>Text</h4>
     <hr/>
-   <p contentEditable={true} onMouseLeave={this.editNote}
-id="note" onChange={this.saveEdits}>
+   <p id="note" onChange={this.saveEdits}>
    {this.state.note}</p>
     <h4>Audio</h4>
     <hr/>
@@ -110,8 +109,8 @@ id="note" onChange={this.saveEdits}>
                         <h4>Images</h4>
                         <hr />
                         {this.state.photo !== "" ?
-                        <div class="imageContainer">
-                        <img src={this.state.photo} alt="savedbyuser" width="50px" height="50px"/>
+                        <div className="imageContainer" >
+                        <img src={this.state.photo}  alt="savedbyuser" width="50px" height="50px"/>
                         </div>
                         : ""}
                         </div>

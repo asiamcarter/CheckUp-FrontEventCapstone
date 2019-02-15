@@ -21,9 +21,7 @@ export default class MedicationCard extends Component {
         })
     }
 
-    updateMeds = () => {
 
-    }
 
     showUsersMedications = () => {
         console.log(this.props.medication.userId, Number(sessionStorage.getItem("User")))
@@ -45,8 +43,8 @@ export default class MedicationCard extends Component {
                             </div>
                             {/* <h6>Date:</h6>
                             <p>{this.props.medication.date}</p> */}
-                            {/* <h6>Time</h6>
-                            <p>{this.props.medication.time}</p> */}
+                            <h6>Time</h6>
+                            <p>{this.props.medication.time}</p>
                             <h6>Quantity</h6>
                             <p>{this.props.medication.quantity}</p>
                             {/* <h6>Frequency</h6>
@@ -66,7 +64,7 @@ export default class MedicationCard extends Component {
 
 
         console.log("STATE",this.state)
-        this.updateMeds()
+
         return (
             <>
                 {this.showUsersMedications()}
