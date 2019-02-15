@@ -117,6 +117,11 @@ console.log(this.state)
 
             <button type="button" onClick={()=> this.props.history.push("/appointments")}>Back</button>
 
+            <p>
+This is an email link:
+<a href="mailto:someone@example.com?Subject=Hello%20again&body=${} " target="_top">Send Mail</a>
+</p>
+
             </>
         )
 
