@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import DataManager from "../../modules/DataManager"
+import * as firebase from "firebase"
 
 
 export default class EditNoteForm extends Component {
@@ -12,7 +13,7 @@ export default class EditNoteForm extends Component {
         note: "",
         timestamp: "",
         audio: "",
-        photo: "",
+        photo: [],
         record: false,
         audioDownloadURL: ""
     }
@@ -35,6 +36,46 @@ export default class EditNoteForm extends Component {
             })
         })
     }
+
+    onImageSave = (e) => {
+        console.log('This is an image: ', e.target.files[0]);
+
+        let file = e.target.files[0]
+        //file name to save in database
+
+        //reference to the file location on firebase
+        let uploadedPhoto = firebase.storage().ref("/photos/"+ e.target.files[0].name)
+        //uploading the song
+        let task = uploadedPhoto.put(file)
+        //an open connection to the status of that upload
+        task.on('state_changed', (snapshot) => {
+          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED:
+              console.log('Upload is paused');
+              break;
+            case firebase.storage.TaskState.RUNNING:
+              console.log('Upload is running');
+              break;
+              default: //
+          }
+        }, (error) => {
+          console.log(error)
+        },
+          () => {
+            //getting the download url
+            task.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              //setting the download url and file name to state
+              let photosArray= []
+              photosArray.push(downloadURL)
+
+              this.setState({
+               photo: photosArray
+            })
+          })
+
+    })}
 
     handleFieldChange = evt => {
         const stateToChange = {};
@@ -61,21 +102,43 @@ export default class EditNoteForm extends Component {
 
     }
     render() {
-        console.log(this.state)
+        console.log("THIS IS STATE",this.state)
         return (
             <>
-                <div>
-                    <label htmlFor="content"></label>
+
+
+
+
+
+
+    <h4>Text</h4>
+    <hr/>
+   <label htmlFor="content"></label>
                     <input type="text" value={this.state.note}required onChange={this.handleFieldChange} id="note" />
-                    <figcaption>Listen:</figcaption>
-                    <audio
-                        controls
-                        src={this.state.audioDownloadURL}>
-                        Your browser does not support the
-            <code>audio</code> element.
-    </audio>
-                    <button type="submit" onClick={this.editNote} >Save</button>
-                </div>
+    <h4>Audio</h4>
+    <hr/>
+                            {this.state.audio === "" ? <></> :
+                            <figure>
+                            <audio
+                                controls
+                                src={this.state.audio}>
+                                Your browser does not support the
+                                <code>audio</code> element.
+                            </audio>
+                            </figure>
+                            }
+
+                        <div className="note-images-div">
+                        <h4>Images</h4>
+                        <hr />
+                        {this.state.photo !== "" ?
+                        <img src={this.state.photo} alt="savedbyuser" width="50px" height="50px"/>
+                        : ""}
+                        </div>
+
+            <button type="button" onClick={()=> this.props.history.push("/appointments")}>Back</button>
+
+
             </>
         )
     }

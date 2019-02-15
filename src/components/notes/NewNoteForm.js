@@ -2,8 +2,11 @@ import React, { Component } from "react"
 import DataManager from "../../modules/DataManager"
 import ReactMicRecord from "react-mic-record"
 import * as firebase from "firebase"
-import Camera from 'react-html5-camera-photo';
-import 'react-html5-camera-photo/build/css/index.css';
+import mic from "../../images/notes/microphone.png"
+import camera from "../../images/notes/camera.png"
+import note from "../../images/notes/edit.png"
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Link } from "react-router-dom"
 
 export default class NewNoteForm extends Component {
     state = {
@@ -14,11 +17,12 @@ export default class NewNoteForm extends Component {
         reason: "",
         note: "",
         timestamp: "",
-       audioDownloadURL: "",
-        photo: "",
+        audioDownloadURL: "",
+        photo: [],
         record: false,
         audio: "",
-        stream: ""
+        stream: "",
+        modal: false
     }
 
     componentDidMount() {
@@ -31,13 +35,18 @@ export default class NewNoteForm extends Component {
                 reason: appointment.reason,
                 note: appointment.note,
                 timestamp: appointment.timestamp,
-                audio: appointment.audio,
-                photo: appointment.photo
+                photo: appointment.photo,
+                audioDownloadURL: appointment.audioDownloadURL,
             })
         })
     }
 
 
+    toggle= () => {
+        this.setState(prevState => ({
+          modal: !prevState.modal
+        }));
+      }
 
     startRecording = () => {
         this.setState({
@@ -57,9 +66,6 @@ export default class NewNoteForm extends Component {
 
     onStop = (recordedBlob) => {
         console.log('recordedBlob is: ', recordedBlob);
-
-
-
         let file = recordedBlob.blob
         //file name to save in database
 
@@ -98,9 +104,6 @@ export default class NewNoteForm extends Component {
 
     onImageSave = (e) => {
         console.log('This is an image: ', e.target.files[0]);
-
-
-
         let file = e.target.files[0]
         //file name to save in database
 
@@ -129,56 +132,15 @@ export default class NewNoteForm extends Component {
             task.snapshot.ref.getDownloadURL().then((downloadURL) => {
 
               //setting the download url and file name to state
+              let photosArray= []
+              photosArray.push(downloadURL)
+
               this.setState({
-               photo: downloadURL
-              })
+               photo: photosArray
             })
           })
 
-    }
-
-    onTakePhoto (dataUri) {
-
-        console.log(dataUri.slice(22))
-        console.log(dataUri)
-        // Do stuff with the dataUri photo...
-
-        let file = dataUri.slice(22)
-        //file name to save in database
-
-        let fileName= dataUri.substring(22, 30)
-
-        //reference to the file location on firebase
-        let uploadedPhoto = firebase.storage().ref("/photos/"+ fileName)
-        //uploading the song
-        let task = uploadedPhoto.putString(file)
-        //an open connection to the status of that upload
-        task.on('state_changed', (snapshot) => {
-          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-          switch (snapshot.state) {
-            case firebase.storage.TaskState.PAUSED:
-              console.log('Upload is paused');
-              break;
-            case firebase.storage.TaskState.RUNNING:
-              console.log('Upload is running');
-              break;
-              default: //
-          }
-        }, (error) => {
-          console.log(error)
-        },
-          () => {
-            //getting the download url
-            task.snapshot.ref.getDownloadURL().then((downloadURL) => {
-
-              //setting the download url and file name to state
-              this.setState({
-               photo: downloadURL
-              })
-            })
-          })
-      }
+    })}
 
     handleFieldChange = evt => {
         const stateToChange = {};
@@ -199,42 +161,39 @@ export default class NewNoteForm extends Component {
             note: this.state.note,
             timestamp: new Date(),
             uploadedFileName: this.state.uploadedFileName,
-           audioDownloadURL: this.state.audioDownloadURL,
+            audioDownloadURL: this.state.audioDownloadURL,
             photo: this.state.photo
         }
         this.props.editAppointment(this.props.match.params.id, newNoteObject)
+
             .then(() => this.props.history.push(`/note/${this.props.match.params.id}`))
     }
 
-    displayImage = e => {
-        // console.log(e.target.files[0].name)
-        this.setState({photo: e.target.files[0].name})
-    }
-
-
-
-
     render() {
 
-
-        console.log("NEW NOTE STATE:", this.state)
+        console.log("NEW NOTE STATE:", this.state, "PROPS:", this.props)
         return (
             <>
                     <h2>New Note</h2>
                     <div>
-                        <label htmlFor="content">Content</label>
-                        <input type="text" required onChange={this.handleFieldChange} id="note" />
-                        <button type="submit" onClick={this.addNewNote} >Add</button>
-
-                         <ReactMicRecord
+                        <button id="myModal" onClick={this.toggle} data-toggle="modal" data-target="#modal-one">
+                        <img src={mic} alt="microphone icon" height="50px" width="50px" id="mic-icon"/>
+                        </button>
+                        <Modal id="modal-one"isOpen={this.state.modal} toggle={this.toggle} >
+                <ModalHeader toggle={this.toggle}>Audio</ModalHeader>
+                <ModalBody >
+                <ReactMicRecord
                             record={this.state.record}
                             className="sound-wave"
                             onStop={this.onStop}
                             strokeColor="#000000"
                             backgroundColor="#ffffff" />
+
                             <button onClick={this.startRecording} type="button">Start</button>
+
                         <button onClick={this.stopRecording} value="audio" type="button">Stop</button>
-                        <figure>
+
+                            <figure>
                             <figcaption>Listen:</figcaption>
                             <audio
                                 controls
@@ -242,16 +201,81 @@ export default class NewNoteForm extends Component {
                                 Your browser does not support the
                                 <code>audio</code> element.
                             </audio>
+                            </figure>
 
-                            <input type="file" accept="image/*" capture onChange={(e)=> this.onImageSave(e)}></input>
-                        </figure>
-                        <img src={this.state.photo}/>
-                        {/* <video id="player" controls autoPlay srcObject={this.startRecording.stream}></video> */}
-                        <div className="App">
-            <Camera
-              onTakePhoto = { (dataUri) => { this.onTakePhoto(dataUri); } }
-            />
-          </div>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="success" onClick={this.addNewNote}>Save</Button >{' '}
+                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                </ModalFooter>
+                </Modal>
+
+
+                <button onClick={this.toggle} id="myModal2" data-toggle="modal">
+                        <img src={camera} alt="camera icon" height="50px" width="50px" id="camera-icon"/>
+                </button>
+
+                <Modal id="myModal2" isOpen={this.state.modal} toggle={this.toggle} >
+                <ModalHeader toggle={this.toggle}>Photo/Files</ModalHeader>
+                <ModalBody id="myModal2" >
+
+                <input type="file" accept="image/*" capture onChange={(e)=> this.onImageSave(e)}></input>
+
+               {this.state.photo !== "" ?
+                        <img src={this.state.photo} alt="savedbyuser" width="50px" height="50px"/>
+                        : ""}
+
+
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="success" onClick={this.addNewNote}>Save</Button >{' '}
+                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                </ModalFooter>
+                </Modal>
+
+
+
+
+
+                <button onClick={this.toggle}>
+                        <img src={note} alt="note icon" height="50px" width="50px" id="note-icon"/>
+                        </button>
+
+
+                        <label htmlFor="content">CONTENT</label>
+                        <input type="text" required onChange={this.handleFieldChange} id="note" />
+
+
+
+                         {/* <ReactMicRecord
+                            record={this.state.record}
+                            className="sound-wave"
+                            onStop={this.onStop}
+                            strokeColor="#000000"
+                            backgroundColor="#ffffff" />
+                            <button onClick={this.startRecording} type="button">Start</button>
+                        <button onClick={this.stopRecording} value="audio" type="button">Stop</button> */}
+                         <h4>Listen</h4>
+                            {this.state.audioDownloadURL === "" ? <></> :
+                            <figure>
+                            <audio
+                                controls
+                                src={this.state.audioDownloadURL}>
+                                Your browser does not support the
+                                <code>audio</code> element.
+                            </audio>
+                            </figure>
+                            }
+
+                        <div className="note-images-div">
+                        <h4>Images</h4>
+                        <hr />
+                        {this.state.photo !== "" ?
+                        <img src={this.state.photo} alt="savedbyuser" width="50px" height="50px"/>
+                        : ""}
+                        </div>
+
+<button type="submit" onClick={this.addNewNote} >Add</button>
                     </div>
 
 
@@ -259,39 +283,3 @@ export default class NewNoteForm extends Component {
             )
         }
     }
-                                                                                                                // fileUploader = (e) => {
-                                                                                                                //     let file = e.target.files[0];
-                                                                                                                //     //file name to save in database
-                                                                                                                //     let fileName = file.name
-
-                                                                                                                //     //reference to the file location on firebase
-                                                                                                                //     let uploadedSong = firebase.storage().ref(file.name)
-                                                                                                                //     //uploading the song
-                                                                                                                //     let task = uploadedSong.put(file)
-                                                                                                                //     //an open connection to the status of that upload
-                                                                                                                //     task.on('state_changed', (snapshot) => {
-                                                                                                                //       let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                                                                                                //       console.log('Upload is ' + progress + '% done');
-                                                                                                                //       switch (snapshot.state) {
-                                                                                                                //         case firebase.storage.TaskState.PAUSED:
-                                                                                                                //           console.log('Upload is paused');
-                                                                                                                //           break;
-                                                                                                                //         case firebase.storage.TaskState.RUNNING:
-                                                                                                                //           console.log('Upload is running');
-                                                                                                                //           break;
-                                                                                                                //       }
-                                                                                                                //     }, (error) => {
-                                                                                                                //       console.log(error)
-                                                                                                                //     },
-                                                                                                                //       () => {
-                                                                                                                //         //getting the download url
-                                                                                                                //         task.snapshot.ref.getDownloadURL().then((downloadURL) => {
-
-                                                                                                                //           //setting the download url and file name to state
-                                                                                                                //           this.setState({
-                                                                                                                //             uploadedFileName: fileName,
-                                                                                                                //            audioDownloadURL: downloadURL
-                                                                                                                //           })
-                                                                                                                //         })
-                                                                                                                //       })
-                                                                                                                //   };

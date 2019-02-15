@@ -34,25 +34,77 @@ export default class NoteCard extends Component {
             })
         })
     }
+    editNote = evt => {
+        evt.preventDefault();
+        const newNoteObject = {
+            userId: this.state.userId,
+            doctorId: this.state.doctorId,
+            time: this.state.time,
+            date: this.state.date,
+            reason: this.state.reason,
+            note: this.state.note,
+            timestamp: new Date(),
+            audio: this.state.audio,
+            photo: this.state.photo,
+            id: this.state.id
+        }
+        this.props.editAppointment(this.props.match.params.id, newNoteObject)
 
 
+    }
+
+  saveEdits =(evt)=> {
+
+        //get the editable element
+        var editElem = document.getElementById("note");
+
+        //get the edited element content
+        var userVersion = editElem.innerHTML;
+
+        //save the content to local storage
+        this.setState({
+            note: userVersion
+        })
+        console.log(this.state)
+        this.editNote(evt)
+
+        }
 
     render () {
-        console.log(this.state)
+console.log(this.state)
 
         return (
             <>
-            <div>
-                <p onClick={()=> this.props.history.push(`/note/edit/${this.state.id}`)}>{this.state.note}</p>
-                <Link to={`/note/edit/${this.state.id}`}>Edit</Link>
-            </div>
-            <figcaption>Listen:</figcaption>
-        <audio
-        controls
-        src={this.state.audio}>
-            Your browser does not support the
-            <code>audio</code> element.
-    </audio>
+            {/* <div> */}
+
+                {/* <Link to={`/note/edit/${this.state.id}`}>Edit</Link> */}
+            {/* </div> */}
+
+    <h4>Text</h4>
+    <hr/>
+   <p contentEditable={true} onMouseLeave={this.saveEdits}
+id="note" onChange={this.saveEdits}>
+   {this.state.note}</p>
+    <h4>Audio</h4>
+    <hr/>
+                            {this.state.audio === "" ? <></> :
+                            <figure>
+                            <audio
+                                controls
+                                src={this.state.audio}>
+                                Your browser does not support the
+                                <code>audio</code> element.
+                            </audio>
+                            </figure>
+                            }
+
+                        <div className="note-images-div">
+                        <h4>Images</h4>
+                        <hr />
+                        {this.state.photo !== "" ?
+                        <img src={this.state.photo} alt="savedbyuser" width="50px" height="50px"/>
+                        : ""}
+                        </div>
 
             <button type="button" onClick={()=> this.props.history.push("/appointments")}>Back</button>
 
