@@ -267,7 +267,8 @@ export default class NewNoteForm extends Component {
 
 
                         <label htmlFor="content">CONTENT</label>
-                        <input type="text" required onChange={this.handleFieldChange} id="note" />
+                        {/* <input type="text" required onChange={this.handleFieldChange} id="note" /> */}
+                        <textarea id="note" name="multiliner" rows="2" cols="20" wrap="hard" onChange={this.handleFieldChange}></textarea>
 
 
 

@@ -1,10 +1,10 @@
 .navbar {
-    background-color: black;
-    color: white;
+    background-color: #CCD8D8;
+    color: black;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
 .nav-link {
-    color: white;
+    color: black;
 }

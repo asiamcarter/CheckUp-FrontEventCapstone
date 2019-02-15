@@ -1,3 +1,7 @@
+.homepage-body {
+    background-color: #FFFDFA;
+}
+
 .feeling-icon {
     width: 50px;
     height: 50px;
@@ -9,17 +13,35 @@
     flex-direction: column;
     align-items: center;
     align-content:center;
-    margin-top: 50px;
+    margin-top: 35px;
     margin-bottom: 20%;
+
+}
+
+
+.homepage-feeling-icons{
+    margin-top: 25px;
+    border-bottom: .5px solid lightslategray;
+    padding-bottom: 40px;
+}
+
+#link {
+    color: black;
 }
 
 .homepage-medication {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-top: 2em;
-    margin-bottom: 2em;
+    margin-top: -40px;
+    /* margin-bottom: 2em; */
     font-size: 1.5em;
+    background-color:#CCD8D8;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    border-radius: 30px;
+    margin-right: 30px;
+    margin-left: 30px;
 }
 
 .homepage-pill-image {
@@ -33,6 +55,15 @@
 
 .homepage-medication-time {
     order: -1;
+    font-size: 60px;
+    font-weight: normal;
+}
+.med-quantity {
+    margin-right: 10px;
+}
+
+.space {
+    margin-left: 25px;
 }
 
 .homepage-appointment {
@@ -52,9 +83,43 @@
 
 .homepage-appointment-date {
     font-size: 1.5em;
+    margin-bottom: -7px;
 }
 
 .homepage-avatar {
     margin: 3px;
     border-radius: 20px;
+}
+
+.top-nav-bar {
+    background-color:#CCD8D8;
+}
+
+.feeling-header {
+    font-size: 30px;
+}
+
+.homepage-medication-quantity-name{
+    margin-top: -30px;
+    font-size: 30px;
+}
+.pill {
+    margin-left: -20px;
+}
+
+#link-white {
+    color: white;
+}
+
+.homepage-note {
+    margin-top: -50px;
+    border: 1px solid #FFFDFA;
+    border-radius: 25px;
+    margin-left: 50vw;
+    background-color:#FFFDFA;
+}
+
+.homepage-appointment-location {
+    margin-bottom: 0px;
+    margin-top: 5px;
 }

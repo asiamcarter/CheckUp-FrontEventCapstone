@@ -90,8 +90,8 @@ console.log(this.state)
 
     <h4>Text</h4>
     <hr/>
-   <p id="note" onChange={this.saveEdits}>
-   {this.state.note}</p>
+    <pre> <p id="note" onChange={this.saveEdits}>
+{this.state.note}</p></pre>
     <h4>Audio</h4>
     <hr/>
                             {this.state.audio === "" ? <></> :
@@ -116,6 +116,11 @@ console.log(this.state)
                         </div>
 
             <button type="button" onClick={()=> this.props.history.push("/appointments")}>Back</button>
+
+            <p>
+This is an email link:
+<a href="mailto:someone@example.com?Subject=Hello%20again&body=${} " target="_top">Send Mail</a>
+</p>
 
             </>
         )

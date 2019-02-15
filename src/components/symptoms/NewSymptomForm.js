@@ -66,6 +66,7 @@ export default class NewSymptomForm extends Component {
 
 
     render() {
+        console.log(this.state)
         let today = new Date().toISOString().split("T")[0];
 
         return (
@@ -102,7 +103,7 @@ export default class NewSymptomForm extends Component {
                     <div>
                         <label htmlFor="date">Date</label>
 
-                        <input type="date" value={today} required onChange={this.handleFieldChange} id="date" />
+                        <input type="date" required onChange={this.handleFieldChange} id="date" />
                     </div>
                     <div>
                         <label htmlFor="notes">Notes</label>

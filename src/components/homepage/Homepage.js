@@ -22,7 +22,7 @@ export default class Homepage extends Component {
         DataManager.getAllUserInfo().then(allUsers => newState.users= allUsers, newState.dataLoaded= true)
         .then(()=> DataManager.getAptDoc()).then(allDocs => {
             let sortedApts = allDocs.sort(function (aptA, aptB) {
-                return new Date (aptA.date) - new Date(aptB.date)
+                return new Date (aptB.date) - new Date(aptA.date)
             })
             newState.userAptDoc= sortedApts
            })
@@ -37,7 +37,7 @@ export default class Homepage extends Component {
         })
        return (
        <div className="homepage-feeling">
-                        <h4>How are you feeling, {userObject.name}?</h4>
+                        <h4 className="feeling-header"><strong><span className="space">Welcome, {userObject.name}</span></strong><br/>How are you feeling?</h4>
                         <div className="homepage-feeling-icons">
                         <img src={happy} alt="happy face" className="feeling-icon"/>
                         <img src={mild} alt="okay face" className="feeling-icon"/>
@@ -70,32 +70,33 @@ export default class Homepage extends Component {
         if (aptMap.length > 0  && userObject.medications.length > 0) {
             return (
                 <div>
-                    <Link to={"/meds"}>
-                        <hr />
+                    <Link to={"/meds"} id="link">
+                        {/* <hr className="first-hr" /> */}
                         <div className="homepage-medication">
                             <div className="homepage-pill-image">
-                                <img src={pill} alt="pill graphic" width="50px" height="50px"/>
+                                <img src={pill} alt="pill graphic" width="80px" height="80px" className="pill"/>
                             </div>
                             <div className="homepage-medication-info">
-                                <p className="homepage-medication-quantity-name">
-                                    {userObject.medications[0].quantity} {userObject.medications[0].name}
+                                <p className="homepage-medication-quantity-name" id="link">
+                                    <span className="med-quantity">{userObject.medications[0].quantity} </span>   {userObject.medications[0].name}
                                 </p>
-                                <p className="homepage-medication-time">
-                                    {userObject.medications[0].time}
+                              <p className="homepage-medication-time" id="link">
+                                    {userObject.medications[0].time.split("", 1)} PM
                                 </p>
+
                             </div>
                         </div>
                     </Link>
 
                     <div className="homepage-appointment">
                     <Link to={"/appointments"} className="homepage-appointment-link">
-                            <h4> Upcoming Appointment: </h4>
+                            <h4 id="link-white"> Upcoming Appointment: </h4>
                             </Link>
                             <p  className="homepage-appointment-date">{aptMap[0].date}</p>
-                            <p>{aptMap[0].doctor.name} at {aptMap[0].doctor.location}</p>
+                            <p className="homepage-appointment-location">{aptMap[0].doctor.name} <br/>{aptMap[0].doctor.location}</p>
                             {aptMap[0].note === "" ?
-                            <button onClick={() => this.props.history.push(`appointment/newnote/${aptMap[0].id}`)}>Add Note</button>
-                            :  <button onClick={() => this.props.history.push(`note/${aptMap[0].id}`)}>View Note</button> }
+                            <button className="homepage-note" onClick={() => this.props.history.push(`appointment/newnote/${aptMap[0].id}`)}>Add Note</button>
+                            :  <button className="homepage-note" onClick={() => this.props.history.push(`note/${aptMap[0].id}`)}>View Note</button> }
                             </div>
 
 
@@ -182,9 +183,9 @@ export default class Homepage extends Component {
             )
         } else if (this.state.dataLoaded === true && this.state.userAptDoc) {
             return (
-                <>
+                <div className="homepage-body">
                 <nav className="navbar sticky-top flex-md-nowrap p-0 shadow ">
-                <div className="container">
+                <div className="container top-nav-bar">
                     <ul className="nav nav-pills nav-fill homepage-top-nav">
                         <li className="nav-item dropdown">
                         <Link to={"/"}
@@ -201,7 +202,7 @@ export default class Homepage extends Component {
                     {this.moodCheck()}
                     {this.welcomeUser()}
 
-                </>
+                </div>
             )
         }
     }
