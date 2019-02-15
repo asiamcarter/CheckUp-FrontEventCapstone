@@ -121,9 +121,9 @@ export default class NewAppointmentForm extends Component {
                         <label htmlFor="reason">Reason</label>
                         <input type="text" onChange={this.handleFieldChange} id="reason" />
                     </div>
-
+{/*
                     <button type="submit" onClick={this.addAppointment} >
-                        Add</button>
+                        Add</button> */}
                     </form>
                 </ModalBody>
                 <ModalFooter>

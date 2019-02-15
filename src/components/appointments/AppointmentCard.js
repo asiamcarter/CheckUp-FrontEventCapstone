@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
+import EditAppointmentForm from "./EditAppointmentForm"
+
 
 export default class AppointmentCard extends Component {
 
@@ -23,10 +25,12 @@ export default class AppointmentCard extends Component {
 
     }
 
-    showUserAppointments = () => {
+    deleteAppointment = (e) => {
+        this.props.deleteAppointment(e.target.parentNode.id)
 
-        // console.log(parseInt(sessionStorage.getItem("User")), this.props.appointment.userId)
-        console.log(this.props.appointment)
+    }
+
+    showUserAppointments = () => {
 
         if (this.props.appointment.userId === parseInt(sessionStorage.getItem("User"))) {
             return (
@@ -34,21 +38,14 @@ export default class AppointmentCard extends Component {
                 <>
                     <div key={this.props.appointment.id}
                         className="card">
-                        <div className="card-body">
-                            {/* <div>
-                                <h5 className="card-title">
-                                    {this.props.appointment.doctor.name}
-                                </h5>
-                                <p>{this.props.appointment.doctor.location}</p>
-                                <hr />
-                            </div> */}
-                            <div>
-                                <Link to={`/appointments/edit/${this.props.appointment.id}`}>Edit</Link>
+                        <div className="card-body" id={this.props.appointment.id}>
+                        <button onClick={this.deleteAppointment}>Delete</button>
+                            <div id={this.props.appointment.id}>
+                                <EditAppointmentForm {...this.props}/>
                                 <h4>{this.props.appointment.date}</h4>
                                 <p>At {this.props.appointment.time} with {this.props.appointment.doctor.name}</p>
                                 <p>{this.props.appointment.doctor.location}</p>
                                 <p>{this.props.appointment.reason}</p>
-                                {/* <p>{this.state.notes}</p> */}
                                 {this.noteButton()}
                             </div>
                         </div>

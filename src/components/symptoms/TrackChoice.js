@@ -103,7 +103,7 @@ export default class TrackChoice extends Component {
                     <div className="list-group-item" id="weight">
                     <Link to={"/symptoms/Weight/new"}>
                             <h1 className="weight-h1" id="weight">
-                                Weight
+                                Blood Pressure
                             </h1>
                         </Link>
                     </div>

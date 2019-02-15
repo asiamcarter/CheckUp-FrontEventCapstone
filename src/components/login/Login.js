@@ -1,6 +1,7 @@
 //component is responsible for rendering the login page
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
+
 export default class Login extends Component {
     state = {
         email: "",
@@ -65,6 +66,8 @@ export default class Login extends Component {
                             <button type="submit" onClick={this.onLogin} >
                                 Login
                             </button>
+
+
                             <p><Link to="/register">Register Here</Link></p>
                         </div>
                     </form>

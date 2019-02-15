@@ -49,7 +49,7 @@ export default class MedicationList extends Component {
                     </section>
                     <section>Evening
                     {sortedMeds.map(medication => (
-                        medication.time==="11:00" ?
+                        medication.time==="18:00" ?
                         <MedicationCard key={medication.id} medication={medication} {...this.props} /> : ""
                     ))}
                     </section>

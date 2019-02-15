@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import DataManager from "../../modules/DataManager"
 import { Link } from "react-router-dom"
+
 export default class NoteCard extends Component {
 
     state = {
@@ -27,34 +28,92 @@ export default class NoteCard extends Component {
                 reason: appointment.reason,
                 note: appointment.note,
                 timestamp: appointment.timestamp,
-                audio: appointment.audioDownloadURL,
+                audio: appointment.audio,
                 photo: appointment.photo,
                 id: appointment.id
             })
         })
     }
+    editNote = evt => {
+        var editElem = document.getElementById("note");
+
+        //get the edited element content
+        var userVersion = editElem.innerHTML;
+
+        //save the content to local storage
+
+        console.log(this.state)
+        evt.preventDefault();
+        const newNoteObject = {
+            userId: this.state.userId,
+            doctorId: this.state.doctorId,
+            time: this.state.time,
+            date: this.state.date,
+            reason: this.state.reason,
+            note: userVersion,
+            timestamp: new Date(),
+            audio: this.state.audio,
+            photo: this.state.photo,
+            id: this.state.id
+        }
+        this.props.editAppointment(this.props.match.params.id, newNoteObject)
 
 
+    }
+
+  saveEdits =(evt)=> {
+
+        //get the editable element
+        var editElem = document.getElementById("note");
+
+        //get the edited element content
+        var userVersion = editElem.innerHTML;
+
+        //save the content to local storage
+        this.setState({
+            note: userVersion
+        })
+        console.log(this.state)
+        this.editNote(evt)
+
+        }
 
     render () {
+console.log(this.state)
 
         return (
             <>
-            <div>
-                <p>{this.state.note}</p>
+         <div>
+
                 <Link to={`/note/edit/${this.state.id}`}>Edit</Link>
             </div>
-            <figcaption>Listen:</figcaption>
-            {/* <audio controls>
-  <source src={this.state.audio}/>
 
-</audio> */}
-        <audio
-        controls
-        src={this.state.audio}>
-            Your browser does not support the
-            <code>audio</code> element.
-    </audio>
+    <h4>Text</h4>
+    <hr/>
+   <p id="note" onChange={this.saveEdits}>
+   {this.state.note}</p>
+    <h4>Audio</h4>
+    <hr/>
+                            {this.state.audio === "" ? <></> :
+                            <figure>
+                            <audio
+                                controls
+                                src={this.state.audio}>
+                                Your browser does not support the
+                                <code>audio</code> element.
+                            </audio>
+                            </figure>
+                            }
+
+                        <div className="note-images-div">
+                        <h4>Images</h4>
+                        <hr />
+                        {this.state.photo !== "" ?
+                        <div className="imageContainer" >
+                        <img src={this.state.photo}  alt="savedbyuser" width="50px" height="50px"/>
+                        </div>
+                        : ""}
+                        </div>
 
             <button type="button" onClick={()=> this.props.history.push("/appointments")}>Back</button>
 

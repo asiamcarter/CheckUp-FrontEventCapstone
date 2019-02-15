@@ -21,6 +21,7 @@ import EditNoteForm from "./notes/EditNoteForm"
 import EditAppointmentForm from "./appointments/EditAppointmentForm"
 import TrackChoice from "./symptoms/TrackChoice"
 import { Button } from 'reactstrap';
+import Callback from "../Callback"
 export default class ApplicationViews extends
     Component {
 
@@ -155,6 +156,15 @@ export default class ApplicationViews extends
 
     //appointments
 
+    deleteAppointment= id => {
+        return DataManager.delete(id, "appointments").then(() => {
+            DataManager.getAptDoc()
+                .then(allAppointments => this.setState({
+                    appointments: allAppointments
+                }))
+        })
+    }
+
     getAllAppointments() {
         return DataManager.getAllAptNotes()
     }
@@ -255,6 +265,7 @@ export default class ApplicationViews extends
                     doctors={this.state.doctors}
                     postNewDoctor={this.postNewDoctor}
                     allDoctors={this.state.doctors}
+                    deleteAppointment={this.deleteAppointment}
                     />
                 }} />
                 <Route exact path="/appointment/new" render={props => {
@@ -271,7 +282,7 @@ export default class ApplicationViews extends
                   />
                 }} />
                 <Route exact path="/note/:id" render={props => {
-                    return <NoteCard {...props} appointments={this.state.appointments} />
+                    return <NoteCard {...props} appointments={this.state.appointments} editAppointment={this.editAppointment}/>
                 }} />
                  <Route exact path="/note/edit/:id" render={props => {
                     return <EditNoteForm {...props} appointments={this.state.appointments} editAppointment={this.editAppointment} />
@@ -280,6 +291,7 @@ export default class ApplicationViews extends
                     return <EditAppointmentForm {...props} appointments={this.state.appointments} editAppointment={this.editAppointment}
                     allDoctors={this.state.doctors} />
                 }} />
+                <Route exact path='/callback' component={Callback}/>
 
 
 

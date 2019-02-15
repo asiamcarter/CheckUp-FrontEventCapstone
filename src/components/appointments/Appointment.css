@@ -29,3 +29,15 @@ width: 90%;
 height: 90%;
 
 }
+
+#mic-icon, #camera-icon, #note-icon {
+margin-right: 50px;
+margin-top: 20px;
+}
+
+.imageContainer > img:hover {
+    width: 250px;
+    height: 250px;
+  }
+
+

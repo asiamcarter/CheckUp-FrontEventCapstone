@@ -66,7 +66,8 @@ export default class NewSymptomForm extends Component {
 
 
     render() {
-        let today = new Date().toISOString().substr(0, 10);
+        let today = new Date().toISOString().split("T")[0];
+
         return (
             <>
                 <form>
