@@ -108,5 +108,32 @@ export default {
             },
             body: JSON.stringify(newDocotor)
         }).then(r => r.json())
+    },
+
+    getAllTreatmentInfo() {
+        return fetch(`${remoteURL}/treatments?_expand=medication&_expand=treatmentSymptom&_expand=appointment&_expand=user`).then(r=>r.json())
+    },
+    postNewTreatment(newTreatment) {
+        return fetch(`${remoteURL}/treatments`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newTreatment)
+        }).then(r => r.json())
+    },
+    deleteTreatment(id) {
+        return fetch(`${remoteURL}/treatments/${id}`, {
+            method: "DELETE"
+        }).then(r => r.json())
+    },
+    postNewTreatmentSymptom(newTreatmentSymptom) {
+        return fetch(`${remoteURL}/treatmentSymptoms`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newTreatmentSymptom)
+        }).then(r => r.json())
     }
 }
