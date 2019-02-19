@@ -16,43 +16,21 @@ export default class NewSymptomForm extends Component {
         const stateToChange = {};
         stateToChange[evt.target.className] = evt.target.value;
         this.setState(stateToChange);
-        // console.log(stateToChange)
-        // console.log(evt.target)
     }
     handleFieldChange = evt => {
         const stateToChange = {};
         stateToChange[evt.target.id] = evt.target.value;
         this.setState(stateToChange);
-        // console.log(stateToChange)
-
     }
 
-    toggle= () => {
+    toggle = () => {
         this.setState(prevState => ({
-          modal: !prevState.modal
+            modal: !prevState.modal
         }));
-      }
-
-    //    getDate = function() {
-    //         var now = new Date();
-    //         var month = (now.getMonth() + 1);
-    //         var day = now.getDate();
-    //         if (month < 10)
-    //             month = "0" + month;
-    //         if (day < 10)
-    //             day = "0" + day;
-    //         var today = now.getFullYear() + '/' + month + '/' + day;
-    //         console.log(today)
-    //     }
+    }
 
     addNewSymptom = evt => {
         evt.preventDefault();
-        // let d = new Date();
-        // let day = d.getDate();
-        // let year = d.getFullYear();
-        // let month = (d.getMonth() + 1);
-        // let hours = (d.getHours()-12)
-        // let minutes = d.getMinutes()
         const newSymptomObject = {
             name: this.props.match.params.symptomId,
             intensity: this.state.intensity,
@@ -64,11 +42,7 @@ export default class NewSymptomForm extends Component {
             .then(() => this.props.history.push("/trackedsymptoms"))
     }
 
-
     render() {
-        console.log(this.state)
-        let today = new Date().toISOString().split("T")[0];
-
         return (
             <>
                 <form>
@@ -79,30 +53,26 @@ export default class NewSymptomForm extends Component {
                     <div className="box">
                         <p className="intensity">Intensity</p>
                         <div className="rating" onChange={this.handleFieldChange2} id="intensity">
-
                             <input type="radio" name="rating" id="none" value="none" className="intensity" />
                             <label htmlFor="none" className="none"
                             >None
                             </label>
-
                             <input type="radio" name="rating" id="mild" value="mild" className="intensity" />
                             <label htmlFor="mild" className="mild">
-                            Mild
+                                Mild
                             </label>
                             <input type="radio" name="rating" id="med" value="med" className="intensity" />
                             <label htmlFor="med" className="med">
-                            Med
+                                Med
                             </label>
                             <input type="radio" name="rating" id="severe" value="severe" className="intensity" />
                             <label htmlFor="severe" className="severe">
-                            Severe
+                                Severe
                             </label>
-
                         </div>
                     </div>
                     <div>
                         <label htmlFor="date">Date</label>
-
                         <input type="date" required onChange={this.handleFieldChange} id="date" />
                     </div>
                     <div>
@@ -111,30 +81,22 @@ export default class NewSymptomForm extends Component {
                     </div>
                     <div>
                     </div>
-
-        </form>
-        <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}
-                Add
-        </Button>
-
-            <div className="centerModal">
-                <Modal isOpen={this.state.modal} className="modal-sm modalSize" toggle={this.toggle} >
-                <ModalHeader toggle={this.toggle}>You're All Set!</ModalHeader>
-                <ModalBody >
-                We recommend that you check-in daily
-                </ModalBody>
-                <ModalFooter>
-                    <Button color="primary" onClick={this.addNewSymptom}>Save</Button>{' '}
-                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                </ModalFooter>
-                </Modal>
-        </div>
-
-
-
-                        {/* <button type="submit" onClick={this.addNewSymptom} >
-                            Add</button> */}
-
+                </form>
+                <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}
+                    Add
+                </Button>
+                <div className="centerModal">
+                    <Modal isOpen={this.state.modal} className="modal-sm modalSize" toggle={this.toggle} >
+                        <ModalHeader toggle={this.toggle}>You're All Set!</ModalHeader>
+                        <ModalBody >
+                            We recommend that you check-in daily
+                         </ModalBody>
+                        <ModalFooter>
+                            <Button color="primary" onClick={this.addNewSymptom}>Save</Button>{' '}
+                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        </ModalFooter>
+                    </Modal>
+                </div>
             </>
         )
     }

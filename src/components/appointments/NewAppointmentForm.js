@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { throws } from "assert";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 export default class NewAppointmentForm extends Component {
@@ -24,26 +23,25 @@ export default class NewAppointmentForm extends Component {
         this.setState(stateToChange);
     }
 
-
     handleIdFieldChange = evt => {
         const stateToChange = {};
         stateToChange[evt.target.id] = JSON.parse(evt.target.value);
         this.setState(stateToChange)
     }
 
-    toggle= () => {
+    toggle = () => {
         this.setState(prevState => ({
-          modal: !prevState.modal
+            modal: !prevState.modal
         }));
-      }
+    }
 
     getDoctors = () => {
         let doctors = this.props.allDoctors.map(doctor => {
 
-        if (doctor.userId === Number(sessionStorage.getItem("User"))) {
+            if (doctor.userId === Number(sessionStorage.getItem("User"))) {
                 let doctorId = JSON.parse(doctor.id)
                 return (
-                <option key={doctorId}  value={doctor.id}>{doctor.name}</option>
+                    <option key={doctorId} value={doctor.id}>{doctor.name}</option>
                 )
             }
         })
@@ -63,7 +61,6 @@ export default class NewAppointmentForm extends Component {
 
     addAppointment = evt => {
         evt.preventDefault();
-
         const newAppointmentObject = {
             userId: Number(sessionStorage.getItem("User")),
             doctorId: this.state.doctorId,
@@ -85,55 +82,45 @@ export default class NewAppointmentForm extends Component {
         return (
             <>
                 <Button onClick={this.toggle} color="success" id="add-appointment-button"> {this.props.buttonLabel}
-                             <h1 className="add-h1">
-                               Add
+                    <h1 className="add-h1">
+                        Add
                             </h1>
-                        </Button>
-
-
-
-                        <div className="centerModal">
-                <Modal isOpen={this.state.modal} toggle={this.toggle} >
-                <ModalHeader toggle={this.toggle}></ModalHeader>
-                <ModalBody >
-
-                <form>
-
-                    <h2>Add New Appointment</h2>
-                    <div>
-                        <label htmlFor="doctor">Doctor</label>
-                        <select id="doctorId" required onChange={this.handleIdFieldChange}>
-                        <option>Select your doctor</option>
-                            {this.getDoctors()}
-                        </select>
-                        {this.getDoctorLocation()}
-                    </div>
-
-                    <div>
-                        <label htmlFor="time">Time</label>
-                        <input type="time" onChange={this.handleFieldChange} id="time" />
-                    </div>
-                    <div>
-                        <label htmlFor="date">Date</label>
-                        <input type="date" onChange={this.handleFieldChange} id="date" />
-                    </div>
-                    <div>
-                        <label htmlFor="reason">Reason</label>
-                        <input type="text" onChange={this.handleFieldChange} id="reason" />
-                    </div>
-{/*
-                    <button type="submit" onClick={this.addAppointment} >
-                        Add</button> */}
-                    </form>
-                </ModalBody>
-                <ModalFooter>
-                    <Button color="success" onClick={this.addAppointment}>Save</Button>{' '}
-                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                </ModalFooter>
-                </Modal>
+                </Button>
+                <div className="centerModal">
+                    <Modal isOpen={this.state.modal} toggle={this.toggle} >
+                        <ModalHeader toggle={this.toggle}></ModalHeader>
+                        <ModalBody >
+                            <form>
+                                <h2>Add New Appointment</h2>
+                                <div>
+                                    <label htmlFor="doctor">Doctor</label>
+                                    <select id="doctorId" required onChange={this.handleIdFieldChange}>
+                                        <option>Select your doctor</option>
+                                        {this.getDoctors()}
+                                    </select>
+                                    {this.getDoctorLocation()}
+                                </div>
+                                <div>
+                                    <label htmlFor="time">Time</label>
+                                    <input type="time" onChange={this.handleFieldChange} id="time" />
+                                </div>
+                                <div>
+                                    <label htmlFor="date">Date</label>
+                                    <input type="date" onChange={this.handleFieldChange} id="date" />
+                                </div>
+                                <div>
+                                    <label htmlFor="reason">Reason</label>
+                                    <input type="text" onChange={this.handleFieldChange} id="reason" />
+                                </div>
+                            </form>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="success" onClick={this.addAppointment}>Save</Button>{' '}
+                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        </ModalFooter>
+                    </Modal>
                 </div>
             </>
         )
-
     }
 }

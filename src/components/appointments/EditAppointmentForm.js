@@ -33,19 +33,19 @@ export default class EditAppointmentForm extends Component {
         })
     }
 
-    toggle= () => {
+    toggle = () => {
         this.setState(prevState => ({
-          modal: !prevState.modal
+            modal: !prevState.modal
         }));
-      }
+    }
 
-      getDoctors = () => {
+    getDoctors = () => {
         let doctors = this.props.allDoctors.map(doctor => {
 
-        if (doctor.userId === Number(sessionStorage.getItem("User"))) {
+            if (doctor.userId === Number(sessionStorage.getItem("User"))) {
                 let doctorId = JSON.parse(doctor.id)
                 return (
-                <option key={doctorId}  value={doctor.id}>{doctor.name}</option>
+                    <option key={doctorId} value={doctor.id}>{doctor.name}</option>
                 )
             }
         })
@@ -84,59 +84,51 @@ export default class EditAppointmentForm extends Component {
             photo: this.state.photo,
             id: this.state.id
         }
-         this.props.editAppointment(this.props.appointment.id, newAppointmentObject)
-         this.toggle()
+        this.props.editAppointment(this.props.appointment.id, newAppointmentObject)
+        this.toggle()
     }
 
     render() {
         return (
             <>
-
-<Button onClick={this.toggle} size="sm"  id="edit-appointment-button"> {this.props.buttonLabel}
-                             <h1 className="add-edit-h1">
-                               Edit
+                <Button onClick={this.toggle} size="sm" id="edit-appointment-button"> {this.props.buttonLabel}
+                    <h1 className="add-edit-h1">
+                        Edit
                             </h1>
-                        </Button>
-
-
-
-                        <div className="centerModal">
-                <Modal isOpen={this.state.modal} toggle={this.toggle} >
-                <ModalHeader toggle={this.toggle}>Edit</ModalHeader>
-                <ModalBody >
-
-                <form>
-
-                    <h2>Edit Appointment</h2>
-                    <div>
-    <label htmlFor="doctor">Doctor</label>
-    <select id="doctorId" required onChange={this.handleFieldChange}>
-    <option>{this.props.appointment.doctor.name}</option>
-        {this.getDoctors()}
-    </select>
-    {this.getDoctorLocation()}
-</div>
-
-<div>
-    <label htmlFor="time">Time</label>
-    <input type="time" value={this.state.time} onChange={this.handleFieldChange} id="time" />
-</div>
-<div>
-    <label htmlFor="date">Date</label>
-    <input type="date" value={this.state.date} onChange={this.handleFieldChange} id="date" />
-</div>
-<div>
-    <label htmlFor="reason">Reason</label>
-    <input type="text" onChange={this.handleFieldChange} id="reason" placeholder={this.state.reason} />
-</div>
-</form>
-
-                </ModalBody>
-                <ModalFooter id={this.props.appointment.id}>
-                    <Button color="success" onClick={this.editAppointment}>Save</Button>{' '}
-                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                </ModalFooter>
-                </Modal>
+                </Button>
+                <div className="centerModal">
+                    <Modal isOpen={this.state.modal} toggle={this.toggle} >
+                        <ModalHeader toggle={this.toggle}>Edit</ModalHeader>
+                        <ModalBody >
+                            <form>
+                                <h2>Edit Appointment</h2>
+                                <div>
+                                    <label htmlFor="doctor">Doctor</label>
+                                    <select id="doctorId" required onChange={this.handleFieldChange}>
+                                        <option>{this.props.appointment.doctor.name}</option>
+                                        {this.getDoctors()}
+                                    </select>
+                                    {this.getDoctorLocation()}
+                                </div>
+                                <div>
+                                    <label htmlFor="time">Time</label>
+                                    <input type="time" value={this.state.time} onChange={this.handleFieldChange} id="time" />
+                                </div>
+                                <div>
+                                    <label htmlFor="date">Date</label>
+                                    <input type="date" value={this.state.date} onChange={this.handleFieldChange} id="date" />
+                                </div>
+                                <div>
+                                    <label htmlFor="reason">Reason</label>
+                                    <input type="text" onChange={this.handleFieldChange} id="reason" placeholder={this.state.reason} />
+                                </div>
+                            </form>
+                        </ModalBody>
+                        <ModalFooter id={this.props.appointment.id}>
+                            <Button color="success" onClick={this.editAppointment}>Save</Button>{' '}
+                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        </ModalFooter>
+                    </Modal>
                 </div>
             </>
         )

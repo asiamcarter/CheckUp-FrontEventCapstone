@@ -22,21 +22,34 @@ export default class NavBar extends Component {
                     <ul className="nav nav-pills nav-fill">
                         <li className="nav-item">
                             <Link className="nav-link"
-                            to="/home">HOME</Link>
+                                to="/home">HOME</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link"
-                            to="/trackedsymptoms">TRACK</Link>
+                                to="/trackedsymptoms">TRACK</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link"
-                            to="/meds">MEDS</Link>
+                                to="/meds">MEDS</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/appointments">APTS</Link>
                         </li>
-                        {/* checking to see if user is logged in, if they are display profile name and sign out button. If they are not, display sign in button */}
-                        {/* {
+                        {/* <li className="nav-item">
+                           <img src={plusIcon} height="20px" width="20px" alt="plus icon"/>
+                            Will be dropdown menu
+                            MORE
+                        </li> */}
+
+                    </ul>
+                </div>
+            </nav>
+        )
+    }
+}
+
+/* checking to see if user is logged in, if they are display profile name and sign out button. If they are not, display sign in button */
+                        /* {
         !auth0Client.isAuthenticated() &&
         <button className="btn btn-dark" onClick={auth0Client.signIn}>Sign In</button>
       }
@@ -46,22 +59,4 @@ export default class NavBar extends Component {
           <label className="mr-2 text-white">{auth0Client.getProfile().name}</label>
           <button className="btn btn-dark" onClick={() => {this.signOut()}}>Sign Out</button>
         </div>
-      } */}
-
-
-
-
-
-                        {/* <li className="nav-item">
-                           <img src={plusIcon} height="20px" width="20px" alt="plus icon"/>
-                            Will be dropdown menu
-                            MORE
-                        </li> */}
-
-                    </ul>
-                </div>
-
-            </nav>
-        )
-    }
-}
+      } */

@@ -2,17 +2,13 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import { Button } from 'reactstrap';
-
-
 export default class MedicationCard extends Component {
     state = {
-        textValue : "Take Dose",
+        textValue: "Take Dose",
         buttonPressed: false,
-
     }
 
     takeDosePressed = () => {
-
         let today = new Date();
         let time = today.toLocaleTimeString('en-US')
         this.setState({
@@ -20,8 +16,6 @@ export default class MedicationCard extends Component {
             buttonPressed: true
         })
     }
-
-
 
     showUsersMedications = () => {
         console.log(this.props.medication.userId, Number(sessionStorage.getItem("User")))
@@ -31,18 +25,15 @@ export default class MedicationCard extends Component {
                     <div key={this.props.medication.id}
                         className="card">
                         <div className="card-body">
-                        <div className="medication-name-and-edit">
-                            <h5 className="card-title">
-                                {this.props.medication.name}
+                            <div className="medication-name-and-edit">
+                                <h5 className="card-title">
+                                    {this.props.medication.name}
                                 </h5>
                                 <Link to={`/meds/editmedication/${this.props.medication.id}`}>Edit</Link>
-                                <button type="button"  onClick={() => this.props.deleteMedication(this.props.medication.id)} className="card-link" >
+                                <button type="button" onClick={() => this.props.deleteMedication(this.props.medication.id)} className="card-link" >
                                     x
                             </button>
-
                             </div>
-                            {/* <h6>Date:</h6>
-                            <p>{this.props.medication.date}</p> */}
                             <h6>Time</h6>
                             <p>{this.props.medication.time}</p>
                             <h6>Quantity</h6>
@@ -50,25 +41,18 @@ export default class MedicationCard extends Component {
                             {/* <h6>Frequency</h6>
                             <p>{this.props.medication.frequency}</p> */}
                         </div>
-                        <Button type="button" color={this.state.buttonPressed === true ? "info" : "danger" } id="take-dose-button" onClick={ this.takeDosePressed} className="card-link" >
-                                    {this.state.textValue}
-                            </Button>
-
+                        <Button type="button" color={this.state.buttonPressed === true ? "info" : "danger"} id="take-dose-button" onClick={this.takeDosePressed} className="card-link" >
+                            {this.state.textValue}
+                        </Button>
                     </div>
                 </>
             )
         }
     }
     render() {
-
-
-
-        console.log("STATE",this.state)
-
         return (
             <>
                 {this.showUsersMedications()}
-
             </>
         )
     }

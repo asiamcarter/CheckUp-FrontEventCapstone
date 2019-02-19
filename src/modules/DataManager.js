@@ -3,11 +3,10 @@ const remoteURL = "http://localhost:5002"
 export default {
     getAll(endpoint) {
         return fetch(`${remoteURL}/${endpoint}`).then(r => r.json())
-
     },
 
     getAllUserInfo() {
-        return fetch(`${remoteURL}/users/?_embed=appointments&_embed=symptoms&_embed=medications`).then(r=>r.json())
+        return fetch(`${remoteURL}/users/?_embed=appointments&_embed=symptoms&_embed=medications`).then(r => r.json())
     },
 
     postUser(newUser) {
@@ -36,7 +35,7 @@ export default {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newTrackedSymptom)
-        }).then(r=> r.json())
+        }).then(r => r.json())
     },
 
     checkForUser(email, password) {
@@ -44,8 +43,9 @@ export default {
     },
 
     delete(id, dataset) {
-        return fetch (`${remoteURL}/${dataset}/${id}`, {
-            method: "DELETE"}).then(r => r.json())
+        return fetch(`${remoteURL}/${dataset}/${id}`, {
+            method: "DELETE"
+        }).then(r => r.json())
     },
 
     postMedicaton(newMedication) {
@@ -60,7 +60,7 @@ export default {
     },
 
     putMedication(id, newObject) {
-        return fetch (`${remoteURL}/medications/${id}`, {
+        return fetch(`${remoteURL}/medications/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -83,11 +83,11 @@ export default {
         }).then(r => r.json())
     },
     getAllAptNotes() {
-        return fetch(`${remoteURL}/appointments/?_embed=notes`).then(r =>r.json())
+        return fetch(`${remoteURL}/appointments/?_embed=notes`).then(r => r.json())
     },
 
     putAppointment(id, newObject) {
-        return fetch (`${remoteURL}/appointments/${id}`, {
+        return fetch(`${remoteURL}/appointments/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -97,7 +97,7 @@ export default {
     },
 
     getAptDoc() {
-        return fetch(`${remoteURL}/appointments/?_expand=doctor`).then(r =>r.json())
+        return fetch(`${remoteURL}/appointments/?_expand=doctor`).then(r => r.json())
     },
 
     postNewDoctor(newDocotor) {
@@ -108,23 +108,5 @@ export default {
             },
             body: JSON.stringify(newDocotor)
         }).then(r => r.json())
-
-    },
-
-    // getAppointmentNotes(appointmentId) {
-    //     return fetch(`${remoteURL}/appointments/${appointmentId}/?_embed=notes`).then(r=>r.json())
-    // },
-    // getAllAppointmentNotes() {
-    //     return fetch(`${remoteURL}/appointments/?_expand=note`).then(r=>r.json())
-    // },
-    // postNewNote(newNote) {
-    //     return fetch(`${remoteURL}/notes`, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(newNote)
-    //     }).then(r => r.json())
-
-    // }
+    }
 }
