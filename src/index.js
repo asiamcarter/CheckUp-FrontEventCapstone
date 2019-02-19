@@ -6,8 +6,6 @@ import { BrowserRouter as Router } from "react-router-dom"
 import * as firebase from "firebase"
 import 'bootstrap/dist/css/bootstrap.css';
 
-
-
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyAk6kN6FrXtOTVV174s653Ht9Yvhqfx8rs",
@@ -19,7 +17,5 @@ import 'bootstrap/dist/css/bootstrap.css';
   };
 
 firebase.initializeApp(config);
-
-
 ReactDOM.render(<Router><ApplicationViews /></Router>, document.getElementById('root'));
 

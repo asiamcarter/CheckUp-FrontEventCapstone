@@ -1,13 +1,7 @@
 import React, { Component } from "react"
-import { Link } from "react-router-dom"
 import EditAppointmentForm from "./EditAppointmentForm"
-
-
 export default class AppointmentCard extends Component {
-
-
     noteButton = () => {
-
         if (this.props.appointment.note === "") {
             return (
                 <>
@@ -22,7 +16,6 @@ export default class AppointmentCard extends Component {
                 </>
             )
         }
-
     }
 
     deleteAppointment = (e) => {
@@ -31,10 +24,8 @@ export default class AppointmentCard extends Component {
     }
 
     showUserAppointments = () => {
-
         if (this.props.appointment.userId === parseInt(sessionStorage.getItem("User"))) {
             return (
-
                 <>
                     <div key={this.props.appointment.id}
                         className="card">
@@ -49,15 +40,12 @@ export default class AppointmentCard extends Component {
                                 {this.noteButton()}
                             </div>
                         </div>
-
                     </div>
                 </>
-
             )
         }
     }
     render() {
-
         return (
             <>
                 {this.showUserAppointments()}

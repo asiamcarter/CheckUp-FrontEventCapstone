@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import DataManager from "../../modules/DataManager"
 import { Link } from "react-router-dom"
-
 export default class NoteCard extends Component {
 
     state = {
@@ -41,8 +40,6 @@ export default class NoteCard extends Component {
         var userVersion = editElem.innerHTML;
 
         //save the content to local storage
-
-        console.log(this.state)
         evt.preventDefault();
         const newNoteObject = {
             userId: this.state.userId,
@@ -57,12 +54,9 @@ export default class NoteCard extends Component {
             id: this.state.id
         }
         this.props.editAppointment(this.props.match.params.id, newNoteObject)
-
-
     }
 
-  saveEdits =(evt)=> {
-
+    saveEdits = (evt) => {
         //get the editable element
         var editElem = document.getElementById("note");
 
@@ -73,58 +67,48 @@ export default class NoteCard extends Component {
         this.setState({
             note: userVersion
         })
-        console.log(this.state)
         this.editNote(evt)
+    }
 
-        }
-
-    render () {
-console.log(this.state)
-
+    render() {
         return (
             <>
-         <div>
+                <div>
+                    <Link to={`/note/edit/${this.state.id}`}>Edit</Link>
+                </div>
 
-                <Link to={`/note/edit/${this.state.id}`}>Edit</Link>
-            </div>
-
-    <h4>Text</h4>
-    <hr/>
-    <pre> <p id="note" onChange={this.saveEdits}>
-{this.state.note}</p></pre>
-    <h4>Audio</h4>
-    <hr/>
-                            {this.state.audio === "" ? <></> :
-                            <figure>
-                            <audio
-                                controls
-                                src={this.state.audio}>
-                                Your browser does not support the
+                <h4>Text</h4>
+                <hr />
+                <pre> <p id="note" onChange={this.saveEdits}>
+                    {this.state.note}</p></pre>
+                <h4>Audio</h4>
+                <hr />
+                {this.state.audio === "" ? <></> :
+                    <figure>
+                        <audio
+                            controls
+                            src={this.state.audio}>
+                            Your browser does not support the
                                 <code>audio</code> element.
                             </audio>
-                            </figure>
-                            }
-
-                        <div className="note-images-div">
-                        <h4>Images</h4>
-                        <hr />
-                        {this.state.photo !== "" ?
+                    </figure>
+                }
+                <div className="note-images-div">
+                    <h4>Images</h4>
+                    <hr />
+                    {this.state.photo !== "" ?
                         <div className="imageContainer" >
-                        <img src={this.state.photo}  alt="savedbyuser" width="50px" height="50px"/>
+                            <img src={this.state.photo} alt="savedbyuser" width="50px" height="50px" />
                         </div>
                         : ""}
-                        </div>
-
-            <button type="button" onClick={()=> this.props.history.push("/appointments")}>Back</button>
-
-            <p>
-This is an email link:
-<a href="mailto:someone@example.com?Subject=Hello%20again&body=${} " target="_top">Send Mail</a>
-</p>
-
+                </div>
+                <button type="button" onClick={() => this.props.history.push("/appointments")}>Back</button>
+                <p>
+                    This is an email link:
+                    <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Send Mail</a>
+                </p>
             </>
         )
-
-}
+    }
 }
 

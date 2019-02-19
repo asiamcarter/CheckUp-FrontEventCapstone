@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import DataManager from "../../modules/DataManager"
-
 export default class EditMedicationForm extends Component {
     state = {
         name: "",
@@ -10,7 +9,6 @@ export default class EditMedicationForm extends Component {
         frequency: "",
         userId: ""
     }
-
 
     handleFieldChange = evt => {
         const stateToChange = {}
@@ -76,7 +74,6 @@ export default class EditMedicationForm extends Component {
                         <button type="submit" onClick={this.editMedication}>Submit</button>
                     </div>
                 </form>
-
             </>
         )
     }

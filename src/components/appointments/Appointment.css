@@ -2,9 +2,6 @@
     width: 150.453px;
     height: 10px;
     font-size: 16px;
-    /* padding-left: -20px; */
-    /* margin-top: 5px; */
-    /* margin-bottom: 5px; */
 }
 
 #add-doctor-button2 {
@@ -23,15 +20,9 @@
 .appointments-section{
     height: 70vh;
 }
-/* #add-appointment-button{
-    height: 30px;
-    width: 200px;
-    margin-top: 2px;
-    padding: 10px;
-    font-size: 5%;
-} */
 
-#addAppointmentNote, #viewAppointmentNote {
+#addAppointmentNote,
+#viewAppointmentNote {
 background-color: #F2C496;
 opacity: 64%;
 color: white;
@@ -42,24 +33,26 @@ height: 90%;
 
 }
 
-#mic-icon, #camera-icon, #note-icon {
+#mic-icon,
+#camera-icon,
+#note-icon {
 margin-right: 50px;
 margin-top: 20px;
 }
 
 .imageContainer > img:hover {
-    width: 250px;
-    height: 250px;
-  }
+width: 250px;
+height: 250px;
+}
 
-  .appointmentList {
-      margin-left: 20vw;
-      margin-top: 30px;
-  }
+.appointmentList {
+    margin-left: 20vw;
+    margin-top: 30px;
+}
 
-  .doctor-icon {
-      margin-left: 13vw;
-  }
+.doctor-icon {
+    margin-left: 13vw;
+}
 
 #add-appointment-button{
     margin-top: 10px;
@@ -78,6 +71,4 @@ margin-top: 20px;
     width: 150.453px;
     height: 10px;
     font-size: 16px;
-
-    /* padding-bottom: 50px; */
 }

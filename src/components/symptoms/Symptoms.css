@@ -5,7 +5,6 @@
     order: -1;
 }
 
-
  #track-link {
      color: black;
  }
@@ -45,10 +44,7 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    /* border: 1px solid black; */
     margin-bottom: 10px;
-    /* box-sizing: border-box; */
-    /* background: linear-gradient(to right, #f00, #ff0, #0f0); */
 }
 
 .rating input {
@@ -85,25 +81,9 @@ label.severe {
     background-color: #E74424;
     color: white;
 }
-
-
-    /* .modal-content {
-      width: 100%;
-      margin: 30px auto;
-      display: flex;
-        justify-content: center;
-        align-content: center;
-    }  */
-
-    .modalSize{
-        max-width: 71.5%;
-
-    }
-
-    /* .modal{
-        display: flex;
-        justify-content: center;
-    } */
+.modalSize{
+    max-width: 71.5%;
+}
 
 .none {
     background-color: #A0CD63;
@@ -150,8 +130,6 @@ label.severe {
 }
 
 #add-symptom-buttom {
-    /* background-color: #CCD8D8;
-    border: 1px solid #CCD8D8; */
     padding-top: 5px;
     padding-bottom: 5px;
     padding-right: 90px;
