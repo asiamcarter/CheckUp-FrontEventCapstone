@@ -27,7 +27,9 @@ export default class ApplicationViews extends Component {
         appointments: [],
         notes: [],
         doctors: [],
-        trackedSymptoms: []
+        trackedSymptoms: [],
+        treatments: [],
+        treatmentSymptoms: []
     }
 
     componentDidMount() {
@@ -40,6 +42,10 @@ export default class ApplicationViews extends Component {
             .then(() => DataManager.getAll("doctors")).then(allDoctors => newState.doctors = allDoctors)
             .then(() => DataManager.getAll("trackedSymptoms").then(allSymptoms =>
                 newState.trackedSymptoms = allSymptoms))
+            .then(() => DataManager.getAllTreatmentInfo().then(allTreatments =>
+                newState.treatments = allTreatments))
+            .then(() => DataManager.getAll("treatmentSymptoms").then(allTreatmentSymptoms =>
+                newState.treatmentSymptoms = allTreatmentSymptoms))
             .then(() => this.setState(newState))
             .then(() => { console.log("COMPONENTDIDMOUNT:", this.state) })
     }
@@ -205,6 +211,36 @@ export default class ApplicationViews extends Component {
         })
     }
 
+    //treatments
+
+    getAllTreatmentInfo = () => {
+        return DataManager.getAllTreatmentInfo().then(allTreatments => this.setState({
+            treatments: allTreatments
+        }))
+    }
+
+    postNewTreatment = (newTreatment) => {
+        return DataManager.postNewTreatment(newTreatment).then(()=> {
+            DataManager.getAllTreatmentInfo().then(allTreatments => this.setState({
+                treatments: allTreatments
+            }))
+        })
+    }
+   deleteTreatment = (treatmentId) => {
+       return DataManager.deleteTreatment(treatmentId).then(()=> {
+           DataManager.getAllTreatmentInfo().then(allTreatments=> this.setState({
+               treatments: allTreatments
+           }))
+       })
+   }
+
+   postNewTreatmentSymptom = (newTreatmentSymptom) => {
+       return DataManager.postNewTreatmentSymptom(newTreatmentSymptom).then(()=> {
+           DataManager.getAll("treatmentSymptoms").then(allTreatmentSymptoms => this.setState ({
+               treatmentSymptoms: allTreatmentSymptoms
+           }))
+       })
+   }
     render() {
         return (
             <>
