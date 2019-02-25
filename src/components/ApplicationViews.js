@@ -19,6 +19,8 @@ import EditNoteForm from "./notes/EditNoteForm"
 import EditAppointmentForm from "./appointments/EditAppointmentForm"
 import TrackChoice from "./symptoms/TrackChoice"
 import Callback from "../Callback"
+import TreatmentList from "../components/treatment/TreatmentList"
+import TreatmentDetails from "../components/treatment/TreatmentDetails"
 export default class ApplicationViews extends Component {
     state = {
         users: [],
@@ -27,7 +29,9 @@ export default class ApplicationViews extends Component {
         appointments: [],
         notes: [],
         doctors: [],
-        trackedSymptoms: []
+        trackedSymptoms: [],
+        treatments: [],
+        treatmentSymptoms: []
     }
 
     componentDidMount() {
@@ -40,6 +44,10 @@ export default class ApplicationViews extends Component {
             .then(() => DataManager.getAll("doctors")).then(allDoctors => newState.doctors = allDoctors)
             .then(() => DataManager.getAll("trackedSymptoms").then(allSymptoms =>
                 newState.trackedSymptoms = allSymptoms))
+            .then(() => DataManager.getAllTreatmentInfo().then(allTreatments =>
+                newState.treatments = allTreatments))
+            .then(() => DataManager.getAll("treatmentSymptoms").then(allTreatmentSymptoms =>
+                newState.treatmentSymptoms = allTreatmentSymptoms))
             .then(() => this.setState(newState))
             .then(() => { console.log("COMPONENTDIDMOUNT:", this.state) })
     }
@@ -205,6 +213,36 @@ export default class ApplicationViews extends Component {
         })
     }
 
+    //treatments
+
+    getAllTreatmentInfo = () => {
+        return DataManager.getAllTreatmentInfo().then(allTreatments => this.setState({
+            treatments: allTreatments
+        }))
+    }
+
+    postNewTreatment = (newTreatment) => {
+        return DataManager.postNewTreatment(newTreatment).then(()=> {
+            DataManager.getAllTreatmentInfo().then(allTreatments => this.setState({
+                treatments: allTreatments
+            }))
+        })
+    }
+   deleteTreatment = (treatmentId) => {
+       return DataManager.deleteTreatment(treatmentId).then(()=> {
+           DataManager.getAllTreatmentInfo().then(allTreatments=> this.setState({
+               treatments: allTreatments
+           }))
+       })
+   }
+
+   postNewTreatmentSymptom = (newTreatmentSymptom) => {
+       return DataManager.postNewTreatmentSymptom(newTreatmentSymptom).then(()=> {
+           DataManager.getAll("treatmentSymptoms").then(allTreatmentSymptoms => this.setState ({
+               treatmentSymptoms: allTreatmentSymptoms
+           }))
+       })
+   }
     render() {
         return (
             <>
@@ -276,6 +314,18 @@ export default class ApplicationViews extends Component {
                     return <EditAppointmentForm {...props} appointments={this.state.appointments} editAppointment={this.editAppointment}
                         allDoctors={this.state.doctors} />
                 }} />
+                   {/* <Route exact path="/treatment/new/:id" render={props => {
+                    return <NewTreatmentForm {...props} treatments={this.state.treatments} addTreatment={this.addTreatment} getAptNotes={this.getAllAppointments}
+                        allDoctors={this.state.doctors}
+                    />
+                }} /> */}
+                  <Route exact path="/treatments/" render={(props) => {
+                    return <TreatmentList {...props} treatments={this.state.treatments} deleteTreatment={this.deleteTreatment} getAll={this.getAllTreatmentInfo} doctors={this.state.doctors}/>
+                }} />
+                  <Route exact path="/treatments/:id" render={(props) => {
+                    return <TreatmentDetails {...props} treatments={this.state.treatments} deleteTreatment={this.deleteTreatment} getAll={this.getAllTreatmentInfo} doctors={this.state.doctors}/>
+                }} />
+
                 <Route exact path='/callback' component={Callback} />
             </>
         )

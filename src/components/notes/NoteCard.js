@@ -71,6 +71,7 @@ export default class NoteCard extends Component {
     }
 
     render() {
+        console.log(this.state.photo)
         return (
             <>
                 <div>
@@ -96,17 +97,14 @@ export default class NoteCard extends Component {
                 <div className="note-images-div">
                     <h4>Images</h4>
                     <hr />
-                    {this.state.photo !== "" ?
+                    {this.state.photo.length !== 0 ?
                         <div className="imageContainer" >
                             <img src={this.state.photo} alt="savedbyuser" width="50px" height="50px" />
                         </div>
                         : ""}
                 </div>
                 <button type="button" onClick={() => this.props.history.push("/appointments")}>Back</button>
-                <p>
-                    This is an email link:
-                    <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Send Mail</a>
-                </p>
+                <Link to={`/treatments/new/${this.props.match.params.id}`}>Add Treatment</Link>
             </>
         )
     }
