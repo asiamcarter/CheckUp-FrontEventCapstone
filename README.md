@@ -4,13 +4,13 @@ CheckUp is a mobile application that eases communication between doctor and pati
 
 ## Installation
 
-Clone repository
-Cd src
-Npm install
-From root directory cd public
-Run json server on port 5002 
-Open localhost: 3000 in the browser of your choice 
-Register for an account and explore the application at your leisure
+1. Clone repository
+1. Cd src
+1. Npm install
+1. From root directory cd public
+1. Run json server on port 5002 
+1. Open localhost: 3000 in the browser of your choice 
+1. Register for an account and explore the application at your leisure
 
 ## Tech Used
 
