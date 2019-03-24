@@ -89,7 +89,7 @@ export default class SymptomList extends Component {
                 </div>
                 <div id="symptom-list">
                     {this.state.sortDate === true ? this.sortByDate() : this.state.sortName === true ? this.sortByName() :
-                        <section >
+                        <section>
                             {this.props.symptoms.map(symptom => (
                                 <SymptomCard key={symptom.id} symptom={symptom} {...this.props} />
                             ))}
