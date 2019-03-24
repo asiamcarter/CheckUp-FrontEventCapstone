@@ -1,6 +1,8 @@
 //component is responsible for rendering the login page
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
+import "./Login.css"
+import logo1 from "../../images/login/logo1.jpeg"
 
 export default class Login extends Component {
     state = {
@@ -44,33 +46,33 @@ export default class Login extends Component {
     render() {
         return (
             <>
-                <h2>Login</h2>
-                <div>
-                    <form>
-                        <div>
-                            <label htmlFor="Email">
-                                Email:
-                        </label>
-                            <input type="text" required onChange={this.handleFieldChange}
-                                id="email"
-                                placeholder="jane.smith@gmail.com" />
+                <div className="wrapper fadeInDown">
+                    <div id="formContent">
+                        <div className="fadeIn first">
+                            <img src={logo1} id="icon" alt="CheckUp Logo" />
                         </div>
-                        <div>
-                            <label htmlFor="Password">
-                                Password:
-                        </label>
-                            <input type="password" required onChange={this.handleFieldChange}
-                                id="password" />
+                        {/* <!-- Login Form --> */}
+                            <form>
+                                <input type="text" id="email" className="fadeIn second"
+                                name="login"
+                                autoComplete="off"
+                                required onChange={this.handleFieldChange}
+                                placeholder="email"/>
+                                <input type="text" id="password"
+                                autoComplete="off"
+                                required onChange={this.handleFieldChange}className="fadeIn third" name="login" placeholder="password"/>
+                                <input type="submit" className="fadeIn
+                                fourth"
+                                onClick={this.onLogin}value="Log In"/>
+                            </form>
+                        <div id="formFooter">
+                            <p>
+                                <Link to="/register">Register Here
+                                </Link>
+                            </p>
                         </div>
-                        <div>
-                            <button type="submit" onClick={this.onLogin} >
-                                Login
-                            </button>
-                            <p><Link to="/register">Register Here</Link></p>
-                        </div>
-                    </form>
-                </div>
-
+                    </div>
+            </div>
             </>
         )
     }
