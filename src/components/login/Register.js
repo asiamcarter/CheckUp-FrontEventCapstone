@@ -1,5 +1,7 @@
 //Component renders and registration form
 import React, { Component } from "react"
+import "./Login.css"
+import pill from "../../images/login/pills.png"
 export default class Register extends Component {
 
     state = {
@@ -23,7 +25,16 @@ export default class Register extends Component {
                 return (user.email === this.state.email)
             })
             if (usersArray.length > 0) {
-                alert("Sorry, this username is taken")
+                 alert("Sorry, this username is taken")
+
+                let name = document.getElementById("name");
+                name.value = "";
+                let email = document.getElementById("email");
+                email.value = "";
+                let password = document.getElementById("password");
+                password.value = "";
+
+
             } else {
                 alert(`Welcome ${this.state.name}!`)
                 const newUser = {
@@ -45,26 +56,36 @@ export default class Register extends Component {
     render() {
         return (
             <>
-                <h2>Register Here</h2>
-                <div>
-                    <form>
-                        <div>
-                            <label htmlFor="Name"> Name: </label>
-                            <input type="text" required onChange={this.handleFieldChange} id="name" placeholder="Jane Smith" />
+                <div className="wrapper fadeInDown">
+                    <div id="formContent">
+                        <div className="fadeIn first">
+                            <img src={pill} id="registericon" alt="CheckUp Logo" />
+                            <br/>
+                            <h2>Register</h2>
                         </div>
-                        <div>
-                            <label htmlFor="Email"> Email: </label>
-                            <input type="text" required onChange={this.handleFieldChange} id="email" placeholder="jane.smith@gmail.com" />
+                        {/* <!-- Login Form --> */}
+                            <form>
+                                <input type="text" id="name"
+                                className="fadeIn second"
+                                name="login"
+                                autoComplete="off"
+                                required onChange={this.handleFieldChange}
+                                placeholder="name"/>
+                                <input type="text" id="email" className="fadeIn second"
+                                name="login"
+                                autoComplete="off"
+                                required onChange={this.handleFieldChange}
+                                placeholder="email"/>
+                                <input type="text" id="password"
+                                autoComplete="off"
+                                required onChange={this.handleFieldChange}className="fadeIn third" name="login" placeholder="password"/>
+                                <input type="submit" className="fadeIn
+                                fourth"
+                                onClick={this.getAllUsers}value="Register"/>
+                            </form>
+                        <div id="formFooter">
                         </div>
-                        <div>
-                            <label htmlFor="Password"> Password: </label>
-                            <input type="password" required onChange={this.handleFieldChange} id="password" />
-                        </div>
-                        <div>
-                            <button type="submit" onClick={this.getAllUsers}> Submit</button>
-                        </div>
-
-                    </form>
+                    </div>
                 </div>
             </>
         )
