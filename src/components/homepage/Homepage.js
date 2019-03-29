@@ -8,6 +8,7 @@ import severe from "../../images/homepage/severe.png"
 import pill from "../../images/homepage/pill.png"
 import "./Homepage.css"
 import dummyavatar from "../../images/homepage/avatar.jpg"
+import auth0Client from "../../Auth"
 export default class Homepage extends Component {
     state = {
         users: "",
@@ -156,6 +157,11 @@ export default class Homepage extends Component {
         sessionStorage.clear()
     }
 
+    signOut = () => {
+        auth0Client.signOut();
+        this.props.history.push("/");
+    }
+
     render() {
         if (this.state.dataLoaded === false) {
             return (
@@ -170,7 +176,7 @@ export default class Homepage extends Component {
                             <ul className="nav nav-pills nav-fill homepage-top-nav">
                                 <li className="nav-item dropdown">
                                     <Link to={"/"}
-                                        onClick={() => (this.removeSessionUser())}>
+                                        onClick={() => (this.signOut())}>
                                         <img src={dummyavatar} alt="dummy profile" className="homepage-avatar" width="20px" height="20px" />
                                     </Link>
                                 </li>
