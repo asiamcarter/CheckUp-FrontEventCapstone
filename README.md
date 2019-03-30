@@ -12,7 +12,7 @@ CheckUp is a mobile application that eases communication between doctor and pati
 1. From root directory cd public
 1. Run json server on port 5002
 1. Open localhost: 3000 in the browser of your choice
-1. Register for an account and explore the application at your leisure
+1. Register for an account by clicking on the Login/Register button
 
 ## Tech Used
 
@@ -20,6 +20,7 @@ ReactJS
 BootStrap
 ReactStrap
 Firebase
+Auth0
 
 ## Contributors
 Asia Carter
