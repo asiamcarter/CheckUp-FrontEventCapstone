@@ -2,7 +2,10 @@ import auth0 from 'auth0-js';
 import { AUTH_CONFIG } from  './Auth0Variables';
 import DataManager from './modules/DataManager';
 
+
+
 class Auth {
+
   constructor() {
 
     this.auth0 = new auth0.WebAuth({
@@ -38,7 +41,7 @@ class Auth {
   }
 
   getInfo = () => {
-    console.log(this.profile);
+    console.log("PROFILE",this.profile);
   }
 
   handleAuthentication() {
@@ -52,7 +55,7 @@ class Auth {
         this.profile = authResult.idTokenPayload;
         // set the time that the id token will expire at
         this.expiresAt = authResult.idTokenPayload.exp * 1000;
-        // this.getInfo();
+        this.getInfo();
         this.getCurrentUser()
         .then(() => resolve());
         // resolve();
@@ -75,7 +78,8 @@ class Auth {
               } else {
                 let newUser = {
                   "name": this.profile.nickname,
-                  "email": this.profile.email
+                  "email": this.profile.email,
+                  "photo": this.profile.picture
                 };
                 DataManager.postUser(newUser)
                   .then(user => {
@@ -96,8 +100,11 @@ class Auth {
     this.expiresAt = null;
     sessionStorage.removeItem("User");
   }
+
 }
 
 const auth0Client = new Auth();
+
+
 
 export default auth0Client;

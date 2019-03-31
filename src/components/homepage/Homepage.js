@@ -13,7 +13,8 @@ export default class Homepage extends Component {
     state = {
         users: "",
         dataLoaded: false,
-        userAptDoc: ""
+        userAptDoc: "",
+        currentUser: ""
     }
 
     componentDidMount() {
@@ -33,17 +34,28 @@ export default class Homepage extends Component {
         let userObject = this.state.users.find(user => {
             return (seshUser === user.id)
         })
+        this.setState={currentUser: userObject}
+
         return (
             <div className="homepage-feeling">
                 <h4 className="feeling-header"><strong><span className="space">Welcome, {userObject.name}</span></strong><br />How are you feeling?</h4>
                 <div className="homepage-feeling-icons">
-                    <img src={happy} alt="happy face" className="feeling-icon" />
-                    <img src={mild} alt="okay face" className="feeling-icon" />
-                    <img src={med} alt="sad face" className="feeling-icon" />
-                    <img src={severe} alt="pain face" className="feeling-icon" />
+                    <Link to={"/symptoms/Mood/new"}>
+                        <img src={happy} alt="happy face" className="feeling-icon" />
+                        <img src={mild} alt="okay face" className="feeling-icon" />
+                        <img src={med} alt="sad face" className="feeling-icon" />
+                        <img src={severe} alt="pain face" className="feeling-icon" />
+                    </Link>
                 </div>
             </div>
         )
+    }
+    getUserPhoto() {
+        let seshUser = Number(sessionStorage.getItem("User"))
+        let userObject = this.state.users.find(user => {
+            return (seshUser === user.id)
+        })
+        console.log(userObject.photo);
     }
 
     welcomeUser() {
@@ -163,6 +175,7 @@ export default class Homepage extends Component {
     }
 
     render() {
+
         if (this.state.dataLoaded === false) {
             return (
                 <>
