@@ -8,6 +8,7 @@ CheckUp is a mobile application that eases communication between doctor and pati
 ## Testing Locally
 </hr>
 To run CheckUp locally:
+
 1. Clone this repository
 1. To install all libraries and their dependencies, run npm install
 1. Set up Auth0 (see below)
