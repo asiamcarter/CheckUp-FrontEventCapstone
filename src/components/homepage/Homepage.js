@@ -190,7 +190,7 @@ export default class Homepage extends Component {
                                 <li className="nav-item dropdown">
                                     <Link to={"/"}
                                         onClick={() => (this.signOut())}>
-                                        <img src={dummyavatar} alt="dummy profile" className="homepage-avatar" width="20px" height="20px" />
+                                        LOGOUT
                                     </Link>
                                 </li>
                             </ul>
