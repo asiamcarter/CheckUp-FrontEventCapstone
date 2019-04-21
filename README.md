@@ -4,8 +4,6 @@
 </hr>
 CheckUp is a mobile application that eases communication between doctor and patient by allowing patients to organize questions pre doctor’s appointment, record appointments, track symptoms and store image files.
 
-## Entity Relationship Diagram
-![Entity Relationship Diagram](CheckUpERD.png)
 
 ## Testing Locally
 </hr>
@@ -33,6 +31,9 @@ BootStrap </br>
 ReactStrap </br>
 Firebase </br>
 Auth0 </br>
+
+## Entity Relationship Diagram
+![Entity Relationship Diagram](CheckUpERD.png)
 
 ## Contributors
 Asia Carter
