@@ -38,7 +38,7 @@ export default class TrackChoice extends Component {
         this.props.deleteSymptom(e.target.parentNode.id)
     }
 
-    test = () => {
+    newSymptom = () => {
         let sortedSymptom = this.props.trackedSymptoms.filter(symptom => {
             return (symptom.userId === Number(sessionStorage.getItem("User")))
         })
@@ -99,8 +99,9 @@ export default class TrackChoice extends Component {
                                 </h1>
                             </Link>
                         </div>
+
                         <>
-                            {this.test()}
+                            {this.newSymptom()}
                         </>
 
                         <div className="list-group-item" id="add">
