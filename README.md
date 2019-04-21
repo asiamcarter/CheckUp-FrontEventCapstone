@@ -11,7 +11,7 @@ CheckUp is a mobile application that eases communication between doctor and pati
 <!-- - [UI Walkthrough] (#user-walkthrough) -->
 
 ## Entity Relationship Diagram
-![Entity Relationship Diagram] (CheckUpERD.png)
+![Entity Relationship Diagram](CheckUpERD.png)
 
 ## Installation
 
