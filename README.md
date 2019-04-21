@@ -1,11 +1,11 @@
-![Mobile view of CheckUp App](CheckUp.png){:height="50%" width="50%"}
+![Mobile view of CheckUp App](CheckUp.png)
 
 # CheckUp
 </hr>
 CheckUp is a mobile application that eases communication between doctor and patient by allowing patients to organize questions pre doctor’s appointment, record appointments, track symptoms and store image files.
 
 ## Entity Relationship Diagram
-![Entity Relationship Diagram](CheckUpERD.png){:height="50%" width="50%"}
+![Entity Relationship Diagram](CheckUpERD.png)
 
 ## Testing Locally
 </hr>
