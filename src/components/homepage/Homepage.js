@@ -68,7 +68,7 @@ export default class Homepage extends Component {
         })
         if (aptMap.length > 0 && userObject.medications.length > 0) {
             return (
-                <div>
+                <div className ="medsandapt">
                     <Link to={"/meds"} id="link">
                         <div className="homepage-medication">
                             <div className="homepage-pill-image">
