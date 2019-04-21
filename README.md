@@ -7,7 +7,7 @@ CheckUp is a mobile application that eases communication between doctor and pati
 ## Table of Contents
 - [Entity Relationship Diagram](#entity-relationship-diagram)
 - [Installation](#installation)
-- [Technology Used](#tech-used)
+- [Technology Used](#technology-used)
 <!-- - [UI Walkthrough] (#user-walkthrough) -->
 
 ## Entity Relationship Diagram
@@ -26,8 +26,8 @@ CheckUp is a mobile application that eases communication between doctor and pati
 <!-- ## User Walkthrough -->
 ## Technology Used
 
-ReactJS
-BootStrap
+ReactJS </br>
+BootStrap </br>
 ReactStrap
 Firebase
 Auth0
