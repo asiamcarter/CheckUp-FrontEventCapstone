@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import AddToCalendar from 'react-add-to-calendar';
+// import AddToCalendar from 'react-add-to-calendar';
 export default class NewMedicationForm extends Component {
     state = {
         name: "",
@@ -62,7 +62,7 @@ export default class NewMedicationForm extends Component {
                     <button type="submit" onClick={this.addNewMedication} >
                         Add
                 </button>
-                    <AddToCalendar event={event} />
+                    {/* <AddToCalendar event={event} /> */}
                 </div>
             </>
         )

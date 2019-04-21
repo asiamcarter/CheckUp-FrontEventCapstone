@@ -3,6 +3,7 @@ import auth0Client from "../../Auth"
 import logo1 from "../../images/login/logo1.jpeg"
 
 
+
 export default class Login extends Component {
 
     componentDidMount() {
