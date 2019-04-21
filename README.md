@@ -5,9 +5,9 @@
 CheckUp is a mobile application that eases communication between doctor and patient by allowing patients to organize questions pre and post doctor’s appointment, record appointments, track symptoms and store files.
 
 ## Table of Contents
-- [Entity Relationship Diagram] (#entity-relationship-diagram)
-- [Installation] (#installation)
-- [Technology Used] (#tech-used)
+- [Entity Relationship Diagram](#entity-relationship-diagram)
+- [Installation](#installation)
+- [Technology Used](#tech-used)
 <!-- - [UI Walkthrough] (#user-walkthrough) -->
 
 ## Entity Relationship Diagram
