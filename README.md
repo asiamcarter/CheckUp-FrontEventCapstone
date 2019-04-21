@@ -28,9 +28,9 @@ CheckUp is a mobile application that eases communication between doctor and pati
 
 ReactJS </br>
 BootStrap </br>
-ReactStrap
-Firebase
-Auth0
+ReactStrap </br>
+Firebase </br>
+Auth0 </br>
 
 ## Contributors
 Asia Carter
