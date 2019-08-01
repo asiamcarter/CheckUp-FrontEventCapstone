@@ -38,8 +38,8 @@ export default {
         }).then(r => r.json())
     },
 
-    checkForUser(email, password) {
-        return fetch(`${remoteURL}/users?email=${email}&password=${password}`).then(r => r.json())
+    checkForUser(email) {
+        return fetch(`${remoteURL}/users?email=${email}`).then(r => r.json())
     },
 
     delete(id, dataset) {

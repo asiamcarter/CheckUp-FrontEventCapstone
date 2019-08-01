@@ -42,15 +42,34 @@ export default class NewSymptomForm extends Component {
             .then(() => this.props.history.push("/trackedsymptoms"))
     }
 
-    render() {
-        return (
-            <>
-                <form>
-                    <h2> Add New Symptom </h2>
-                    <div>
-                        <h4>{this.props.match.params.symptomId}</h4>
+    formcontent = () => {
+        if (this.props.match.params.symptomId == "Mood") {
+            return (
+                <div className="box">
+                    <p className="intensity">How Are You Feeling?</p>
+                    <div className="rating" onChange={this.handleFieldChange2} id="intensity">
+                        <input type="radio" name="rating" id="none" value="none" className="intensity" />
+                        <label htmlFor="none" className="none"
+                        >Happy
+                        </label>
+                        <input type="radio" name="rating" id="mild" value="mild" className="intensity" />
+                        <label htmlFor="mild" className="mild">
+                            Sad
+                        </label>
+                        <input type="radio" name="rating" id="med" value="med" className="intensity" />
+                        <label htmlFor="med" className="med">
+                            Mad
+                        </label>
+                        <input type="radio" name="rating" id="severe" value="severe" className="intensity" />
+                        <label htmlFor="severe" className="severe">
+                            Angry
+                        </label>
                     </div>
-                    <div className="box">
+                </div>
+            )
+        } else {
+            return (
+                <div className="box">
                         <p className="intensity">Intensity</p>
                         <div className="rating" onChange={this.handleFieldChange2} id="intensity">
                             <input type="radio" name="rating" id="none" value="none" className="intensity" />
@@ -71,6 +90,18 @@ export default class NewSymptomForm extends Component {
                             </label>
                         </div>
                     </div>
+            )
+        }
+    }
+    render() {
+        return (
+            <>
+                <form>
+                    <h2> Add New Symptom </h2>
+                    <div>
+                        <h4>{this.props.match.params.symptomId}</h4>
+                    </div>
+                    {this.formcontent()}
                     <div>
                         <label htmlFor="date">Date</label>
                         <input type="date" required onChange={this.handleFieldChange} id="date" />
@@ -79,8 +110,8 @@ export default class NewSymptomForm extends Component {
                         <label htmlFor="notes">Notes</label>
                         <input type="text" id="notes" onChange={this.handleFieldChange} />
                     </div>
-                    <div>
-                    </div>
+
+
                 </form>
                 <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}
                     Add

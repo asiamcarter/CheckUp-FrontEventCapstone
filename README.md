@@ -1,8 +1,8 @@
+![Mobile view of CheckUp App](CheckUp.png)
+
 # CheckUp
-
-![alt text](CheckUp.png)
-
-CheckUp is a mobile application that eases communication between doctor and patient by allowing patients to organize questions pre and post doctor’s appointment, record appointments, track symptoms and store files.
+</hr>
+CheckUp is a mobile application that eases communication between doctor and patient by allowing patients to organize questions pre doctor’s appointment, record appointments, track symptoms and store image files.
 
 ## Testing Locally
 
@@ -19,13 +19,13 @@ To run CheckUp locally:
    Note: For optimal viewing, please view as "iphone X" via developer tools
 
 <!-- ## User Walkthrough -->
-
 ## Technology Used
 
-ReactJS
-BootStrap
-ReactStrap
-Firebase
+ReactJS </br>
+BootStrap </br>
+ReactStrap </br>
+Firebase </br>
+Auth0 </br>
 
 ## Entity Relationship Diagram
 
@@ -34,3 +34,5 @@ Firebase
 ## Contributors
 
 Asia Carter
+
+
