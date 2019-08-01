@@ -4,25 +4,19 @@
 </hr>
 CheckUp is a mobile application that eases communication between doctor and patient by allowing patients to organize questions pre doctor’s appointment, record appointments, track symptoms and store image files.
 
-
 ## Testing Locally
+
 </hr>
 To run CheckUp locally:
 
-1. Clone this repository
-1. To install all libraries and their dependencies, run npm install
-1. Set up Auth0 (see below)
-1. In the /api directory, run json-server -p 5002 database.json
-1. Run npm start in root directory to start react server
-
-## Set Up Auth0
-1. Sign up or log in to Auth0 - https://auth0.com/
-1. Once in your account, click the "Create Application" button
-1. Choose "Single Page Web Application", then choose "React"
-1. Inside your Application, click on "Settings"
-1. Add http://localhost:3000/callback to the "Allowed Callback URLs"
-1. You will need to copy the "Domain" and "Client ID" and place these into the Auth0Variables.js.example file
-1. Rename the file to Auth0Variables.js
+1. Clone repository
+1. Cd src
+1. Npm install
+1. From root directory cd public
+1. Run json server on port 5002
+1. Open localhost: 3000 in the browser of your choice
+1. Register for an account and explore the application at your leisure
+   Note: For optimal viewing, please view as "iphone X" via developer tools
 
 <!-- ## User Walkthrough -->
 ## Technology Used
@@ -34,9 +28,11 @@ Firebase </br>
 Auth0 </br>
 
 ## Entity Relationship Diagram
+
 ![Entity Relationship Diagram](CheckUpERD.png)
 
 ## Contributors
+
 Asia Carter
 
 
